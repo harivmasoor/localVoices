@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import '../LoginFormPage/LoginForm.css';
+import { Link } from "react-router-dom";
+import './SignupForm.css'; // Update the path to your CSS file
 
 function SignupForm() {
   const dispatch = useDispatch();
@@ -10,34 +11,36 @@ function SignupForm() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    if (password) {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, username, password }))
         .catch(async (res) => {
-        let data;
-        try {
-          data = await res.clone().json();
-        } catch {
-          data = await res.text();
-        }
-        if (data?.errors) setErrors(data.errors);
-        else if (data) setErrors([data]);
-        else setErrors([res.statusText]);
-      });
+          let data;
+          try {
+            data = await res.clone().json();
+          } catch {
+            data = await res.text();
+          }
+          if (data?.errors) setErrors(data.errors);
+          else if (data) setErrors([data]);
+          else setErrors([res.statusText]);
+        });
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
+    // return setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
   return (
-    <>
-       <h1>Sign Up</h1>
+    
+    <div className="signup-form-container">
+
+      <h1>Find your voice</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error) => <li key={error}>{error}</li>)}
@@ -78,24 +81,18 @@ function SignupForm() {
           />
           <label htmlFor="password-input">Password</label>
         </div>
-
-        {/* Confirm Password Input */}
-        <div className="input-container">
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            id="confirm-password-input"
-          />
-          <label htmlFor="confirm-password-input">Confirm Password</label>
+        <div className="button-container">
+          <button type="submit">Sign Up</button>
         </div>
-
-        <button type="submit">Sign Up</button>
       </form>
-    </>
+      <div className="login-link">
+                Already a member? 
+                <Link to="/login"> Login</Link>
+            </div>
+    </div>
   );
 }
 
 export default SignupForm;
+
 

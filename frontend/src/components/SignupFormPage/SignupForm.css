@@ -1,0 +1,110 @@
+/* This ensures that any element inside the body takes up the full height of the viewport */
+html, body, #root, .app-container {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    background-size: cover;
+    background-image: url(../../assets/local.png);
+    background-repeat: no-repeat;
+    background-position: center top 80px; /* Adjust the value (80px) to your preference */
+}
+
+
+
+/* Your main app or container div */
+.app-container {
+    display: flex;
+    justify-content: center; /* Horizontally centers children */
+    align-items: center;     /* Vertically centers children */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, HelveticaNeue, "Helvetica Neue", Helvetica, Roboto, "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--bg-base); /* Or use #ffffff if you haven't defined the variable */
+    margin-right: 100px;
+}
+
+.signup-form-container {
+    max-width: 400px; /* or whatever max width you want */
+    width: 100%;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Distribute space evenly along the vertical axis */
+    height: 60%;
+    align-items: center; /* Center horizontally within the form element */
+}
+
+.input-container {
+    margin-bottom: 20px;
+    /* Add other styles as required */
+}
+
+form {
+    display: column;
+    flex-direction: column;
+    justify-content: center; /* Distribute space evenly along the vertical axis */
+    height: 100%; /* Make the form take full height within its container */
+    box-shadow: none;
+    align-items: center; /* Center horizontally within the form element */
+}
+
+.button-container {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+html {
+    margin: -20px 0 0 0; /* Adjust the value (-8px) as needed */
+    padding: 0;
+    height: 100%;
+}
+
+h1 {
+    font-family: cursive; /* Use the generic "cursive" value to apply a cursive font */
+    font-size: 2em; /* Use the rem value to scale according to user preference */
+    font-weight: bolder;
+}
+
+#logo {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    margin: 0 0 0 20px; /* Adjust the margin as needed */
+}
+
+#email-input {
+    width: 90%;
+}
+
+#username-input {
+    width: 90%;
+}
+
+.login-link {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.login-link div {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.login-link div:hover {
+    text-decoration: underline;
+}

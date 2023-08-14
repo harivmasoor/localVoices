@@ -1,25 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import LoginFormPage from './components/LoginFormPage/LoginForm';  // Ensure this is the correct path
-import SignupFormPage from './components/SignupFormPage/SignupForm';  // Ensure this is the correct path
+import LoginFormPage from './components/LoginFormPage/LoginForm';  
+import SignupFormPage from './components/SignupFormPage/SignupForm';  
 
 function App() {
   return (
     <Router>
       <Navigation />
-      <Switch>
-        <Route exact path="/">
-          <SignupFormPage />
-        </Route>
-        <Route path="/login">
-          <LoginFormPage />
-        </Route>
-        {/* Add other routes as needed */}
-        <Redirect to="/" />
-      </Switch>
+      <div className="app-container">
+        <Switch>
+          <Route exact path="/" component={SignupFormPage} />
+          <Route path="/login" component={LoginFormPage} />
+          {/* Add other routes as needed */}
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 }
 
 export default App;
+

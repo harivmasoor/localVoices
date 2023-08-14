@@ -4,15 +4,31 @@
 
 ul {
   display: flex;
-  justify-content: space-between; /* Pushes content to the left and right edges */
-  align-items: center;
-  width: 100%; /* Ensure the list takes the full width */
+  justify-content: center;  /* This will center the items horizontally */
+  align-items: center;      /* This will center the items vertically */
+  position: relative;       /* This allows for the logo to be positioned absolutely relative to the ul */
+  height: 60px;             /* Arbitrary height, you can adjust as per your design needs */
 }
 
 li {
-  list-style-type: none; /* Removes bullet points */
+  display: flex;
+  align-items: center;
 }
+
 
 button {
   margin-left: auto; /* Push the button to the right */
 }
+
+.logo {
+  background-image: url('../../assets/localVoicesLogo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 500px;
+  height: 50px;
+  display: inline-block;
+  position: absolute;
+  left: -150px; /* distance from the left margin */
+  top: 10px; /* you can adjust this if you want to position it further down */
+}
+

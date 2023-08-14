@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ProfileButton from './ProfileButton';
-import LoginFormModal from '../LoginFormPage';
 import './Navigation.css';
-
 
 function Navigation() {
   const sessionUser = useSelector(state => state.session.user);
@@ -15,16 +12,14 @@ function Navigation() {
     sessionLinks = (
       <ProfileButton user={sessionUser} />
     );
-  } else {
-    sessionLinks = (
-      <Link to="/login">Log In</Link>
-    );
   }
 
   return (
     <ul>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/">
+          <div className="logo"></div> {/* This div will show the logo */}
+        </Link>
         {sessionLinks}
       </li>
     </ul>
@@ -32,3 +27,4 @@ function Navigation() {
 }
 
 export default Navigation;
+

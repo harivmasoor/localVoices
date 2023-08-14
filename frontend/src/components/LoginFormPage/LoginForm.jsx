@@ -11,11 +11,6 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
     const [showPassword, setShowPassword] = useState(false); 
     const [errors, setErrors] = useState([]);
 
-    const handleSignUpClick = () => {
-        setShowModal(false);  // close the login modal
-        setShowSignupModal(true); // open the signup modal
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -34,7 +29,7 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
     };
 
     return (
-        <>
+        <div className="login-form-container">
             <h1>Welcome Back</h1>
             <form onSubmit={handleSubmit}>
                 <ul>
@@ -69,16 +64,19 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                         {showPassword ? '🙈' : '👁'}
                     </button>
                 </div>
+                <div className="button-container">
                 <button type="submit">Log In</button>
+                </div>
             </form>
             <div className="signup-link">
-  New to Localvoices? 
-  <Link to="/">Sign up</Link>
-</div>
-        </>
+                New to Localvoices? 
+                <Link to="/"> Sign up</Link>
+            </div>
+        </div>
     );
 }
 
 export default LoginForm;
+
 
 

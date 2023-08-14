@@ -1,22 +1,15 @@
 import React from 'react';
-import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
 
-function LoginFormModal({ showModal, setShowModal, setShowSignupModal }) { 
+function LoginFormPage({ setShowSignupModal }) {
   return (
-    <>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <LoginForm 
-            setShowModal={setShowModal} 
-            setShowSignupModal={setShowSignupModal} 
-          />
-        </Modal>
-      )}
-    </>
+    <div>
+      <LoginForm setShowSignupModal={setShowSignupModal} />
+    </div>
   );
 }
 
-export default LoginFormModal;
+export default LoginFormPage;
+
 
 
