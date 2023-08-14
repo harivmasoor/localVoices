@@ -1,3 +1,18 @@
 .profile-dropdown {
   position: absolute;
 }
+
+ul {
+  display: flex;
+  justify-content: space-between; /* Pushes content to the left and right edges */
+  align-items: center;
+  width: 100%; /* Ensure the list takes the full width */
+}
+
+li {
+  list-style-type: none; /* Removes bullet points */
+}
+
+button {
+  margin-left: auto; /* Push the button to the right */
+}

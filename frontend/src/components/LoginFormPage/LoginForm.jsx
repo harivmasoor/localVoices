@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import "./LoginForm.css";
@@ -71,11 +72,9 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                 <button type="submit">Log In</button>
             </form>
             <div className="signup-link">
-                New to Localvoices? 
-                <span onClick={handleSignUpClick}>
-                    Sign up
-                </span>
-            </div>
+  New to Localvoices? 
+  <Link to="/">Sign up</Link>
+</div>
         </>
     );
 }

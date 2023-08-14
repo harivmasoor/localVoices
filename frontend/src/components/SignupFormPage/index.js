@@ -1,13 +1,18 @@
-import React from "react";
-import SignupForm from '../SignupFormModal/SignupForm';
-import './SignupForm.css';
+import React from 'react';
+import { Modal } from '../../context/Modal';
+import SignupForm from './SignupForm';
 
-function SignupFormPage() {
+function SignupFormModal({ showModal, setShowModal }) {
   return (
-    <div className="signup-page-container">
-      <SignupForm />
-    </div>
+    <>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <SignupForm />
+        </Modal>
+      )}
+    </>
   );
 }
 
-export default SignupFormPage;
+export default SignupFormModal;
+

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal'; 
+import LoginFormModal from '../LoginFormPage';
 import './Navigation.css';
+
 
 function Navigation() {
   const sessionUser = useSelector(state => state.session.user);
-  const [showLoginModal, setShowLoginModal] = useState(false); 
-  const [showSignupModal, setShowSignupModal] = useState(false); 
 
   let sessionLinks;
   if (sessionUser) {
@@ -18,26 +17,14 @@ function Navigation() {
     );
   } else {
     sessionLinks = (
-      <>
-        <button onClick={() => setShowLoginModal(true)}>Log In</button>
-        <LoginFormModal 
-          showModal={showLoginModal} 
-          setShowModal={setShowLoginModal} 
-          setShowSignupModal={setShowSignupModal}
-        />
-        <button onClick={() => setShowSignupModal(true)}>Sign Up</button>
-        <SignupFormModal 
-          showModal={showSignupModal} 
-          setShowModal={setShowSignupModal}
-        />
-      </>
+      <Link to="/login">Log In</Link>
     );
   }
 
   return (
     <ul>
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <Link to="/">Home</Link>
         {sessionLinks}
       </li>
     </ul>
@@ -45,6 +32,3 @@ function Navigation() {
 }
 
 export default Navigation;
-
-
-
