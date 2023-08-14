@@ -1,0 +1,144 @@
+/* Background for the modal or page */
+body, #modal {
+    background-color: #F5F5F5;
+}
+
+/* Form container */
+form {
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+    width: 75%;
+    max-width: 800%; /* Increase this value if needed */
+}
+
+/* Input fields and floating label styling */
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-container input {
+    padding: 10px 15px;
+    width: 90%;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: #f5f5f5; /* Set the initial background color */
+    
+}
+
+.input-container input:focus {
+    border-color: #4CAF50;
+    background-color: white; 
+}
+
+.input-container label {
+    position: absolute;
+    top: 50%;         /* Initially center the label vertically */
+    left: 20px;       /* Adjust to make it look part of the border */
+    transition: top 0.3s, font-size 0.3s, color 0.3s;
+    color: darkgray;
+    pointer-events: none;
+    background-color: transparent;
+    padding: 0 5px;
+    font-size: 16px;  /* Bigger initial font-size */
+    transform: translateY(-50%);  /* Centering adjustment */
+}
+
+.input-container input:not(:focus):placeholder-shown + label {
+    top: 50%;         
+    left: 20px;       
+    color: lightgray;  
+    font-size: 16px;  
+    transform: translateY(-50%);
+}
+
+.input-container input:focus + label,
+.input-container input:not(:placeholder-shown) + label {
+    top: -5px;
+    font-size: 12px;
+    color: grey;
+    left: 5px;  
+}
+
+
+/* Password visibility toggle */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #A2FF7A;   /* Bright light green color */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #8BEB63;   /* Slightly darker shade of green for hover */
+}
+
+
+/* Typography */
+h1, label {
+    font-family: "Arial", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+ul {
+    color: red;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+h1, label {
+    font-family: "Arial", sans-serif;
+    font-weight: 700;  /* Set the weight to bold */
+    font-size: 18px;
+}
+
+label {
+    font-weight: 500;  /* Reset the weight for labels */
+}
+
+ul {
+    color: red;
+    padding-left: 0;
+    list-style-type: none;
+}
+  
+.input-container input:not(:focus) + label {
+    color: grey;
+}
+
+.signup-link {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.signup-link span {
+    color: #4CAF50; /* Adjust this color to match your theme */
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.signup-link span:hover {
+    text-decoration: underline;
+}
