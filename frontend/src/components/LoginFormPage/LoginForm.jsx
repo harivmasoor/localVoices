@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import "./LoginForm.css";
+
 
 function LoginForm({ setShowModal, setShowSignupModal }) { 
     const dispatch = useDispatch();
@@ -10,6 +11,18 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false); 
     const [errors, setErrors] = useState([]);
+    const credentialRef = useRef();
+    const passwordRef = useRef();
+
+    const handleCredentialChange = (e) => {
+        setCredential(e.target.value);
+        if(!e.target.value) e.target.placeholder = " ";
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        if(!e.target.value) e.target.placeholder = " ";
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +41,13 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
             });
     };
 
+    const handleDemoLogin = () => {
+        setCredential("July4th@1776.com");
+        setPassword("password");
+        credentialRef.current.focus();
+        setTimeout(() => passwordRef.current.focus(), 100);
+      }
+
     return (
         <div className="login-form-container">
             <h1>Welcome Back</h1>
@@ -37,20 +57,22 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                 </ul>
                 <div className="input-container">
                     <input
+                        ref={credentialRef}
                         type="text"
                         value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
+                        onChange={handleCredentialChange}
                         required
                         id="credential-input"
                         placeholder=""
                     />
-                    <label htmlFor="credential-input">Username or Email</label>
+                    <label htmlFor="credential-input">Username, Email, or Phone Number</label>
                 </div>
                 <div className="input-container">
                     <input
+                        ref={passwordRef}
                         type={showPassword ? "text" : "password"}
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handlePasswordChange}
                         required
                         id="password-input"
                         placeholder=""
@@ -67,6 +89,7 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                 <div className="button-container">
                 <button type="submit">Log In</button>
                 </div>
+                <button onClick={handleDemoLogin}>George Washington</button>
             </form>
             <div className="signup-link">
                 New to Localvoices? 

@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   validates :username, 
     uniqueness: true, 
-    length: { in: 3..30 }, 
+    length: { in: 3..50 }, 
     format: { without: URI::MailTo::EMAIL_REGEXP, message:  "can't be an email" }
   validates :email, 
     uniqueness: true, 
@@ -11,14 +11,32 @@ class User < ApplicationRecord
     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: { in: 6..255 }, allow_nil: true
-  
+    # Add this validation for the phone number
+  validates :phone_number, 
+    allow_nil: true,
+    uniqueness: true, 
+    numericality: true, 
+    length: { is: 10 } # Assuming a 10-digit phone number without country code
   before_validation :ensure_session_token
 
   def self.find_by_credentials(credential, password)
-    field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username
+    if credential =~ URI::MailTo::EMAIL_REGEXP
+      field = :email
+    elsif credential =~ /^[0-9]{10}$/  
+      field = :phone_number
+    else
+      field = :username
+    end
+  
     user = User.find_by(field => credential)
+  
+    # Debug statements
+    puts "Found user: #{user.inspect}"
+    puts "Authentication result: #{user&.authenticate(password).inspect}"
+  
     user&.authenticate(password)
   end
+  
 
   def reset_session_token!
     self.update!(session_token: generate_unique_session_token)
