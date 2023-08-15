@@ -22,6 +22,12 @@ ApplicationRecord.transaction do
       email: 'demo@user.io', 
       password: 'password'
     )
+
+    User.create!(
+      username: 'The Pen is Mightier', 
+      email: 'July4th@1776.com', 
+      password: 'password'
+    )
   
     # More users
     10.times do 
