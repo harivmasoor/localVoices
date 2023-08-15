@@ -53,13 +53,14 @@ form {
     height: 100%; /* Make the form take full height within its container */
     box-shadow: none;
     align-items: center; /* Center horizontally within the form element */
+    width: 90%;
 }
 
 .button-container {
-    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: -125px;
 }
 
 html {

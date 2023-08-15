@@ -99,6 +99,11 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                 <div className="button-container">
                 <button type="submit">Log In</button>
                 </div>
+                <div class="or-separator">
+                        OR
+                    </div>
+
+
                 <div className="demo-container">
                     <button onClick={handleDemoLogin}>George Washington</button>
                 </div>

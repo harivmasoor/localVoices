@@ -1,33 +1,58 @@
-body, html {
-    background-color: #F5F5F5;
+html, body, #root, .app-container {
+    height: 100%;
+    margin: auto;
+    padding: 0;
+}
+
+html, body {
+    background-size: cover;
+    background-image: url(../../assets/local.png);
+    background-repeat: no-repeat;
+    background-position: center top 80px;
+}
+
+.app-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
     font-family: system-ui, -apple-system, BlinkMacSystemFont, HelveticaNeue, "Helvetica Neue", Helvetica, Roboto, "Segoe UI", Arial, sans-serif;
     font-size: 15px;
     font-weight: 400;
     line-height: 20px;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--bg-base);
+    margin-right: auto;
 }
 
+
 .login-form-container {
-    border-radius: 30px;
-    height: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #FFFFFF;
-    width: 100%;
     max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    height: 80%;
     align-items: center;
 }
 
 form {
-    border-radius: 30px;
-    background-color: #FFFFFF;
-    width: 75%;
-    height: 75%;
+    display: flex; /* Use flex instead of column */
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    box-shadow: none;
+    align-items: center;
+    width: 90%;
 }
+
 
 .input-container {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: auto;
 }
 
 .input-container input {
@@ -94,6 +119,13 @@ button {
     transition: background-color 0.3s;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-right: 120px;
+    margin: auto;
+}
 button:hover {
     background-color: #8BEB63;
 }
@@ -115,9 +147,10 @@ ul {
 }
 
 .signup-link {
-    margin-top: 325px;
+    margin-top: auto;
     font-size: 14px;
     text-align: center;
+    padding-bottom: 20px;
 }
 
 .signup-link div {
@@ -140,9 +173,71 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
-    margin-right: 50px;
+    margin-top: auto;
 }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .login-form-container {
+        padding: 5%;
+    }
+    form {
+        width: 100%;
+    }
+}
+
+.or-separator {
+    position: relative;
+    text-align: center;
+    font-size: 16px; /* Adjust based on your design */
+    line-height: 20px; /* Adjust based on your design */
+    margin: 20px 0;
+    background: linear-gradient(to right, black 33%, transparent 33%, transparent 66%, black 66%); 
+    background-size: 3px 1px; 
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.or-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px; /* Adjust based on your design */
+    line-height: 0px; /* Adjust based on your design */
+    margin: 20px 0; /* Spacing around the separator */
+    position: relative;
+    width: 100%;  /* Ensure it takes full width */
+    color:rgb(159, 156, 156);
+    font-weight: bold;
+}
+
+.or-separator::before,
+.or-separator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: calc(50% - 25px); /* Assuming "or" takes up roughly 40px. Adjust if needed */
+    background-color: rgb(196, 196, 196); /* Your desired color */
+    transform: translateY(-50%);
+}
+
+.or-separator::before {
+    left: 0;
+}
+
+.or-separator::after {
+    right: 0;
+}
+
+
+
+
+
+
+
+
 
 
 
