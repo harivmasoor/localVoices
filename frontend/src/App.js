@@ -1,8 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage/LoginForm';  
 import SignupFormPage from './components/SignupFormPage/SignupForm';  
+import HomePage from './components/HomePage'; 
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -12,9 +14,10 @@ function App() {
         <Switch>
           <Route exact path="/" component={SignupFormPage} />
           <Route path="/login" component={LoginFormPage} />
+          <Route path="/news_feed" component={HomePage} />
           {/* Add other routes as needed */}
-          <Route path="*">
-            <Redirect to="/" />
+          <Route NotFound>
+            <NotFound />
           </Route>
         </Switch>
       </div>

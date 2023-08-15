@@ -17,7 +17,7 @@ function Navigation() {
   return (
     <ul>
       <li>
-        <Link to="/">
+        <Link to="/news_feed">
           <div className="logo"></div> {/* This div will show the logo */}
         </Link>
         {sessionLinks}

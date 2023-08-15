@@ -1,18 +1,24 @@
 import React, { useState, useRef } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
 import "./LoginForm.css";
 
 
 function LoginForm({ setShowModal, setShowSignupModal }) { 
     const dispatch = useDispatch();
+    const history = useHistory();
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false); 
     const [errors, setErrors] = useState([]);
     const credentialRef = useRef();
     const passwordRef = useRef();
+    const sessionUser = useSelector(state => state.session.user);
+    if (sessionUser) {
+      return <Redirect to='/news_feed' />
+    }
 
     const handleCredentialChange = (e) => {
         setCredential(e.target.value);
@@ -28,6 +34,10 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
         e.preventDefault();
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
+            .then(() => {
+            // Navigate after successful dispatch
+                history.push("/news_feed");
+            })
             .catch(async (res) => {
                 let data;
                 try {

@@ -69,15 +69,16 @@ export const logout = () => async (dispatch) => {
 };
 
 const initialState = { 
-  user: JSON.parse(sessionStorage.getItem("currentUser"))
+  user: JSON.parse(sessionStorage.getItem("currentUser")),
+  isAuthenticated: !!JSON.parse(sessionStorage.getItem("currentUser")) // This will be true if user exists and false otherwise
 };
 
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
-      return { ...state, user: action.payload };
+      return { ...state, user: action.payload, isAuthenticated: true };
     case REMOVE_CURRENT_USER:
-      return { ...state, user: null };
+      return { ...state, user: null, isAuthenticated: false };
     default:
       return state;
   }
