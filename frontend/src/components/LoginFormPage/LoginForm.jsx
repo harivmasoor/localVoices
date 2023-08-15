@@ -99,12 +99,14 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                 <div className="button-container">
                 <button type="submit">Log In</button>
                 </div>
-                <button onClick={handleDemoLogin}>George Washington</button>
-            </form>
-            <div className="signup-link">
+                <div className="demo-container">
+                    <button onClick={handleDemoLogin}>George Washington</button>
+                </div>
+                <div className="signup-link">
                 New to Localvoices? 
                 <Link to="/"> Sign up</Link>
             </div>
+            </form>
         </div>
     );
 }
