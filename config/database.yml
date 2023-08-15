@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: localVoices_production
-  username: localVoices
-  password: <%= ENV["LOCALVOICES_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
