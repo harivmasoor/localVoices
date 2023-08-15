@@ -16,7 +16,7 @@ function SignupForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/news_feed" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
