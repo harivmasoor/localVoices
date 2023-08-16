@@ -236,7 +236,10 @@ ul {
 }
 
 
-
+.login-form-container {
+    min-height: 400px;  /* You can adjust based on the smallest acceptable height */
+    overflow-y: auto;  /* If content overflows, it will be scrollable */
+}
 
 
 
