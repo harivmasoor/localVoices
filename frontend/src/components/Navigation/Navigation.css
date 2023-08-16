@@ -30,10 +30,6 @@ li {
 }
 
 
-button {
-  margin-left: auto;
-}
-
 .logo {
   background-image: url('../../assets/localVoicesLogo.png');
   background-size: contain;
@@ -46,3 +42,34 @@ button {
   top: 10px;
 }
 
+li.navbar-button-container {
+  flex-grow: 1;
+}
+
+button.navbar-login-button {
+  margin-left: auto;
+  padding: 5px 15px; /* Adjust as needed */
+  height: auto;
+  border: none;
+  background-color: #A2FF7A;
+  color: #000603;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+li:not(.navbar-button-container) {
+  flex-shrink: 0; /* Don't allow these to shrink */
+}
+
+.navbar-login-button {
+  margin-left: auto;
+}
+
+li.navbar-button-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 18px;
+  padding-right: 35px;
+}

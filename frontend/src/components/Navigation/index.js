@@ -24,13 +24,21 @@ function Navigation() {
   }
 
   return (
-    <ul className={ulClass}>  {/* <-- Apply the class here */}
+    <ul className={ulClass}>  
       <li>
         <Link to={sessionUser ? "/news_feed" : "/"}>
           <div className="logo"></div> {/* This div will show the logo */}
         </Link>
         {sessionLinks}
       </li>
+      {/* Display the login button only on the main page and when user is not logged in */}
+      {!sessionUser && location.pathname === '/' && (
+        <li className="navbar-button-container">
+          <Link to="/login">
+          <button className="navbar-login-button">Login</button>
+          </Link>
+        </li>
+      )}
     </ul>
   );
 }
