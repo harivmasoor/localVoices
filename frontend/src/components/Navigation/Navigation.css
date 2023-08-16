@@ -14,7 +14,6 @@
 }
 .profile-dropdown li {
   flex-direction: row;
-  padding: 8px 12px;  /* Add some padding around each item */
   white-space: nowrap;  /* Ensure text doesn't wrap to the next line */
 }
 
