@@ -60,6 +60,8 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bolder;
+    font-size: 1.2em;
 }
 
 html {
@@ -82,15 +84,19 @@ h1 {
 }
 
 #email-input {
-    width: 90%;
+    width: 85%;
 }
 
 #username-input {
-    width: 90%;
+    width: 85%;
 }
 
 #phone-number-input {
-    width: 90%;
+    width: 85%;
+}
+
+#password-input {
+    width: 85%;
 }
 
 .login-link {
@@ -98,17 +104,19 @@ h1 {
     font-size: 14px;
     text-align: center;
     padding-bottom: 20px;
+    font-weight: bolder;  
 }
 
 .login-link div {
     color: #4CAF50;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: bolder;
     padding-left: 5px;
 }
 
 .login-link div:hover {
     text-decoration: underline;
+    font-weight: bolder;  
 }
 
 .input-container {
@@ -150,5 +158,10 @@ h1 {
     top: -5px;
     font-size: 12px;
     color: grey;
-    left: 5px;  
+    left: 5px;
+}
+
+button {
+    font-weight: bolder;
+    display: flex;
 }

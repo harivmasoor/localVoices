@@ -55,7 +55,7 @@ button.navbar-login-button {
   color: #000603;
   border-radius: 5px;
   cursor: pointer;
-
+  font-weight: bolder;
 }
 
 li:not(.navbar-button-container) {
