@@ -6,10 +6,22 @@ ul {
   display: flex;
   justify-content: center;  /* This will center the items horizontally */
   align-items: center;      /* This will center the items vertically */
-  position: relative;       /* This allows for the logo to be positioned absolutely relative to the ul */
-  height: 60px;             /* Arbitrary height, you can adjust as per your design needs */
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6));
+  position: relative;       /* This allows for the logo to be positioned absolutely relative to the ul */         /* Arbitrary height, you can adjust as per your design needs */
   margin: 0;
+  height: 60px;
+  z-index: 10;
+  position: absolute;  /* Adjust this value to push the navbar down from the top */
+  width: 100%;
+}
+
+ul.gradient {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  /* any other styles you want for this condition */
+}
+
+ul.white {
+  background-color: transparent;
+  /* any other styles you want for this condition */
 }
 
 li {

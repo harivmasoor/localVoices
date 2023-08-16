@@ -75,7 +75,7 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                         id="credential-input"
                         placeholder=""
                     />
-                    <label htmlFor="credential-input">Username, Email, or Phone Number</label>
+                    <label htmlFor="credential-input">name, phone, email</label>
                 </div>
                 <div className="input-container">
                     <input
@@ -99,7 +99,7 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
                 <div className="button-container">
                 <button type="submit">Log In</button>
                 </div>
-                <div class="or-separator">
+                <div className="or-separator">
                         OR
                     </div>
 
