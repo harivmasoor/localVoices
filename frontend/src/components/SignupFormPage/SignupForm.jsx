@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { Link } from "react-router-dom";
 import './SignupForm.css'; 
+import BackgroundContext from "../../context/backgroundContext";
+import localImage from '../../assets/local.png';
 
 function SignupForm() {
   const dispatch = useDispatch();
@@ -15,8 +17,18 @@ function SignupForm() {
   const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const { setBackground } = useContext(BackgroundContext);
 
-  if (sessionUser) return <Redirect to="/news_feed" />;
+  useEffect(() => { 
+    setBackground(`url(${localImage})`); // set the background when the component mounts
+
+    return () => {
+      setBackground(''); // revert to original when the component unmounts
+    }
+  }, [setBackground]);
+
+
+  if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +51,6 @@ function SignupForm() {
 
   
   return (
-    
     <div className="signup-form-container">
 
       <h1>Find your voice</h1>

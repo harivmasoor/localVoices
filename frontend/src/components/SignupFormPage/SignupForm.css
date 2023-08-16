@@ -7,32 +7,32 @@ html, body, #root, .app-container {
 
 html, body {
     background-size: cover;
-    background-image: url(../../assets/local.png);
     background-repeat: no-repeat;
-    background-position: center top 80px; /* Adjust the value (80px) to your preference */
 }
 
 
 
-/* Your main app or container div */
+
+
 .app-container {
     display: flex;
-    justify-content: center; /* Horizontally centers children */
-    align-items: center;     /* Vertically centers children */
+    justify-content: center;
+    align-items: center;    
     font-family: system-ui, -apple-system, BlinkMacSystemFont, HelveticaNeue, "Helvetica Neue", Helvetica, Roboto, "Segoe UI", Arial, sans-serif;
     font-size: 15px;
     font-weight: 400;
     line-height: 20px;
     text-rendering: optimizelegibility;
     -webkit-font-smoothing: antialiased;
-    background-color: var(--bg-base); /* Or use #ffffff if you haven't defined the variable */
-    margin-right: 100px;
+    background-color: var(--bg-base); 
+    background-size: cover;
 }
+
+
 
 .signup-form-container {
     max-width: 400px; /* or whatever max width you want */
     width: 100%;
-
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     background-color: #ffffff;
