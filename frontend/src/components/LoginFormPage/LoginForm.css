@@ -1,6 +1,6 @@
 html, body, #root, .app-container {
     height: 100%;
-    margin: auto;
+    margin: 0;
     padding: 0;
 }
 
@@ -22,7 +22,7 @@ html, body {
     text-rendering: optimizelegibility;
     -webkit-font-smoothing: antialiased;
     background-color: var(--bg-base);
-    margin-right: auto;
+    margin-right: 0;
 }
 
 

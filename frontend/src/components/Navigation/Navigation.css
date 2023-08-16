@@ -39,7 +39,7 @@ li {
   display: inline-block;
   position: absolute;
   left: -150px; /* distance from the left margin */
-  top: 10px;
+  top: 0; /* distance from the top margin */
 }
 
 li.navbar-button-container {
@@ -70,6 +70,5 @@ li.navbar-button-container {
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;
-  padding-top: 18px;
   padding-right: 35px;
 }
