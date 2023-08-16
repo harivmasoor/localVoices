@@ -1,25 +1,10 @@
 .profile-button-container {
-  position: relative;
-}
-.profile-dropdown {
   position: absolute;
-  top: 100%;  /* Position it right at the bottom of the button */
-  left: 0;
-  width: auto;
-  display: flex;
-  flex-direction: column;  /* To stack the list items vertically */
-  align-items: flex-start;  /* Align items to the start (left for LTR languages) */
-  z-index: 10;  /* To ensure the dropdown appears on top of other elements */
-  height: auto;  /* Let it grow with content */
-}
-.profile-dropdown li {
-  flex-direction: row;
-  white-space: nowrap;  /* Ensure text doesn't wrap to the next line */
+  top: 15px;  /* Adjust as necessary */
+  right: 30px;  /* Adjust as necessary */
+  z-index: 5;
 }
 
-.profile-dropdown li:hover {
-  background-color: #e9e9e9;  /* Some hover effect for better UX */
-}
 
 
 ul {
@@ -29,7 +14,7 @@ ul {
   position: relative;       /* This allows for the logo to be positioned absolutely relative to the ul */         /* Arbitrary height, you can adjust as per your design needs */
   margin: 0;
   height: 60px;
-  z-index: 10;
+  z-index: 4;
   position: absolute;  /* Adjust this value to push the navbar down from the top */
   width: 100%;
 }
@@ -97,8 +82,41 @@ li.navbar-button-container a {
   text-decoration: none;
 }
 
-.logout-button-container {
-  position: absolute;
-  top: 10px;  /* Adjust this value as per your preference */
-  right: 10px;  /* Adjust this value to provide some space from the right edge */
+.logout-button img {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 20px;  /* adjust as needed */
+  height: 20px; /* adjust as needed */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.logout-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 40px;  /* adjust as needed */
+  height: 40px; /* adjust as needed */
+  border-radius: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gainsboro;
+}
+
+.logout-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+/* optional: a subtle fade effect on hover */
+.logout-button:hover .logout-icon {
+  opacity: 0.7;
+}
+

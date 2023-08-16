@@ -1,0 +1,46 @@
+#profile-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end; /* Adjust to align modal to the right */
+  align-items: flex-start;   /* Adjust to align modal to the top */
+  z-index: 2000;
+}
+
+#profile-modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2001;  /* Ensure the background is below the content */
+}
+
+#profile-modal-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative; 
+  background-color: white;
+  padding: 20px;     
+  border-radius: 5px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  z-index: 1001;   
+  max-width: 500px;  /* Maximum width of the modal */
+  width: calc(100% / 6);  /* 1/6 of the screen width */
+  height: calc(100% / 6);  /* 1/6 of the screen height */
+  top: 10px;  /* Adjust as necessary */
+  right: 10px;  /* Adjust as necessary */
+  left: auto;  /* Override any existing left positioning */
+  justify-content: flex-start;  /* To make modal content start from the top */
+  border-radius: 30px;  /* Rounded corners for the modal */
+  z-index: 2002;
+}
+
+
+
+  
