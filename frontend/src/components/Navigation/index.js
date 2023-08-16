@@ -27,9 +27,9 @@ function Navigation() {
     <ul className={ulClass}>  
       <li>
         <Link to={sessionUser ? "/news_feed" : "/"}>
-          <div className="logo"></div> {/* This div will show the logo */}
+          <div className="logo"></div>
         </Link>
-        {sessionLinks}
+        {sessionUser && location.pathname === "/news_feed" && sessionLinks}
       </li>
       {/* Display the login button only on the main page and when user is not logged in */}
       {!sessionUser && location.pathname === '/' && (

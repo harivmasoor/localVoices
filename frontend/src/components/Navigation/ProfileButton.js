@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
+import { ProfileModal } from '../../context/ProfileModal';  // <-- Import the Modal
+import exitIcon from '../../assets/exit.svg'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
+  const [showModal, setShowModal] = useState(false);  // Change the name of the state variable for clarity
   
-  const openMenu = (e) => {
+  const openModal = (e) => {
     e.stopPropagation();
-    if (showMenu) return;
-    setShowMenu(true);
+    setShowModal(true);
   };
   
   useEffect(() => {
-    if (!showMenu) return;
+    if (!showModal) return;
 
-    const closeMenu = () => {
-      setShowMenu(false);
+    const closeModal = () => {
+      setShowModal(false);
     };
 
-    document.addEventListener('click', closeMenu);
+    document.addEventListener('click', closeModal);
   
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
+    return () => document.removeEventListener("click", closeModal);
+  }, [showModal]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -32,21 +33,22 @@ function ProfileButton({ user }) {
   return (
     <>
       <div className="profile-button-container">
-        <button onClick={openMenu}>
+        <button onClick={openModal}>
           <i className="fa-solid fa-user-circle" />
         </button>
-        {showMenu && (
-          <ul className="profile-dropdown">
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-          </ul>
-        )}
       </div>
-      <div className="logout-button-container">
-        <button onClick={logout}>Log Out</button>
-      </div>
+      {showModal && (
+        <ProfileModal onClose={() => setShowModal(false)}>
+          <div className="profile-modal-content">
+            <h2>{user.username}</h2>
+            <button onClick={logout} className="logout-button">
+                        <img src={exitIcon} alt="Logout" title="Logout" />
+                    </button>
+          </div>
+        </ProfileModal>
+      )}
     </>
-  );
+  );  
 }  
 
 export default ProfileButton;
