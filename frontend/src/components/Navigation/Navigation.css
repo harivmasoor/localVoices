@@ -8,6 +8,8 @@ ul {
   align-items: center;      /* This will center the items vertically */
   position: relative;       /* This allows for the logo to be positioned absolutely relative to the ul */
   height: 60px;             /* Arbitrary height, you can adjust as per your design needs */
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6));
+  margin: 0;
 }
 
 li {
@@ -17,7 +19,7 @@ li {
 
 
 button {
-  margin-left: auto; /* Push the button to the right */
+  margin-left: auto;
 }
 
 .logo {
@@ -29,6 +31,6 @@ button {
   display: inline-block;
   position: absolute;
   left: -150px; /* distance from the left margin */
-  top: 10px; /* you can adjust this if you want to position it further down */
+  top: 10px;
 }
 
