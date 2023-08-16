@@ -72,3 +72,8 @@ li.navbar-button-container {
   justify-content: flex-end;
   padding-right: 35px;
 }
+
+li.navbar-button-container a {
+  text-decoration: none;
+}
+
