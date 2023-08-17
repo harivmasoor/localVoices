@@ -4,13 +4,15 @@
   }
   
   .bigWhiteText h1 {
-    font-size: 4em;
+    color: rgb(0, 0, 0);
+    font-size: clamp(2rem, 4vw, 5rem); /* min-size, preferred-size based on viewport, max-size */
     display: flex;
     justify-content: center;
   }
   
   .bigWhiteText p {
-    font-size: 2em;
+    color: rgb(0, 0, 0);
+    font-size: clamp(2rem, 4vw, 5rem); /* min-size, preferred-size based on viewport, max-size */
     display: flex;
     justify-content: center;
   }

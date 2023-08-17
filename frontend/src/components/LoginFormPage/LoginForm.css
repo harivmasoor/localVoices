@@ -241,7 +241,9 @@ ul {
     overflow-y: auto;  /* If content overflows, it will be scrollable */
 }
 
-
+#credential-input {
+    width: 85%;
+}
 
 
 

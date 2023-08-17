@@ -19,6 +19,8 @@ class User < ApplicationRecord
     length: { is: 10 } # Assuming a 10-digit phone number without country code
   before_validation :ensure_session_token
 
+  has_one_attached :photo
+  
   def self.find_by_credentials(credential, password)
     if credential =~ URI::MailTo::EMAIL_REGEXP
       field = :email
