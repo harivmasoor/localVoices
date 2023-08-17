@@ -1,12 +1,12 @@
 #profile-modal {
+  display: flex;
+  flex-direction: flex-start;
+  justify-content: flex-end;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  display: flex;
-  justify-content: flex-end; /* Adjust to align modal to the right */
-  align-items: flex-start;   /* Adjust to align modal to the top */
   z-index: 2000;
 }
 
@@ -18,29 +18,79 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 2001;  /* Ensure the background is below the content */
+  display: flex;
 }
 
 #profile-modal-content {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: space-evenly;
   position: relative; 
-  background-color: white;
-  padding: 20px;     
+  background-color: white;   
   border-radius: 5px; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  z-index: 1001;   
   max-width: 500px;  /* Maximum width of the modal */
-  width: calc(100% / 6);  /* 1/6 of the screen width */
-  height: calc(100% / 6);  /* 1/6 of the screen height */
+  width: calc(100% / 4);  /* 1/6 of the screen width */
+  height: calc(100% / 4);  /* 1/6 of the screen height */
   top: 10px;  /* Adjust as necessary */
   right: 10px;  /* Adjust as necessary */
-  left: auto;  /* Override any existing left positioning */
-  justify-content: flex-start;  /* To make modal content start from the top */
   border-radius: 30px;  /* Rounded corners for the modal */
+  overflow: hidden;  /* Keeps content within the modal */
   z-index: 2002;
 }
 
+.modal-profile-wrapper, 
+.modal-username-wrapper, 
+.modal-logout-wrapper {
+  display: flex;          /* Enables flexbox for the container */
+  justify-content: center; /* Horizontally centers the child */
+  align-items: center;     /* Vertically centers the child */
+  width: 100%;            /* Takes up full width of parent */
+  margin: 10px 0;         /* Adjust for spacing */
+}
+
+.modal-profile-pic {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+}
+
+.modal-profile-icon {
+  font-size: 80px;
+}
+
+.profile-modal-content h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.logout-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: gainsboro;
+  border: none;
+  border-radius: 100%;
+}
+
+
+.modal-profile-wrapper {
+  position: relative;
+}
+
+.upload-icon {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;  /* Adjust based on your SVG size */
+  height: 24px; /* Adjust based on your SVG size */
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+}
 
 
   

@@ -170,3 +170,24 @@ button {
     min-height: 400px;  /* You can adjust based on the smallest acceptable height */
     overflow-y: auto;  /* If content overflows, it will be scrollable */
 }
+
+.error-container {
+    display: flex;
+    flex-direction: column;  /* ensures errors are stacked vertically */
+    align-items: center;
+    margin-bottom: 20px; /* Space below the error messages */
+}
+
+.error-item {
+    background-color: #f8d7da; /* light red background */
+    color: #721c24; /* dark red text color */
+    border: 1px solid #f5c6cb; /* border color */
+    border-radius: 4px; /* rounded corners */
+    padding: 5px 10px; /* space around the text */
+    margin: 5px 0; /* vertical spacing between error messages */
+    font-size: 14px; /* adjust font size if needed */
+    text-align: center;
+    width: 100%; /* takes full width of the container */
+    max-width: 300px; /* you can adjust this value based on the maximum width you'd like for error messages */
+}
+

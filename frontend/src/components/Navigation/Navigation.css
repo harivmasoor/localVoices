@@ -3,9 +3,12 @@
   top: 15px;  /* Adjust as necessary */
   right: 30px;  /* Adjust as necessary */
   z-index: 5;
+  border-radius: 100%; 
 }
 
-
+.profile-button-picture{
+  background-color: transparent;
+}
 
 ul {
   display: flex;
@@ -61,6 +64,7 @@ button.navbar-login-button {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bolder;
+  border-radius: 100;
 }
 
 li:not(.navbar-button-container) {
@@ -118,5 +122,11 @@ li.navbar-button-container a {
 /* optional: a subtle fade effect on hover */
 .logout-button:hover .logout-icon {
   opacity: 0.7;
+}
+
+button img {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
 }
 

@@ -16,8 +16,9 @@ function SignupForm() {
   const [username, setUsername] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   const { setBackground } = useContext(BackgroundContext);
+  const sessionErrors = useSelector(state => state.errors.session)// for session errors
 
   useEffect(() => { 
     setBackground(`url(${localImage})`); // set the background when the component mounts
@@ -28,36 +29,34 @@ function SignupForm() {
   }, [setBackground]);
 
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/news_feed" />;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
-    try {
-      await dispatch(sessionActions.signup({ email, username, password, phone_number }));
-      history.push("/news_feed");
-    } catch (res) {
-      let data;
-      try {
-        data = await res.clone().json();
-      } catch {
-        data = await res.text();
-      }
-      if (data?.errors) setErrors(data.errors);
-      else if (data) setErrors([data]);
-      else setErrors([res.statusText]);
-    }
-  };
-
-  
+    // setErrors([]);
+    // try {
+    dispatch(sessionActions.signup({ email, username, password, phone_number }))
+    // } catch (res) {
+    //   let data;
+    //   try {
+    //     data = await res.clone().json();
+    //   } catch {
+    //     data = await res.text();
+    //   }
+    //   if (data?.errors) setErrors(data.errors);
+    //   else if (data) setErrors([data]);
+    //   else setErrors([res.statusText]);
+    // }
+  // };
+  }
   return (
     <div className="signup-form-container">
 
       <h1>Find your voice</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error) => <li key={error}>{error}</li>)}
-        </ul>
+      <div className="error-container">
+          {sessionErrors?.map((error) => <span key={error} className="error-item">{error}</span>)}
+      </div>
 
         {/* Email Input */}
         <div className="input-container">
