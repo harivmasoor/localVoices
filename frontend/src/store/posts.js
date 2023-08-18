@@ -1,3 +1,4 @@
+import csrfFetch from "./csrf";
 
 export const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
 export const RECEIVE_POST = 'posts/RECEIVE_POST';
@@ -66,7 +67,7 @@ export const fetchPost = postId => async dispatch => {
 }
 
 export const createPost = post => async dispatch => {
-    const res = await fetch(`/api/posts`, {
+    const res = await csrfFetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify(post),
         headers: {
@@ -78,7 +79,7 @@ export const createPost = post => async dispatch => {
 }
 
 export const updatePost = post => async dispatch => {
-    const res = await fetch(`/api/posts/${post.id}`, {
+    const res = await csrfFetch(`/api/posts/${post.id}`, {
         method: 'PUT',
         body: JSON.stringify(post),
         headers: {
@@ -90,7 +91,7 @@ export const updatePost = post => async dispatch => {
 }
 
 export const deletePost = postId => async dispatch => {
-    await fetch(`/api/posts/${postId}`, {
+    await csrfFetch(`/api/posts/${postId}`, {
         method: 'DELETE',
     });
     // const resPost = await res.json();
