@@ -12,6 +12,8 @@ export function ModalProvider({ children }) {
     setValue(modalRef.current);
   }, [])
 
+  
+
   return (
     <>
       <ModalContext.Provider value={value}>
@@ -24,11 +26,7 @@ export function ModalProvider({ children }) {
 
 export function ProfileModal({ onClose, children }) {
   const modalNode = useContext(ModalContext);
-  const [selected, setSelected] = useState(null);
 
-  const onFileChange = (e) => {
-    setSelected(e.target.files[0]);
-  };
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(

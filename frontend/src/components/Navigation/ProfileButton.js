@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import { ProfileModal } from '../../context/ProfileModal';  // <-- Import the Modal
+import { ProfileModal } from '../ProfileModal/ProfileModal';  // <-- Import the Modal
 import exitIcon from '../../assets/exit.svg'
 import uploadImageIcon from '../../assets/uploadImage.svg';
+import * as userActions from '../../store/user';
 
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);  // Change the name of the state variable for clarity
+  const [showModal, setShowModal] = useState(false); 
+
   
   const openModal = (e) => {
     e.stopPropagation();
@@ -27,6 +29,7 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeModal);
   }, [showModal]);
 
+
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
@@ -37,7 +40,7 @@ function ProfileButton({ user }) {
     if (!file) return;
 
     // Here, dispatch an action to upload the file
-    dispatch(sessionActions.uploadProfileImage(file, user));
+    dispatch(userActions.uploadProfileImage(file, user));
 };
 
   return (

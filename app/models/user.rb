@@ -20,6 +20,9 @@ class User < ApplicationRecord
   before_validation :ensure_session_token
 
   has_one_attached :photo
+
+  has_many :posts, 
+    dependent: :destroy
   
   def self.find_by_credentials(credential, password)
     if credential =~ URI::MailTo::EMAIL_REGEXP
