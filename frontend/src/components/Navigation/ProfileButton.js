@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import { ProfileModal } from '../../context/ProfileModal';  // <-- Import the Modal
+import { ProfileModal } from '../ProfileModal/ProfileModal';  // <-- Import the Modal
 import exitIcon from '../../assets/exit.svg'
 import uploadImageIcon from '../../assets/uploadImage.svg';
 
