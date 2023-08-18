@@ -3,6 +3,10 @@ import csrfFetch from "./csrf";
 export const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
 export const RECEIVE_POST = 'posts/RECEIVE_POST';
 export const REMOVE_POST = 'posts/REMOVE_POST';
+// In your posts.js or a constants file if you have one
+export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS';
+export const CLEAR_POST_ERRORS = 'CLEAR_POST_ERRORS';
+
 
 export const receivePosts = (posts)=>({
     type: RECEIVE_POSTS,
@@ -20,6 +24,13 @@ export const removePost = (postId) => {
     return {
         type: REMOVE_POST,
         postId
+    }
+}
+
+export const receivePostErrors = (errors) => {
+    return {
+        type: RECEIVE_POST_ERRORS,
+        errors
     }
 }
 
@@ -56,14 +67,24 @@ do anything if the `fetch` response is unsuccessful.)
 
 export const fetchPosts = () => async dispatch =>{
     const res = await fetch('/api/posts');
+    if (res.ok) {
     const posts = await res.json();
     dispatch(receivePosts(posts)); //dispatch({type: RECEIVE_POSTS, posts: {1: {title, body, id}}})
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
+    }
 }
 
 export const fetchPost = postId => async dispatch => {
     const res = await fetch(`/api/posts/${postId}`);
+    if (res.ok) {
     const post = await res.json();
     dispatch(receivePost(post));
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
+    }
 }
 
 export const createPost = post => async dispatch => {
@@ -74,8 +95,14 @@ export const createPost = post => async dispatch => {
             'Content-Type': 'application/json'
         }
     });
-    const resPost = await res.json();
-    dispatch(receivePost(resPost));
+
+    if (res.ok) {
+        const resPost = await res.json();
+        dispatch(receivePost(resPost));
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
+}
 }
 
 export const updatePost = post => async dispatch => {
@@ -86,16 +113,26 @@ export const updatePost = post => async dispatch => {
             'Content-Type': 'application/json'
         }
     });
-    const resPost = await res.json();
-    dispatch(receivePost(resPost));
+    if (res.ok) {
+        const resPost = await res.json();
+        dispatch(receivePost(resPost));
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
+    }
 }
 
 export const deletePost = postId => async dispatch => {
-    await csrfFetch(`/api/posts/${postId}`, {
+    const res = await csrfFetch(`/api/posts/${postId}`, {
         method: 'DELETE',
     });
+    if (res.ok) {
     // const resPost = await res.json();
     dispatch(removePost(postId));
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
+    }
 }
 
 
