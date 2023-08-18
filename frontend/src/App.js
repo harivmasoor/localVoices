@@ -6,6 +6,7 @@ import SignupFormPage from './components/SignupFormPage/SignupForm';
 import HomePage from './components/HomePage'; 
 import NotFound from './components/NotFound';
 import BackgroundContext from './context/backgroundContext';
+import { ModalProvider } from './context/ModalContext'; // Adjust the path accordingly
 
 function App() {
   const [background, setBackground] = useState('');
@@ -13,21 +14,24 @@ function App() {
   return (
     <BackgroundContext.Provider value={{ background, setBackground }}>
       <Router>
-        <Navigation />
-        <div className="app-container" style={{ backgroundImage: background }}>
-          <Switch>
-            <Route exact path="/" component={SignupFormPage} />
-            <Route path="/login" component={LoginFormPage} />
-            <Route path="/news_feed" component={HomePage} />
-            {/* Add other routes as needed */}
-            <Route component={NotFound} />
-          </Switch>
-        </div>
+        <ModalProvider>
+          <Navigation />
+          <div className="app-container" style={{ backgroundImage: background }}>
+            <Switch>
+              <Route exact path="/" component={SignupFormPage} />
+              <Route path="/login" component={LoginFormPage} />
+              <Route path="/news_feed" component={HomePage} />
+              {/* Add other routes as needed */}
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </ModalProvider>
       </Router>
     </BackgroundContext.Provider>
   );
 }
 
 export default App;
+
 
 
