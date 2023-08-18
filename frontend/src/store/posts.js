@@ -35,38 +35,16 @@ export const receivePostErrors = (errors) => {
 }
 
 
-/* 
-Export a `getPost` selector that takes in a `postId` and returns the specified
-post from the store.
-
-Export a `getPosts` selector that returns an array of all the posts in the
-store.
-*/
 
 export const getPost = (postId) => (state) => state.posts ? state.posts[postId] : null;
 
 export const getPosts = state => state.posts ? Object.values(state.posts) : [];
 
 
-/*
-Export the following functions with the specified parameters:
 
-1. `fetchPosts`
-2. `fetchPost(postId)`
-3. `createPost(post)`
-4. `updatePost(post)`
-5. `deletePost(postId)`
-
-Each function should call `fetch` to perform the desired database operation and
-dispatch the appropriate action upon a successful response. (You do not need to
-do anything if the `fetch` response is unsuccessful.) 
-*/
-
-//from a component
-//dispatch(fetchPosts())
 
 export const fetchPosts = () => async dispatch =>{
-    const res = await fetch('/api/posts');
+    const res = await csrfFetch('/api/posts');
     if (res.ok) {
     const posts = await res.json();
     dispatch(receivePosts(posts)); //dispatch({type: RECEIVE_POSTS, posts: {1: {title, body, id}}})
@@ -77,7 +55,7 @@ export const fetchPosts = () => async dispatch =>{
 }
 
 export const fetchPost = postId => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}`);
+    const res = await csrfFetch(`/api/posts/${postId}`);
     if (res.ok) {
     const post = await res.json();
     dispatch(receivePost(post));
@@ -91,9 +69,9 @@ export const createPost = post => async dispatch => {
     const res = await csrfFetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify(post),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // }
     });
 
     if (res.ok) {

@@ -1,7 +1,56 @@
+.layoutContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* taking up full viewport height */
+    align-items: center; /* centers children horizontally */
+}
+
 .HomePageHeader {
     color: rgb(0, 0, 0);
-    font-size: clamp(2rem, 4vw, 5rem); /* min-size, preferred-size based on viewport, max-size */
-    display: flex;
-    justify-content: center;
+    font-size: clamp(2rem, 4vw, 5rem);
+    flex: 0 0 auto; /* this means the header won't grow or shrink */
+    margin-top: 100px;
 }
+
+.postsContainer {
+    flex: 1 0 auto; /* previously set, will take up the remaining space */
+    overflow-y: auto; /* makes it scrollable */
+    width: 80%; /* using a percentage of the parent's width for some padding effect */
+    padding: 10px; 
+    background-color: #f6f8fa; /* light grayish-blue background */
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    margin: 20px 0; /* top and bottom margin */
+}
+
+.postContainer {
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin: 10px 0;
+    background-color: white;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.postContainer:hover {
+    transform: translateY(-5px); /* slight lift effect */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* enhanced shadow on hover */
+}
+
+.postTitle {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600; /* making the title a bit bolder */
+    margin-bottom: 15px; /* some spacing from the body */
+    border-bottom: 2px solid #e0e0e0; /* a line under the title */
+    padding-bottom: 10px; /* padding so the line doesn't touch the text */
+}
+
+.postBody {
+    color: #666;
+    line-height: 1.7;
+}
+
+
+
 
