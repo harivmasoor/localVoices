@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ import localImage from '../../assets/local.png';
 
 function SignupForm() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
