@@ -36,10 +36,14 @@ class Api::PostsController < ApplicationController
     private
   
     def set_post
-      @post = Post.find(params[:id])
+      puts "Current User ID: #{current_user.id}" # Log current user ID
+      puts "Trying to fetch post with ID: #{params[:id]}" # Log the post ID
+      @post = current_user.posts.find(params[:id])
     rescue
-      render json: ['Post not found'], status: :not_found
+      puts "Error: Couldn't find post with ID #{params[:id]} for user #{current_user.id}"
+      render json: ['Post not found or not authorized'], status: :not_found
     end
+    
   
     def post_params
       params.require(:post).permit(:title, :body, :user_id)

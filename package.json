@@ -23,5 +23,8 @@
   "homepage": "https://github.com/harivmasoor/localVoices#readme",
   "engines": {
     "node": "16.x"
+  },
+  "dependencies": {
+    "reselect": "^4.1.8"
   }
 }
