@@ -2,6 +2,7 @@
 
 import csrfFetch from "./csrf.js";
 import { restoreSession} from "./session.js";
+import { updateUserPhotoInPosts } from "./posts.js";
 
 // Action Types
 export const SET_USER_PROFILE_IMAGE = 'user/SET_USER_PROFILE_IMAGE';
@@ -35,6 +36,7 @@ export const uploadProfileImage = (file, user) => async (dispatch) => {
   if (response.ok) {
       const data = await response.json();
       dispatch(setUserProfileImage(data.user.photoUrl));
+      dispatch(updateUserPhotoInPosts(user.id, data.user.photoUrl));
       dispatch(restoreSession());
   } else {
       const data = await response.json();
@@ -50,6 +52,7 @@ export const removeProfileImage = (user) => async (dispatch) => {
 
   if (response.ok) {
       dispatch(deleteProfileImage());
+      dispatch(updateUserPhotoInPosts(user.id, null));
   } else {
       const data = await response.json();
       dispatch(receiveUploadErrors(data.errors));

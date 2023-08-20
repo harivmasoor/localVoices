@@ -5,6 +5,7 @@ import { ProfileModal } from '../ProfileModal/ProfileModal';  // <-- Import the 
 import exitIcon from '../../assets/exit.svg'
 import uploadImageIcon from '../../assets/uploadImage.svg';
 import * as userActions from '../../store/user';
+import { fetchPost} from "../../store/posts";
 
 
 function ProfileButton({ user }) {
@@ -34,13 +35,20 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+// ProfileButton.js
+const handleFileChange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
-    // Here, dispatch an action to upload the file
-    dispatch(userActions.uploadProfileImage(file, user));
+  const updatedUser = await dispatch(userActions.uploadProfileImage(file, user));
+  
+  // Assuming uploadProfileImage action returns the updated user details, 
+  // otherwise adjust accordingly
+  if(updatedUser && updatedUser.photoUrl) {
+      dispatch(fetchPost.updateUserPhotoInPosts(user.id, updatedUser.photoUrl));
+  }
 };
+
 
   return (
     <>

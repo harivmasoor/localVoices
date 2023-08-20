@@ -5,6 +5,7 @@ export const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
 export const RECEIVE_SESSION_ERRORS = 'session/receiveSessionErrors';
 export const CLEAR_SESSION_ERRORS = 'session/clearSessionErrors';
 
+
 export const setCurrentUser = (user) => ({
   type: SET_CURRENT_USER,
   payload: user

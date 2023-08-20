@@ -7,8 +7,14 @@ export const REMOVE_POST = 'posts/REMOVE_POST';
 // In your posts.js or a constants file if you have one
 export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS';
 export const CLEAR_POST_ERRORS = 'CLEAR_POST_ERRORS';
+export const UPDATE_USER_PHOTO_IN_POSTS = 'posts/UPDATE_USER_PHOTO_IN_POSTS';
 
 
+export const updateUserPhotoInPosts = (userId, photoUrl) => ({
+    type: UPDATE_USER_PHOTO_IN_POSTS,
+    userId,
+    photoUrl
+});
 
 export const receivePosts = (posts)=>({
     type: RECEIVE_POSTS,
@@ -127,6 +133,7 @@ export const deletePost = postId => async dispatch => {
 
 
 
+
 /*
 Export a `postsReducer` function as the default export. It should take in the
 old state and an action. It should appropriately handle all post actions, as
@@ -148,6 +155,14 @@ export default function postsReducer(state={}, action){
             const nextState = {...state};
             delete nextState[action.postId];
             return nextState;
+            // Inside postsReducer function in Posts.js
+        case UPDATE_USER_PHOTO_IN_POSTS:
+            return Object.fromEntries(Object.entries(state).map(([postId, post]) => {
+                if(post.userId === action.userId) {
+                    post.userPhotoUrl = action.photoUrl;
+                }
+                return [postId, post];
+            }));
         default:
             return state;
     }
