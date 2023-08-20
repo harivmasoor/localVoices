@@ -1,5 +1,6 @@
 import csrfFetch from "./csrf";
 import { createSelector } from 'reselect';
+import { RECEIVE_COMMENTS } from "./comments";
 
 export const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
 export const RECEIVE_POST = 'posts/RECEIVE_POST';
@@ -50,7 +51,8 @@ export const postsSelector = state => state.posts;
 
 export const getPosts = createSelector(
   [postsSelector],
-  (posts) => posts ? Object.values(posts) : []
+  (posts) => 
+    posts ? Object.values(posts) : []
 );
 
 
@@ -163,6 +165,14 @@ export default function postsReducer(state={}, action){
                 }
                 return [postId, post];
             }));
+            case RECEIVE_COMMENTS:
+                return {
+                    ...state,
+                    [action.postId]: {
+                        ...state[action.postId],
+                        comments: action.comments
+                    }
+                };
         default:
             return state;
     }

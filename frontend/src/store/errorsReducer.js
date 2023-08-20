@@ -1,8 +1,26 @@
-const { SET_CURRENT_USER, RECEIVE_SESSION_ERRORS, REMOVE_CURRENT_USER, CLEAR_SESSION_ERRORS } = require("./session");
-const { RECEIVE_POST_ERRORS, CLEAR_POST_ERRORS } = require("./posts");
-const { RECEIVE_UPLOAD_ERRORS } = require("./user");
+const { 
+    SET_CURRENT_USER, 
+    RECEIVE_SESSION_ERRORS, 
+    REMOVE_CURRENT_USER, 
+    CLEAR_SESSION_ERRORS
+} = require("./session");
 
-const errorsReducer = (state = { session: [], user: [], posts: []}, action) => {
+const { 
+    RECEIVE_POST_ERRORS, 
+    CLEAR_POST_ERRORS
+} = require("./posts");
+
+const { 
+    RECEIVE_UPLOAD_ERRORS 
+} = require("./user");
+
+// Imported from comments
+const { 
+    RECEIVE_COMMENT_ERRORS, 
+    CLEAR_COMMENT_ERRORS
+} = require("./comments");
+
+const errorsReducer = (state = { session: [], user: [], posts: [], comments: []}, action) => {
     const nextState = {...state};
 
     switch(action.type) {
@@ -20,6 +38,11 @@ const errorsReducer = (state = { session: [], user: [], posts: []}, action) => {
             return { ...nextState, post: action.payload?.errors || [] };
         case CLEAR_POST_ERRORS:
             return { ...nextState, post: [] };
+        // Added cases for comments
+        case RECEIVE_COMMENT_ERRORS:
+            return {...nextState, comments: action.payload?.errors || []};
+        case CLEAR_COMMENT_ERRORS:
+            return { ...nextState, comments: []};
         default:
             return state;
     }
