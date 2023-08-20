@@ -37,15 +37,6 @@
     box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* enhanced shadow on hover */
 }
 
-.postTitle {
-    display: none;
-    font-size: 1.5rem;
-    color: #333;
-    font-weight: 600; /* making the title a bit bolder */
-    margin-bottom: 15px; /* some spacing from the body */
-    border-bottom: 2px solid #e0e0e0; /* a line under the title */
-    padding-bottom: 10px; /* padding so the line doesn't touch the text */
-}
 
 .postBody {
     color: #000000;
@@ -53,6 +44,28 @@
     font-size: 20px;
     font-weight: bolder;
     font-family: 'Roboto', sans-serif;
+}
+
+.postProfilePic {
+    width: 50px; /* This sets the width of the image, adjust as needed */
+    height: 50px; /* Setting the height for uniformity */
+    border-radius: 100%; /* This makes the image round */
+    object-fit: cover; /* Ensures that the image covers the set width and height without distortion */
+    margin-right: 15px; /* A little space between the image and the post title/content */
+    float: left; /* This ensures the image stays on the left of the content */
+    border: 1px solid #e0e0e0;
+}
+
+.fa-solid.fa-user-circle {
+    font-size: 50px; /* This matches the width and height we set for the profile picture */
+    float: left; /* This ensures the icon stays on the left of the content */
+    margin-right: 15px; /* A little space between the icon and the post title/content */
+}
+
+.postContainer::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 
