@@ -3,17 +3,18 @@ class Api::PostsController < ApplicationController
   
     def index
       @posts = Post.all
-      render json: @posts
+      render 'api/posts/index'
     end
   
     def show
+      render 'api/posts/show'
     end
   
     def create
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       if @post.save
-        render :show
+        render 'api/posts/show'
       else
         puts (@post.errors.full_messages)
         render json: @post.errors.full_messages, status: 422
@@ -22,7 +23,7 @@ class Api::PostsController < ApplicationController
   
     def update
       if @post.update(post_params)
-        render :show
+        render 'api/posts/show'
       else
         render json: @post.errors.full_messages, status: 422
       end

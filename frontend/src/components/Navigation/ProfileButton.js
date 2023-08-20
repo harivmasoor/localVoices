@@ -19,7 +19,6 @@ function ProfileButton({ user }) {
   
   useEffect(() => {
     if (!showModal) return;
-
     const closeModal = () => {
       setShowModal(false);
     };

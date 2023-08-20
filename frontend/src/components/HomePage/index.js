@@ -68,12 +68,14 @@ function HomePage() {
       {showModal && <PostModal onClose={handleCloseModal} post={selectedPost} onDelete={handleDeletePost}/>}
       
       <div className="postsContainer">
-        {posts.map(post => (
+      {posts.map(post => (
           <div key={post.id} className="postContainer" onClick={() => handlePostContainerClick(post)}>
+            {post.userPhotoUrl ? <img src={post.userPhotoUrl} alt="Profile" className="postProfilePic"/> : <i className="fa-solid fa-user-circle postProfilePic"/>}
             <h2 className="postTitle">{post.title}</h2>
             <p className="postBody">{post.body}</p>
           </div>
-        ))}
+))}
+
       </div>
     </div>
   );
