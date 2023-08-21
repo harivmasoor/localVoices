@@ -69,13 +69,40 @@
 }
 
 .comment {
-    margin-top: 10px;
     font-size: 16px;
-    color: #555;
-    border: 1px solid red;   /* Temporary styling */
-    background-color: yellow; /* Temporary styling */
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    display: flex; /* If adding avatar */
+    align-items: flex-start; /* Align items to the top */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
+.comment .text {
+    flex-grow: 1; /* Allows text to take up remaining space */
+}
+
+.postHeader {
+    display: flex;
+    align-items: center;
+}
+
+.commentProfilePic {
+    width: 30px; /* Slightly smaller than the post's profile picture */
+    height: 30px;
+    border-radius: 100%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.fa-solid.fa-user-circle.commentProfilePic {
+    font-size: 30px; /* Adjusting for comments */
+    margin-right: 10px;
+}
 
 
 

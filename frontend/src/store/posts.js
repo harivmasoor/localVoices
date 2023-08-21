@@ -1,6 +1,5 @@
 import csrfFetch from "./csrf";
 import { createSelector } from 'reselect';
-import { RECEIVE_COMMENTS } from "./comments";
 
 export const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
 export const RECEIVE_POST = 'posts/RECEIVE_POST';
@@ -22,10 +21,10 @@ export const receivePosts = (posts)=>({
     posts 
 });
 
-export const receivePost = (post) => {
+export const receivePost = (data) => {
     return {
         type: RECEIVE_POST,
-        post
+        data
     }
 }
 
@@ -91,14 +90,11 @@ export const createPost = post => async dispatch => {
     const res = await csrfFetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify(post),
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // }
     });
 
     if (res.ok) {
-        const resPost = await res.json();
-        dispatch(receivePost(resPost));
+        const data = await res.json();
+        dispatch(receivePost(data));
     } else {
         const errors = await res.json();
         dispatch(receivePostErrors(errors));
@@ -152,7 +148,7 @@ export default function postsReducer(state={}, action){
                 return acc;
             }, {});
         case RECEIVE_POST:
-            return {...state, [action.post.id]: action.post}
+            return {...state, [action.data.post.id]: action.data.post}
         case REMOVE_POST:
             const nextState = {...state};
             delete nextState[action.postId];
@@ -165,14 +161,6 @@ export default function postsReducer(state={}, action){
                 }
                 return [postId, post];
             }));
-            case RECEIVE_COMMENTS:
-                return {
-                    ...state,
-                    [action.postId]: {
-                        ...state[action.postId],
-                        comments: action.comments
-                    }
-                };
         default:
             return state;
     }

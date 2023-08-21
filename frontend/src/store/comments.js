@@ -1,4 +1,5 @@
 import csrfFetch from "./csrf";
+import { RECEIVE_POST } from "./posts";
 
 // Action Types
 export const RECEIVE_COMMENTS = 'comments/RECEIVE_COMMENTS';
@@ -9,12 +10,6 @@ export const RECEIVE_COMMENT_ERRORS = 'comments/RECEIVE_COMMENT_ERRORS';
 export const CLEAR_COMMENT_ERRORS = 'comments/CLEAR_COMMENT_ERRORS';
 
 // Action Creators
-
-export const receiveCommentsForPost = (postId, comments) => ({
-    type: RECEIVE_COMMENTS,
-    postId,
-    comments
-});
 
 export const receiveComments = (comments) => ({
     type: RECEIVE_COMMENTS,
@@ -46,7 +41,7 @@ export const fetchCommentsByPostId = (postId) => async (dispatch) => {
     const res = await csrfFetch(`/api/posts/${postId}/comments`);
     if (res.ok) {
         const comments = await res.json();
-        dispatch(receiveCommentsForPost(postId, comments));
+        dispatch(receiveComments(comments));
     } else {
         const errors = await res.json();
         dispatch(receiveCommentErrors(errors));
@@ -62,7 +57,6 @@ export const createComment = (comment) => async (dispatch) => {
     if (res.ok) {
         const newComment = await res.json();
         dispatch(receiveComment(newComment));
-        dispatch(fetchCommentsByPostId(postId));
         // Optionally, clear any existing comment errors here
         dispatch(clearCommentErrors());
     } else {
@@ -97,6 +91,8 @@ const commentsReducer = (state = initialState, action) => {
             const newState = { ...state };
             delete newState[action.commentId];
             return newState;
+        case RECEIVE_POST:
+            return { ...state, ...action.data.comments };
         default:
             return state;
     }
