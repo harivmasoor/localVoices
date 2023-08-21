@@ -25,7 +25,6 @@ function PostModal({ onClose, post }) {
             };
             try {
                 await dispatch(updatePost(updatedPost));
-                await dispatch(fetchPosts());  // Refetch the posts after updating
             } catch (error) {
                 console.error("Failed to update post:", error);
             }
@@ -33,7 +32,6 @@ function PostModal({ onClose, post }) {
             const newPost = { body };
             try {
                 await dispatch(createPost(newPost));
-                await dispatch(fetchPosts());  // Refetch the posts after creating
             } catch (error) {
                 console.error("Failed to create post:", error);
             }
@@ -45,7 +43,6 @@ function PostModal({ onClose, post }) {
         if (post) {
             try {
                 await dispatch(deletePost(post.id));
-                await dispatch(fetchPosts());  // Refetch the posts after deleting
             } catch (error) {
                 console.error("Failed to delete post:", error);
             }

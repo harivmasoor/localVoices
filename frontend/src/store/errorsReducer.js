@@ -12,7 +12,7 @@ const {
 
 const { 
     RECEIVE_UPLOAD_ERRORS 
-} = require("./user");
+} = require("./session");
 
 // Imported from comments
 const { 

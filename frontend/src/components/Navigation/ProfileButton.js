@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session';
 import { ProfileModal } from '../ProfileModal/ProfileModal';  // <-- Import the Modal
 import exitIcon from '../../assets/exit.svg'
 import uploadImageIcon from '../../assets/uploadImage.svg';
-import * as userActions from '../../store/user';
+import * as userActions from '../../store/session';
 import { fetchPost} from "../../store/posts";
 
 
@@ -27,7 +27,7 @@ function ProfileButton({ user }) {
     document.addEventListener('click', closeModal);
   
     return () => document.removeEventListener("click", closeModal);
-  }, [showModal]);
+  }, [showModal, user.photoUrl]);
 
 
   const logout = (e) => {
