@@ -41,9 +41,9 @@ const renderApplication = () => {
   const reactRoot = createRoot(root);
   
   reactRoot.render(
-    // <React.StrictMode>
+    <React.StrictMode>
       <Root />
-    /* </React.StrictMode> */
+    </React.StrictMode> 
   );
 }
 

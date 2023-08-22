@@ -10,10 +10,11 @@ class Api::CommentsController < ApplicationController
       @comment = Comment.new(comment_params)
       @comment.user_id = current_user.id
       @comment.post_id = params[:post_id]
+      @comment.parent_comment_id = params[:parent_comment_id]
       Rails.logger.info "Comment before save: #{@comment.inspect}"
       if @comment.save
         @post = Post.find(@comment.post_id)
-        render 'api/posts/show'
+        render 'api/comments/show'
       else
         render json: @comment.errors.full_messages, status: 422
       end
@@ -31,7 +32,7 @@ class Api::CommentsController < ApplicationController
     private
   
     def comment_params
-      params.require(:comment).permit(:text, :user_id, :post_id)
+      params.require(:comment).permit(:text, :user_id, :post_id, :parent_comment_id)
     end
   end
   

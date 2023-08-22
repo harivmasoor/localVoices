@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ModalContext from '../../context/ModalContext';
 import './PostModal.css';
 import { useDispatch } from 'react-redux';
-import { createPost, updatePost, deletePost, fetchPosts } from '../../store/posts'; // Add deletePost import
+import { createPost, updatePost, deletePost } from '../../store/posts'; // Add deletePost import
 
 function PostModal({ onClose, post }) {
     console.log('Rendering PostModal with post:', post);
