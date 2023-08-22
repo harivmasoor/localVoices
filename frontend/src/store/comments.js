@@ -49,10 +49,10 @@ export const fetchCommentsByPostId = (postId) => async (dispatch) => {
 }
 
 export const createComment = (comment) => async (dispatch) => {
-    const { text, postId } = comment;
+    const { text, postId, parentCommentId, userId } = comment;
     const res = await csrfFetch(`/api/posts/${postId}/comments`, {
         method: 'POST',
-        body: JSON.stringify({ text })
+        body: JSON.stringify({ text, parentCommentId, postId, userId })
     });
     if (res.ok) {
         const newComment = await res.json();

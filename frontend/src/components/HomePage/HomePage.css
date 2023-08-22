@@ -1,28 +1,30 @@
+/* Main layout styles */
 .layoutContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* taking up full viewport height */
-    align-items: center; /* centers children horizontally */
+    height: 100vh;
+    align-items: center;
 }
 
 .HomePageHeader {
     color: rgb(0, 0, 0);
     font-size: clamp(2rem, 4vw, 5rem);
-    flex: 0 0 auto; /* this means the header won't grow or shrink */
+    flex: 0 0 auto;
     margin-top: 100px;
 }
 
 .postsContainer {
-    flex: 1 0 auto; /* previously set, will take up the remaining space */
-    overflow-y: auto; /* makes it scrollable */
-    width: 80%; /* using a percentage of the parent's width for some padding effect */
-    padding: 10px; 
-    background-color: #f6f8fa; /* light grayish-blue background */
-    border-radius: 10px; /* rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
-    margin: 20px 0; /* top and bottom margin */
+    flex: 1 0 auto;
+    overflow-y: auto;
+    width: 80%;
+    padding: 10px;
+    background-color: #f6f8fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
 }
 
+/* Post container styles */
 .postContainer {
     padding: 20px;
     border: 1px solid #e0e0e0;
@@ -33,56 +35,8 @@
 }
 
 .postContainer:hover {
-    transform: translateY(-5px); /* slight lift effect */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* enhanced shadow on hover */
-}
-
-
-.postBody {
-    color: #000000;
-    line-height: 1.7;
-    font-size: 20px;
-    font-weight: bolder;
-    font-family: 'Roboto', sans-serif;
-}
-
-.postProfilePic {
-    width: 50px; /* This sets the width of the image, adjust as needed */
-    height: 50px; /* Setting the height for uniformity */
-    border-radius: 100%; /* This makes the image round */
-    object-fit: cover; /* Ensures that the image covers the set width and height without distortion */
-    margin-right: 15px; /* A little space between the image and the post title/content */
-    float: left; /* This ensures the image stays on the left of the content */
-    border: 1px solid #e0e0e0;
-}
-
-.fa-solid.fa-user-circle {
-    font-size: 50px; /* This matches the width and height we set for the profile picture */
-    float: left; /* This ensures the icon stays on the left of the content */
-    margin-right: 15px; /* A little space between the icon and the post title/content */
-}
-
-.postContainer::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.comment {
-    font-size: 16px;
-    color: #333;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px 15px;
-    margin-top: 10px;
-    display: flex; /* If adding avatar */
-    align-items: flex-start; /* Align items to the top */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-}
-
-.comment .text {
-    flex-grow: 1; /* Allows text to take up remaining space */
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
 .postHeader {
@@ -90,19 +44,95 @@
     align-items: center;
 }
 
-.commentProfilePic {
-    width: 30px; /* Slightly smaller than the post's profile picture */
-    height: 30px;
+.postBody {
+    color: #000000;
+    line-height: 1.7;
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: 'Roboto', sans-serif;
+    clear: both; /* Clear floats from profile pic */
+}
+
+.postProfilePic, .fa-solid.fa-user-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 15px;
+    float: left;
+    border: 1px solid #e0e0e0;
+}
+
+.postContainer::after {
+    content: "";
+    display: table;
+    clear: both; /* Clear the float from the profile pic */
+}
+
+/* Comment and reply styles */
+.comment, .reply {
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    display: column;
+    align-items: flex-start;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reply {
+    margin-left: 20px; /* To give a nested appearance */
+}
+
+.commentProfilePic, .replyProfilePic, .fa-solid.fa-user-circle.commentProfilePic, .fa-solid.fa-user-circle.replyProfilePic {
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     object-fit: cover;
     margin-right: 10px;
     border: 1px solid #e0e0e0;
 }
 
-.fa-solid.fa-user-circle.commentProfilePic {
-    font-size: 30px; /* Adjusting for comments */
+/* If you use .text for the comment text, this style makes sure it takes up the full width available */
+.comment .text {
+    flex-grow: 1;
+}
+
+/* The input field for the reply */
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-top: 5px;
+    flex-grow: 1; /* Make sure it takes up the full width inside the comment or reply */
+}
+
+.commentUsername {
+    display: block; /* This will make it occupy its own line */
+    font-weight: bold;
+}
+
+
+.comment {
+    margin-top: 15px;
+    padding-left: 0;
+}
+
+.reply {
+    margin-top: 10px;
+    padding-left: 20px;
+    border-left: 2px solid #e0e0e0;
+}
+
+.postProfilePic, .commentProfilePic, .replyProfilePic {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
     margin-right: 10px;
 }
+
 
 
 
