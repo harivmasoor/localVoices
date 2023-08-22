@@ -4,12 +4,14 @@ import errorsReducer from './errorsReducer';
 import sessionReducer from './session';
 import postsReducer from './posts';
 import commentReducer from './comments';
+import reactionsReducer from './reactions';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   errors: errorsReducer,
   posts: postsReducer,
-  comments: commentReducer
+  comments: commentReducer,
+  reactions: reactionsReducer
 });
 
 let enhancer;

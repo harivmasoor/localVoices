@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :posts, 
     dependent: :destroy
+  has_many :reactions
+
   
   def self.find_by_credentials(credential, password)
     if credential =~ URI::MailTo::EMAIL_REGEXP

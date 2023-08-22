@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommentsByPostId, createComment } from '../../store/comments';
 import { createSelector } from 'reselect';
+import { createReaction, deleteReaction } from '../../store/reactions';
 
 const selectCommentsState = state => state.comments;
 
@@ -16,6 +17,89 @@ function Post({ post, onPostClick, sessionUser }) {
 
     const [commentInputPostId, setCommentInputPostId] = useState(null);
     const [replyToParentCommentId, setReplyToParentCommentId] = useState(null);
+    const [likeCount, setLikeCount] = useState(0);
+    const [happyCount, setHappyCount] = useState(0);
+    const [sadCount, setSadCount] = useState(0);
+    const [currentUserReaction, setCurrentUserReaction] = useState(null);
+    const [commentLikeCounts, setCommentLikeCounts] = useState({});
+    const [commentHappyCounts, setCommentHappyCounts] = useState({});
+    const [commentSadCounts, setCommentSadCounts] = useState({});
+    const [commentUserReactions, setCommentUserReactions] = useState({});
+
+    
+    const handleReact = (reactionType, entityType, entityId) => (e) => {
+        e.stopPropagation();
+        
+        let currentReactionState;
+        let setReactionState;
+        let likeCountState;
+        let happyCountState;
+        let sadCountState;
+        let setLikeCountState;
+        let setHappyCountState;
+        let setSadCountState;
+        
+        if (entityType === 'Post') {
+            currentReactionState = currentUserReaction;
+            setReactionState = setCurrentUserReaction;
+            likeCountState = likeCount;
+            happyCountState = happyCount;
+            sadCountState = sadCount;
+            setLikeCountState = setLikeCount;
+            setHappyCountState = setHappyCount;
+            setSadCountState = setSadCount;
+        } else if (entityType === 'Comment') {
+            currentReactionState = commentUserReactions[entityId];
+            setReactionState = (reaction) => setCommentUserReactions(prev => ({ ...prev, [entityId]: reaction }));
+            likeCountState = commentLikeCounts[entityId] || 0;
+            happyCountState = commentHappyCounts[entityId] || 0;
+            sadCountState = commentSadCounts[entityId] || 0;
+            setLikeCountState = (count) => setCommentLikeCounts(prev => ({ ...prev, [entityId]: count }));
+            setHappyCountState = (count) => setCommentHappyCounts(prev => ({ ...prev, [entityId]: count }));
+            setSadCountState = (count) => setCommentSadCounts(prev => ({ ...prev, [entityId]: count }));
+        }
+        
+        if (currentReactionState === reactionType) return;
+            
+        if (currentReactionState) {
+            // Undo logic here
+        }
+        
+        dispatch(createReaction({ reactionType, entityType, entityId }));
+        setReactionState(reactionType);
+        
+        if (reactionType === 'like') {
+            setLikeCountState(likeCountState + 1);
+        } else if (reactionType === 'happy') {
+            setHappyCountState(happyCountState + 1);
+        } else if (reactionType === 'sad') {
+            setSadCountState(sadCountState + 1);
+        }   
+    };
+    
+    
+
+    const handleUndoReact = (reactionType, entityType, entityId) => (e) => {
+        e.stopPropagation();
+    
+        dispatch(deleteReaction({ reactionType, entityType, entityId }));
+    
+        if (entityType === 'Post') {
+            if (reactionType === 'like') setLikeCount(likeCount - 1);
+            if (reactionType === 'happy') setHappyCount(happyCount - 1);
+            if (reactionType === 'sad') setSadCount(sadCount - 1);
+            setCurrentUserReaction(null);
+        } else if (entityType === 'Comment') {
+            if (reactionType === 'like') {
+                setCommentLikeCounts(prev => ({ ...prev, [entityId]: (prev[entityId] || 1) - 1 }));
+            } else if (reactionType === 'happy') {
+                setCommentHappyCounts(prev => ({ ...prev, [entityId]: (prev[entityId] || 1) - 1 }));
+            } else if (reactionType === 'sad') {
+                setCommentSadCounts(prev => ({ ...prev, [entityId]: (prev[entityId] || 1) - 1 }));
+            }
+            setCommentUserReactions(prev => ({ ...prev, [entityId]: null }));
+        }
+    };    
 
     const handlePostContainerClick = (post) => {
         if (post.userId === sessionUser.id) {
@@ -60,7 +144,32 @@ function Post({ post, onPostClick, sessionUser }) {
                 <span className="postUsername">{post.username}</span> 
             </div>
             <p className="postBody">{post.body}</p>
+            
+            <div className="reactions">
+            {/* Like Emoji Button with Count */}
+            <button onClick={handleReact('like', 'Post', post.id)}>
+                👍 {likeCount}
+            </button>
+            <button onClick={handleUndoReact('like', 'Post', post.id)}>
+                Undo Like
+            </button>
 
+            {/* Happy Emoji Button with Count */}
+            <button onClick={handleReact('happy', 'Post', post.id)}>
+                😄 {happyCount}
+            </button>
+            <button onClick={handleUndoReact('happy', 'Post', post.id)}>
+                Undo Happy
+            </button>
+
+            {/* Sad Emoji Button with Count */}
+            <button onClick={handleReact('sad', 'Post', post.id)}>
+                😢 {sadCount}
+            </button>
+            <button onClick={handleUndoReact('sad', 'Post', post.id)}>
+                Undo Sad
+            </button>
+        </div>
             <button onClick={openCommentBar(post.id)}>Comment</button>
             
             {commentInputPostId === post.id && 
@@ -92,6 +201,32 @@ function Post({ post, onPostClick, sessionUser }) {
                             onClick={e => e.stopPropagation()}
                         />
                     }
+
+                    <div className="commentReactions">
+                        {/* Like Emoji Button with Count for Comment */}
+                        <button onClick={handleReact('like', 'Comment', comment.id)}>
+                            👍 {commentLikeCounts[comment.id] || 0}
+                        </button>
+                        <button onClick={handleUndoReact('like', 'Comment', comment.id)}>
+                            Undo Like
+                        </button>
+
+                        {/* Happy Emoji Button with Count for Comment */}
+                        <button onClick={handleReact('happy', 'Comment', comment.id)}>
+                            😄 {commentHappyCounts[comment.id] || 0}
+                        </button>
+                        <button onClick={handleUndoReact('happy', 'Comment', comment.id)}>
+                            Undo Happy
+                        </button>
+
+                        {/* Sad Emoji Button with Count for Comment */}
+                        <button onClick={handleReact('sad', 'Comment', comment.id)}>
+                            😢 {commentSadCounts[comment.id] || 0}
+                        </button>
+                        <button onClick={handleUndoReact('sad', 'Comment', comment.id)}>
+                            Undo Sad
+                        </button>
+                    </div>
 
                     {getRepliesForComment(comment.id).map(reply => (
                         <div key={reply.id} className="reply">
