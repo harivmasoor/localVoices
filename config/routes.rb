@@ -3,14 +3,9 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :update]
     resource :session, only: [:show, :create, :destroy]
     
-    resources :posts, only: [:index, :show, :create, :update, :destroy] do
-      resources :comments, only: [:create, :index]
-      resources :reactions, only: [:create, :destroy]
-    end
-
-    resources :comments, only: [:destroy] do
-      resources :reactions, only: [:create, :destroy]
-    end
+    resources :posts, only: [:index, :show, :create, :update, :destroy]
+    resources :reactions, only: [:create, :destroy, :index]
+    resources :comments, only: [:destroy,:create, :index]
   end
   
   get '*path', to: 'static_pages#frontend', 

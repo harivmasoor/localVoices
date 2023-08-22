@@ -3,4 +3,5 @@ json.array! @posts do |post|
   json.userPhotoUrl post.user.photo.attached? ? url_for(post.user.photo) : nil
   json.username post.user.username
   json.commment_count post.comments.length
+  json.reaction_count post.reactions.length
 end

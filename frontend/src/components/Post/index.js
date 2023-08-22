@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommentsByPostId, createComment } from '../../store/comments';
 import { createSelector } from 'reselect';
@@ -12,6 +12,12 @@ export const selectCommentsArray = createSelector(
 );
 
 function Post({ post, onPostClick, sessionUser }) {
+    const sessionUserReaction = useSelector(state => {
+        const reactionArray = Object.values(state.reactions)
+        const res = reactionArray.find(reaction => reaction.reactableType === 'Post' && reaction.reactableId === post.id);
+        return res ? res : null;
+    });
+    console.log("sessionUserReaction:", sessionUserReaction)
     const dispatch = useDispatch();
     const comments = useSelector(selectCommentsArray);
 
@@ -25,8 +31,9 @@ function Post({ post, onPostClick, sessionUser }) {
     const [commentHappyCounts, setCommentHappyCounts] = useState({});
     const [commentSadCounts, setCommentSadCounts] = useState({});
     const [commentUserReactions, setCommentUserReactions] = useState({});
+    const [postUserReactions, setPostUserReactions] = useState({});
 
-    
+
     const handleReact = (reactionType, entityType, entityId) => (e) => {
         e.stopPropagation();
         
@@ -40,32 +47,53 @@ function Post({ post, onPostClick, sessionUser }) {
         let setSadCountState;
         
         if (entityType === 'Post') {
-            currentReactionState = currentUserReaction;
-            setReactionState = setCurrentUserReaction;
+            currentReactionState = postUserReactions[entityId];
+            setReactionState = (reaction) => setPostUserReactions(prev => ({ ...prev, [entityId]: reaction }));
             likeCountState = likeCount;
             happyCountState = happyCount;
             sadCountState = sadCount;
-            setLikeCountState = setLikeCount;
-            setHappyCountState = setHappyCount;
-            setSadCountState = setSadCount;
+            setLikeCountState = (count) => setLikeCount(prev => Math.max(prev + count, 0));
+            setHappyCountState = (count) => setHappyCount(prev => Math.max(prev + count, 0));
+            setSadCountState = (count) => setSadCount(prev => Math.max(prev + count, 0));
         } else if (entityType === 'Comment') {
             currentReactionState = commentUserReactions[entityId];
             setReactionState = (reaction) => setCommentUserReactions(prev => ({ ...prev, [entityId]: reaction }));
             likeCountState = commentLikeCounts[entityId] || 0;
             happyCountState = commentHappyCounts[entityId] || 0;
             sadCountState = commentSadCounts[entityId] || 0;
-            setLikeCountState = (count) => setCommentLikeCounts(prev => ({ ...prev, [entityId]: count }));
-            setHappyCountState = (count) => setCommentHappyCounts(prev => ({ ...prev, [entityId]: count }));
-            setSadCountState = (count) => setCommentSadCounts(prev => ({ ...prev, [entityId]: count }));
+            setLikeCountState = (count) => setCommentLikeCounts(prev => ({ ...prev, [entityId]: Math.max(prev[entityId] + count, 0) }));
+            setHappyCountState = (count) => setCommentHappyCounts(prev => ({ ...prev, [entityId]: Math.max(prev[entityId] + count, 0) }));
+            setSadCountState = (count) => setCommentSadCounts(prev => ({ ...prev, [entityId]: Math.max(prev[entityId] + count, 0) }));
         }
+
         
         if (currentReactionState === reactionType) return;
             
         if (currentReactionState) {
-            // Undo logic here
+            // Reverting the user's previous reaction.
+            dispatch(deleteReaction({ reactionType: currentReactionState, entityType, entityId }));
+        
+            if (entityType === 'Post') {
+                if (currentReactionState === 'like' && likeCount > 0) {
+                    setLikeCount(likeCount - 1);
+                } else if (currentReactionState === 'happy' && happyCount > 0) {
+                    setHappyCount(happyCount - 1);
+                } else if (currentReactionState === 'sad' && sadCount > 0) {
+                    setSadCount(sadCount - 1);
+                }
+            } else if (entityType === 'Comment') {
+                if (currentReactionState === 'like' && commentLikeCounts[entityId] > 0) {
+                    setCommentLikeCounts(prev => ({ ...prev, [entityId]: prev[entityId] - 1 }));
+                } else if (currentReactionState === 'happy' && commentHappyCounts[entityId] > 0) {
+                    setCommentHappyCounts(prev => ({ ...prev, [entityId]: prev[entityId] - 1 }));
+                } else if (currentReactionState === 'sad' && commentSadCounts[entityId] > 0) {
+                    setCommentSadCounts(prev => ({ ...prev, [entityId]: prev[entityId] - 1 }));
+                }
+            }
         }
         
-        dispatch(createReaction({ reactionType, entityType, entityId }));
+        
+        dispatch(createReaction({ reactionType, reactableType: entityType, reactableId: entityId, userId: sessionUser.id }));
         setReactionState(reactionType);
         
         if (reactionType === 'like') {
@@ -81,25 +109,21 @@ function Post({ post, onPostClick, sessionUser }) {
 
     const handleUndoReact = (reactionType, entityType, entityId) => (e) => {
         e.stopPropagation();
-    
+
         dispatch(deleteReaction({ reactionType, entityType, entityId }));
-    
+
         if (entityType === 'Post') {
-            if (reactionType === 'like') setLikeCount(likeCount - 1);
-            if (reactionType === 'happy') setHappyCount(happyCount - 1);
-            if (reactionType === 'sad') setSadCount(sadCount - 1);
-            setCurrentUserReaction(null);
+            if (reactionType === 'like') setLikeCount(prev => Math.max(prev - 1, 0));
+            if (reactionType === 'happy') setHappyCount(prev => Math.max(prev - 1, 0));
+            if (reactionType === 'sad') setSadCount(prev => Math.max(prev - 1, 0));
+            setPostUserReactions(prev => ({ ...prev, [entityId]: null }));
         } else if (entityType === 'Comment') {
-            if (reactionType === 'like') {
-                setCommentLikeCounts(prev => ({ ...prev, [entityId]: (prev[entityId] || 1) - 1 }));
-            } else if (reactionType === 'happy') {
-                setCommentHappyCounts(prev => ({ ...prev, [entityId]: (prev[entityId] || 1) - 1 }));
-            } else if (reactionType === 'sad') {
-                setCommentSadCounts(prev => ({ ...prev, [entityId]: (prev[entityId] || 1) - 1 }));
-            }
+            if (reactionType === 'like') setCommentLikeCounts(prev => ({ ...prev, [entityId]: Math.max((prev[entityId] || 1) - 1, 0) }));
+            if (reactionType === 'happy') setCommentHappyCounts(prev => ({ ...prev, [entityId]: Math.max((prev[entityId] || 1) - 1, 0) }));
+            if (reactionType === 'sad') setCommentSadCounts(prev => ({ ...prev, [entityId]: Math.max((prev[entityId] || 1) - 1, 0) }));
             setCommentUserReactions(prev => ({ ...prev, [entityId]: null }));
         }
-    };    
+    };   
 
     const handlePostContainerClick = (post) => {
         if (post.userId === sessionUser.id) {

@@ -1,4 +1,5 @@
 class Api::PostsController < ApplicationController
+  wrap_parameters include: Post.attribute_names + ['userId']
     before_action :set_post, only: [:show, :update, :destroy]
   
     def index

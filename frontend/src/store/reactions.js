@@ -36,10 +36,11 @@ export const clearReactionErrors = () => ({
 // Thunks
 export const createReaction = (reaction) => async (dispatch) => {
     const { reactableType, reactableId, userId, reactionType } = reaction;
-    const res = await csrfFetch(`/api/${reactableType}/${reactableId}/reactions`, {
+    const res = await csrfFetch(`/api/reactions`, {
         method: 'POST',
         body: JSON.stringify({ reactableType, reactableId, userId, reactionType })
     });
+    
 
     if (res.ok) {
         const newReaction = await res.json();
@@ -52,7 +53,19 @@ export const createReaction = (reaction) => async (dispatch) => {
 }
 
 export const fetchReactionsByEntityId = (entityType, entityId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/${entityType}/${entityId}/reactions`);
+    const res = await csrfFetch(`/api/reactions?entityType=${entityType}&entityId=${entityId}`);
+
+    if (res.ok) {
+        const reactions = await res.json();
+        dispatch(receiveReactions(reactions));
+    } else {
+        const errors = await res.json();
+        dispatch(receiveReactionErrors(errors));
+    }
+}
+
+export const fetchUserReactions = (userId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reactions?userId=${userId}`);
 
     if (res.ok) {
         const reactions = await res.json();
@@ -80,7 +93,7 @@ export const updateReaction = (reaction) => async (dispatch) => {
     }
 }
 
-export const deleteReaction = (reactionId) => async (dispatch) => {
+export const deleteReaction = ( reactionId) => async (dispatch) => {
     const res = await csrfFetch(`/api/reactions/${reactionId}`, {
         method: 'DELETE'
     });

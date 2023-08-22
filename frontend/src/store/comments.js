@@ -38,7 +38,7 @@ export const clearCommentErrors = () => ({
 
 // Thunks
 export const fetchCommentsByPostId = (postId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/posts/${postId}/comments`);
+    const res = await csrfFetch(`/api/comments?postId=${postId}`);
     if (res.ok) {
         const comments = await res.json();
         dispatch(receiveComments(comments));
@@ -50,7 +50,7 @@ export const fetchCommentsByPostId = (postId) => async (dispatch) => {
 
 export const createComment = (comment) => async (dispatch) => {
     const { text, postId, parentCommentId, userId } = comment;
-    const res = await csrfFetch(`/api/posts/${postId}/comments`, {
+    const res = await csrfFetch(`/api/comments?postId=${postId}`, {
         method: 'POST',
         body: JSON.stringify({ text, parentCommentId, postId, userId })
     });
