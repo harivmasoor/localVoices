@@ -1,10 +1,18 @@
 class Api::CommentsController < ApplicationController
   wrap_parameters include: Comment.attribute_names + ['userId', 'postId', 'parentCommentId']
+    def all_comments
+      @comments = Comment.includes(:user, :post)
+      render 'api/comments/all_comments'
+    end
     def index
         @post = Post.find(params[:post_id])
-        @comments = @post.comments.includes(:user)  
-  
-        render 'api/comments/index'
+        if @post
+
+          @comments = @post.comments.includes(:user)  
+          render 'api/comments/index'
+        else
+          render json: @post.errors.full_messages, status: 422
+        end
       end
 
     def create
