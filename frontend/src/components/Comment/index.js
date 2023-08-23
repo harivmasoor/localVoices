@@ -20,6 +20,7 @@ function Comment({ comment, post, sessionUser }) {
     const handleCommentReact = (reactionType, commentId) => (e) => {
         e.stopPropagation();
         if (sessionUserReaction && sessionUserReaction.reactionType === reactionType) {
+
             dispatch(deleteReaction(sessionUserReaction));  // Pass the entire reaction object
         } else if (sessionUserReaction) {
             dispatch(updateReaction({ reactionType, id: sessionUserReaction.id }));
@@ -33,8 +34,9 @@ function Comment({ comment, post, sessionUser }) {
 
 
     const openReplyBar = (parentCommentId) => (e) => {
-        e.stopPropagation();
         setReplyToParentCommentId(parentCommentId);
+        e.stopPropagation();
+    
     };
 
     const getRepliesForComment = (commentId) => {
@@ -50,9 +52,6 @@ function Comment({ comment, post, sessionUser }) {
     };
     return (
         <div>
-            
-    
-            {comments.filter(c => !c.parentCommentId).map(comment => (
                 <div key={comment.id} className="comment">
                     {comment.userPhotoUrl ? 
                         <img src={comment.userPhotoUrl} alt="Profile" className="commentProfilePic"/> 
@@ -100,7 +99,6 @@ function Comment({ comment, post, sessionUser }) {
                         </div>
                     ))}
                 </div>
-            ))}
         </div>
     );
     
