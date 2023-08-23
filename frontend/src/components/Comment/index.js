@@ -9,16 +9,13 @@ import { selectCommentsArray } from '../Post';
 function Comment({ comment, post, sessionUser }) { 
     const sessionUserReaction = useSelector(state => {
         const reactionArray = Object.values(state.reactions);
-        const res = reactionArray.find(reaction => reaction.reactableType === 'Post' && reaction.reactableId === post.id);
+        const res = reactionArray.find(reaction => reaction.reactableType === 'Comment' && reaction.reactableId === comment.id);
         return res ? res : null;
     });
     const comments = useSelector(selectCommentsArray);
     const dispatch = useDispatch();  
     const [replyToParentCommentId, setReplyToParentCommentId] = useState(null);
-    // const [commentLikeCounts, setCommentLikeCounts] = useState({});
-    // const [commentHappyCounts, setCommentHappyCounts] = useState({});
-    // const [commentSadCounts, setCommentSadCounts] = useState({});
-    // const [commentUserReactions, setCommentUserReactions] = useState({});
+
 
     const handleCommentReact = (reactionType, commentId) => (e) => {
         e.stopPropagation();
@@ -28,49 +25,10 @@ function Comment({ comment, post, sessionUser }) {
             dispatch(updateReaction({ reactionType, id: sessionUserReaction.id }));
         }
         else {
-            dispatch(createReaction({ reactionType, reactableType: 'Comment', reactableId: post.id, userId: sessionUser.id }));
+            dispatch(createReaction({ reactionType, reactableType: 'Comment', reactableId: comment.id, userId: sessionUser.id }));
         }
         
     };
-    // const handleCommentReact = (reactionType, commentId ) => (e) => {
-    //     e.stopPropagation();
-        
-    //     const currentReactionState = commentUserReactions[commentId];
-    
-    //     if (currentReactionState === reactionType) return;
-    
-    //     if (currentReactionState) {
-    //         dispatch(deleteReaction({ reactionType: currentReactionState, entityType: 'Comment', entityId: commentId }));
-    //         if (currentReactionState === 'like') {
-    //             setCommentLikeCounts(prev => ({ ...prev, [commentId]: Math.max((prev[commentId] || 0) - 1, 0) }));
-    //         } else if (currentReactionState === 'happy') {
-    //             setCommentHappyCounts(prev => ({ ...prev, [commentId]: Math.max((prev[commentId] || 0) - 1, 0) }));
-    //         } else if (currentReactionState === 'sad') {
-    //             setCommentSadCounts(prev => ({ ...prev, [commentId]: Math.max((prev[commentId] || 0) - 1, 0) }));
-    //         }
-    //     }
-    
-    //     dispatch(createReaction({ reactionType, reactableType: 'Comment', reactableId: commentId, userId: sessionUser.id }));
-    //     if (reactionType === 'like') {
-    //         setCommentLikeCounts(prev => ({ ...prev, [commentId]: (prev[commentId] || 0) + 1 }));
-    //     } else if (reactionType === 'happy') {
-    //         setCommentHappyCounts(prev => ({ ...prev, [commentId]: (prev[commentId] || 0) + 1 }));
-    //     } else if (reactionType === 'sad') {
-    //         setCommentSadCounts(prev => ({ ...prev, [commentId]: (prev[commentId] || 0) + 1 }));
-    //     }
-    // };
-    
-    // const handleUndoCommentReact = (reactionType, commentId) => (e) => {
-    //     e.stopPropagation();
-    
-    //     dispatch(deleteReaction({ reactionType, entityType: 'Comment', entityId: commentId }));
-    
-    //     if (reactionType === 'like') setCommentLikeCounts(prev => ({ ...prev, [commentId]: Math.max((prev[commentId] || 1) - 1, 0) }));
-    //     if (reactionType === 'happy') setCommentHappyCounts(prev => ({ ...prev, [commentId]: Math.max((prev[commentId] || 1) - 1, 0) }));
-    //     if (reactionType === 'sad') setCommentSadCounts(prev => ({ ...prev, [commentId]: Math.max((prev[commentId] || 1) - 1, 0) }));
-    
-    //     setCommentUserReactions(prev => ({ ...prev, [commentId]: null }));
-    // };
 
 
 
@@ -117,15 +75,15 @@ function Comment({ comment, post, sessionUser }) {
     
                     <div className="commentReactions">
                         {/* Like Emoji Button with Count for Comment */}
-                        <button onClick={handleCommentReact('like', post.id)}>
+                        <button onClick={handleCommentReact('like', comment.id)}>
                             👍 {sessionUserReaction && sessionUserReaction.reactionType === 'like' ? 1 : 0}
                         </button>
 
-                <button onClick={handleCommentReact('happy', post.id)}>
+                <button onClick={handleCommentReact('happy', comment.id)}>
                     😄 {sessionUserReaction && sessionUserReaction.reactionType === 'happy' ? 1 : 0}
                 </button>
 
-                <button onClick={handleCommentReact('sad', post.id)}>
+                <button onClick={handleCommentReact('sad', comment.id)}>
                     😢 {sessionUserReaction && sessionUserReaction.reactionType === 'sad' ? 1 : 0}
                 </button>
                     </div>
