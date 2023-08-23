@@ -12,8 +12,6 @@ class Api::PostsController < ApplicationController
     end
   
     def create
-      puts request.raw_post 
-      puts params.inspect 
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       if @post.save

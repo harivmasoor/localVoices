@@ -51,22 +51,22 @@ export const fetchCommentsByPostId = (postId) => async (dispatch) => {
     }
 }
 
-export const createComment = (comment) => async (dispatch) => {
-    const { text, postId, parentCommentId, userId } = comment;
-    const res = await csrfFetch(`/api/comments?postId=${postId}`, {
+export const createComment = (commentData) => async (dispatch) => {
+    const res = await csrfFetch(`/api/comments`, {
         method: 'POST',
-        body: JSON.stringify({ text, parentCommentId, postId, userId })
+        body: commentData
     });
     if (res.ok) {
         const newComment = await res.json();
         dispatch(receiveComment(newComment));
-        // Optionally, clear any existing comment errors here
         dispatch(clearCommentErrors());
     } else {
         const errors = await res.json();
         dispatch(receiveCommentErrors(errors));
     }
-}
+};
+
+
 
 export const deleteComment = (commentId) => async (dispatch) => {
     const res = await csrfFetch(`/api/comments/${commentId}`, {

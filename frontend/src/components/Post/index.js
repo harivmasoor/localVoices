@@ -23,6 +23,8 @@ function Post({ post, onPostClick, sessionUser }) {
     const allComments = useSelector(selectCommentsArray);
     const postComments = allComments.filter(comment => comment.postId === post.id);
     const [commentInputPostId, setCommentInputPostId] = useState(null);
+    const [parentCommentPhoto, setParentCommentPhoto] = useState(null);
+
 
 
 
@@ -42,6 +44,7 @@ function Post({ post, onPostClick, sessionUser }) {
     
 
     const handlePostContainerClick = (post) => {
+        console.log('handlePostContainerClick called');
         if (post.userId === sessionUser.id) {
             onPostClick(post);
         }
@@ -53,13 +56,30 @@ function Post({ post, onPostClick, sessionUser }) {
         dispatch(fetchCommentsByPostId(postId));
     };
     const handleCommentSubmit = async (e, postId, parentCommentId = null) => {
-        if (e.key === 'Enter' && e.target.value.trim()) {
-            const text = e.target.value.trim();
-            console.log("Submitting comment with parentCommentId:", parentCommentId);
-            dispatch(createComment({ text, postId, parentCommentId }));
-            e.target.value = '';
+        console.log('handleCommentSubmit called', postId);
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const text = e.currentTarget.elements.commentText.value.trim(); // get the text value from the form directly
+    
+        if (text) {        
+            const commentData = new FormData();
+            commentData.append('comment[text]', text);
+            if (parentCommentPhoto) {
+                commentData.append('comment[photo]', parentCommentPhoto);
+            }
+            if (parentCommentId) {
+                commentData.append('comment[parentCommentId]', parentCommentId);
+            }
+            commentData.append('comment[postId]', postId);
+            
+            dispatch(createComment(commentData));
+            e.currentTarget.elements.commentText.value = ''; // reset the text value in the form
         }
     };
+    
+    
+    
 
     
 
@@ -95,17 +115,31 @@ function Post({ post, onPostClick, sessionUser }) {
             <div className="commentsSection">
             <button onClick={openCommentBar(post.id)}>Comment</button>
                 {postComments.filter(comment => !comment.parentCommentId).map(comment => (
-                    <Comment key={comment.id} comment={comment} post={post} sessionUser={sessionUser} />
+                    <Comment key={comment.id} comment={comment} post={post} sessionUser={sessionUser} parentCommentPhoto={parentCommentPhoto}  />
                 ))}
 
-                {commentInputPostId === post.id && 
-                <input 
-                    type="text" 
-                    placeholder="Add a comment..."
-                    onKeyDown={e => handleCommentSubmit(e, post.id)}
-                    onClick={e => e.stopPropagation()}
-                />
-            }
+                    {commentInputPostId === post.id && 
+                    <form onSubmit={(e) => handleCommentSubmit(e, post.id)} onClick={e => e.stopPropagation()}>
+                        <input 
+                            type="text" 
+                            name="commentText"
+                            placeholder="Add a comment..."
+                            onClick={e => e.stopPropagation()}
+                        />
+                        <input 
+                            type="file" 
+                            onChange={(e) => {
+                                e.stopPropagation();
+                                setParentCommentPhoto(e.currentTarget.files[0]);
+                            }}
+                            onClick={e => e.stopPropagation()} 
+                        />
+                        <input type="submit" style={{display: 'none'}} />  {/* Hidden submit button to trigger form submission on Enter key */}
+                    </form>
+                    }
+
+
+                           
             </div>
         </div>
     );    

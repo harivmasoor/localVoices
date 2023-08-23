@@ -6,7 +6,7 @@ import { selectCommentsArray } from '../Post';
 
 
 
-function Comment({ comment, post, sessionUser }) { 
+function Comment({ comment, post, sessionUser, parentCommentPhoto }) { 
     const sessionUserReaction = useSelector(state => {
         const reactionArray = Object.values(state.reactions);
         const res = reactionArray.find(reaction => reaction.reactableType === 'Comment' && reaction.reactableId === comment.id);
@@ -15,6 +15,8 @@ function Comment({ comment, post, sessionUser }) {
     const comments = useSelector(selectCommentsArray);
     const dispatch = useDispatch();  
     const [replyToParentCommentId, setReplyToParentCommentId] = useState(null);
+
+
 
 
     const handleCommentReact = (reactionType, commentId) => (e) => {
@@ -60,6 +62,9 @@ function Comment({ comment, post, sessionUser }) {
                     }
                     <span className="commentUsername">{comment.username}</span>
                     {comment.text}
+                    {parentCommentPhoto && 
+                    <img src={URL.createObjectURL(parentCommentPhoto)} alt="Comment Photo" className="commentPhoto" />
+                }
     
                     <button onClick={ openReplyBar(comment.id)}>Reply</button>
     
