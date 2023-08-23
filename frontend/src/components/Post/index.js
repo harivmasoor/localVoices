@@ -91,11 +91,9 @@ function Post({ post, onPostClick, sessionUser }) {
     
             <div className="commentsSection">
             <button onClick={openCommentBar(post.id)}>Comment</button>
-            ...
                 {postComments.filter(comment => !comment.parentCommentId).map(comment => (
                     <Comment key={comment.id} comment={comment} post={post} sessionUser={sessionUser} />
                 ))}
-...
 
                 {commentInputPostId === post.id && 
                 <input 
