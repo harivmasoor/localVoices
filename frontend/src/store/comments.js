@@ -37,6 +37,9 @@ export const clearCommentErrors = () => ({
 });
 
 // Thunks
+
+// Thunk for fetching all comments
+
 export const fetchCommentsByPostId = (postId) => async (dispatch) => {
     const res = await csrfFetch(`/api/comments?postId=${postId}`);
     if (res.ok) {

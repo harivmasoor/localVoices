@@ -1,0 +1,8 @@
+.commentsSection {
+    background-color: #f7f7f7; /* Light gray background */
+    padding: 10px;            /* Padding around the content */
+    border: 1px solid #d1d1d1;/* Gray border */
+    border-radius: 5px;       /* Rounded corners */
+    margin-top: 10px;         /* Space from the previous content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}

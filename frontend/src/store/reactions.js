@@ -40,8 +40,6 @@ export const createReaction = (reaction) => async (dispatch) => {
         method: 'POST',
         body: JSON.stringify({ reactableType, reactableId, userId, reactionType })
     });
-    
-
     if (res.ok) {
         const newReaction = await res.json();
         dispatch(receiveReaction(newReaction));
@@ -65,6 +63,8 @@ export const fetchReactionsByEntityId = (entityType, entityId) => async (dispatc
 }
 
 export const fetchUserReactions = (userId) => async (dispatch) => {
+    if (!userId) return; 
+
     const res = await csrfFetch(`/api/reactions?userId=${userId}`);
 
     if (res.ok) {
@@ -75,6 +75,7 @@ export const fetchUserReactions = (userId) => async (dispatch) => {
         dispatch(receiveReactionErrors(errors));
     }
 }
+
 
 export const updateReaction = (reaction) => async (dispatch) => {
     const { id, reactionType } = reaction;
@@ -93,18 +94,20 @@ export const updateReaction = (reaction) => async (dispatch) => {
     }
 }
 
-export const deleteReaction = ( reactionId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/reactions/${reactionId}`, {
+export const deleteReaction = ( reaction ) => async (dispatch) => {
+    const { id, reactionType } = reaction;  // Extract the id from the reaction object
+    const res = await csrfFetch(`/api/reactions/${id}`, {  // Use the actual reaction id in the URL
         method: 'DELETE'
     });
 
     if (res.ok) {
-        dispatch(removeReaction(reactionId));
+        dispatch(removeReaction(id));  // Dispatch with the actual reaction id
     } else {
         const errors = await res.json();
         dispatch(receiveReactionErrors(errors));
     }
 }
+
 
 
 // Initial State
