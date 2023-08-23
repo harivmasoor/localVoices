@@ -3,4 +3,5 @@ json.array! @posts do |post|
   json.userPhotoUrl post.user.photo.attached? ? url_for(post.user.photo) : nil
   json.username post.user.username
   json.num_likes post.reactions.where(reaction_type: 'like').count
+  json.photoUrl post.photo.attached? ? url_for(post.photo) : nil
 end

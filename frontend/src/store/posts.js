@@ -86,10 +86,16 @@ export const fetchPost = postId => async dispatch => {
     }
 }
 
-export const createPost = post => async dispatch => {
+export const createPost = (body, photo) => async dispatch => {
+    const formData = new FormData();
+    formData.append('post[body]', body);
+    if (photo) {
+        formData.append('post[photo]', photo);
+    }
+
     const res = await csrfFetch(`/api/posts`, {
         method: 'POST',
-        body: JSON.stringify(post),
+        body: formData,
     });
 
     if (res.ok) {
@@ -98,14 +104,20 @@ export const createPost = post => async dispatch => {
     } else {
         const errors = await res.json();
         dispatch(receivePostErrors(errors));
-}
+    }
 }
 
+
+
 export const updatePost = post => async dispatch => {
-    console.log("Post to be updated:", post);
+    const formData = new FormData();
+    Object.keys(post).forEach(key => {
+        formData.append(`post[${key}]`, post[key]);
+    });
+
     const res = await csrfFetch(`/api/posts/${post.id}`, {
         method: 'PUT',
-        body: JSON.stringify(post)
+        body: formData
     });
     if (res.ok) {
         const resPost = await res.json();
@@ -115,6 +127,7 @@ export const updatePost = post => async dispatch => {
         dispatch(receivePostErrors(errors));
     }
 }
+
 
 export const deletePost = postId => async dispatch => {
     const res = await csrfFetch(`/api/posts/${postId}`, {
@@ -129,14 +142,6 @@ export const deletePost = postId => async dispatch => {
     }
 }
 
-
-
-
-/*
-Export a `postsReducer` function as the default export. It should take in the
-old state and an action. It should appropriately handle all post actions, as
-defined in the test specs.
-*/
 
 export default function postsReducer(state={}, action){
 

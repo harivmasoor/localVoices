@@ -25,6 +25,7 @@ function Post({ post, onPostClick, sessionUser }) {
     const [commentInputPostId, setCommentInputPostId] = useState(null);
 
 
+
     const handlePostReact = (reactionType, postId) => (e) => {
         e.stopPropagation();
         if (sessionUserReaction && sessionUserReaction.reactionType === reactionType) {
@@ -60,6 +61,8 @@ function Post({ post, onPostClick, sessionUser }) {
         }
     };
 
+    
+
 
     return (
         <div className="postContainer" onClick={() => handlePostContainerClick(post)}>
@@ -73,7 +76,7 @@ function Post({ post, onPostClick, sessionUser }) {
             </div>
             
             <p className="postBody">{post.body}</p>
-            
+            {post.photoUrl && <img src={post.photoUrl} alt="Uploaded Post" className="postImage" />}
             <div className="reactions">
                 {/* Like Emoji Button with Count */}
                 <button onClick={handlePostReact('like', post.id)}>

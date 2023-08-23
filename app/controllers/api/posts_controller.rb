@@ -12,6 +12,8 @@ class Api::PostsController < ApplicationController
     end
   
     def create
+      puts request.raw_post 
+      puts params.inspect 
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       if @post.save
@@ -48,6 +50,6 @@ class Api::PostsController < ApplicationController
     
   
     def post_params
-      params.require(:post).permit(:title, :body, :user_id)
+      params.require(:post).permit(:body, :user_id, :photo)
     end
   end
