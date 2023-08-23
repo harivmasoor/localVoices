@@ -52,7 +52,7 @@ function Comment({ comment, post, sessionUser }) {
         <div>
             
     
-            {comments.map(comment => (
+            {comments.filter(c => !c.parentCommentId).map(comment => (
                 <div key={comment.id} className="comment">
                     {comment.userPhotoUrl ? 
                         <img src={comment.userPhotoUrl} alt="Profile" className="commentProfilePic"/> 
