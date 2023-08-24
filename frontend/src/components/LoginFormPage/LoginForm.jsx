@@ -12,7 +12,6 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false); 
-    // const [errors, setErrors] = useState([]);
     const credentialRef = useRef();
     const passwordRef = useRef();
     const sessionUser = useSelector(state => state.session.user);
@@ -33,23 +32,7 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // setErrors([]);
         dispatch(sessionActions.login({ credential, password }))
-            // .then(() => {
-            // // Navigate after successful dispatch
-            //     history.push("/news_feed");
-            // })
-            // .catch(async (res) => {
-            //     let data;
-            //     try {
-            //         data = await res.clone().json();
-            //     } catch {
-            //         data = await res.text();
-            //     }
-            //     if (data?.errors) setErrors(data.errors);
-            //     else if (data) setErrors([data]);
-            //     else setErrors([res.statusText]);
-            // });
     };
 
     const handleDemoLogin = () => {
@@ -61,10 +44,10 @@ function LoginForm({ setShowModal, setShowSignupModal }) {
 
     return (
         <div className="login-form-container">
+            <form className="logInForm" onSubmit={handleSubmit}>
             <h1>Welcome Back</h1>
-            <form onSubmit={handleSubmit}>
-            <div className="error-container">
-                {sessionErrors?.map((error) => <span key={error} className="error-item">{error}</span>)} 
+            <div className={`error-container ${sessionErrors?.length ? 'active' : ''}`}>
+                {sessionErrors?.map((error) => <span key={error} className="error-item">{error}</span>)}
             </div>
                 <div className="input-container">
                     <input

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createComment, fetchAllComments, fetchCommentsByPostId } from '../../store/comments';
 import { createReaction, deleteReaction,  updateReaction } from '../../store/reactions';
 import { selectCommentsArray } from '../Post';
+import './comment.css';
 
 
 
@@ -50,7 +51,7 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
         e.preventDefault();
         e.stopPropagation();
     
-        const text = e.currentTarget.elements.commentText.value.trim();
+        const text = e.currentTarget.elements.replyText.value.trim();
     
         if (text) {
             const commentData = new FormData();
@@ -68,7 +69,7 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
             commentData.append('comment[postId]', postId);
     
             dispatch(createComment(commentData));
-            e.currentTarget.elements.commentText.value = '';
+            e.currentTarget.elements.replyText.value = '';
     
             // Reset after submission
             const { [comment.id]: _, ...remainingPhotos } = replyPhotos;
@@ -80,26 +81,28 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
     
     return (
         <div>
-                <div key={comment.id} className="comment">
+                <div key={comment.id} className="comment" onClick={e => e.stopPropagation()}>
+                <div className='commentHeader'>
                 {comment.userPhotoUrl ? 
-                    <img src={comment.userPhotoUrl} alt="Profile" className="commentProfilePic"/> 
+                    <img src={comment.userPhotoUrl} alt="Profile" className="commentProfilePic" id="test"/>
                     : 
                     <i className="fa-solid fa-user-circle commentProfilePic"/>
                 }
                 <span className="commentUsername">{comment.username}</span>
+                </div>
                 {comment.text}
                 {comment.parentCommentId === null && comment.commentPhotoUrl && 
                     <img src={comment.commentPhotoUrl} alt="Comment Photo" className="commentPhoto" />
                 }
     
-    {comment.parentCommentId === null && <button onClick={ openReplyBar(comment.id)}>Reply</button>}
+    {comment.parentCommentId === null && <button className='replyButton' onClick={ openReplyBar(comment.id)}>Reply</button>}
 
     
                     {replyToParentCommentId === comment.id && (
-                    <form onSubmit={(e) => handleCommentSubmit(e, post.id, comment.id)} onClick={e => e.stopPropagation()}>
-                        <input
+                    <form onSubmit={(e) => handleCommentSubmit(e, post.id, comment.id)}>
+                        <input id='replyInput'
                             type="text"
-                            name="commentText"
+                            name="replyText"
                             placeholder="Reply to this comment..."
                             onClick={e => e.stopPropagation()}
                         />
@@ -111,7 +114,6 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
                                 setReplyPhotos(updatedReplyPhotos);
                             }}
                             
-                            onClick={e => e.stopPropagation()}
                         />
                         <input type="submit" style={{ display: 'none' }} />
                     </form>

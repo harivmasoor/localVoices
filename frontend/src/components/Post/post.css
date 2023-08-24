@@ -2,15 +2,15 @@
 .postContainer {
     background-color: #fff;
     border: 1px solid #d1d1d1;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .postProfilePic {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%; /* Make the image circular */
     margin-right: 10px;
 }
@@ -69,6 +69,11 @@
     max-width: 50px;
 }
 
+.customReactionsButton {
+    margin-left: 5px; /* Spacing between emoji buttons */
+    /* margin-right: 5px; */
+}
+
 .customReactionsButton:hover, .customReactionOption:hover, 
 .customReactionsButton.reacted, .customReactionOption.reacted {
     background-color: lightblue;
@@ -76,21 +81,24 @@
 
 /* Dropdown styles */
 .customReactionsDropdown {
-    left: 100%;
+    right: 100%;
     display: flex;
+    /* justify-content: fle; */
     top: 0; /* Align to the top edge of the customReactionsButton */ /* Start immediately to the right of the customReactionsButton */
-    visibility: hidden;  /* Initially hidden */
+    /* Initially hidden */
     position: absolute; 
     width: auto; /* Let it adjust based on content width */
-    margin-left: 5px; /* Optional: small gap between the main button and dropdown */
-    transition: visibility 0.3s, opacity 0.3s;
+     /* Optional: small gap between the main button and dropdown */
+    /* transition: visibility 0.3s, opacity 0.3s; */
+    display: flex;
 
 }
 
 
 
 .customReactions:hover .customReactionsDropdown {
-    visibility: visible;
+    /* visibility: visible; */
+    display: flex;
     opacity: 1;
 }
 
@@ -127,39 +135,44 @@
 }
 
 .customReactionOption {
-    margin-right: 5px; /* Spacing between emoji buttons */
+    margin-left: 5px; /* Spacing between emoji buttons */
 }
 
+
 .postActions {
-    display: flex;           /* Use flexbox to lay out content */
-    align-items: center;     /* Center items vertically */
+    display: flex; 
+    justify-content: flex-end;          /* Use flexbox to lay out content */    /* Center items vertically */
     margin-top: 10px;        /* Add some space between this and post content */
     gap: 10px;               /* Gap between Comment button and Reactions */
 }
 
 .commentActions {
-    display: flex;
+    border-top: 2px solid #ccc;
+    display: column;
     align-items: center;
-    margin-top: 10px;
-    gap: 10px;
+    margin-top: 30px;
     position: relative;
+    padding-top: 40px; 
 }
 
 .commentInput {
-    border-radius: 50px;
-    border: 3px solid #d1d1d1;
-    margin-left: 40px;
+    width: 85%;
+    border: 1px solid #d1d1d1;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .uploadIconLabel {
     cursor: pointer;
-    padding: 5px;
-    border-radius: 50%; 
+    width: 60px;
+    border-radius: 100%; 
     background: #f7f7f7; 
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative; /* This is crucial for the input overlay to work */
+    height: 60px
 }
 
 .hiddenFileInput {
@@ -172,35 +185,24 @@
     cursor: pointer;
 }
 
-.actionDivider {
-    content: '';
-    position: absolute;
-    top: -10px; /* Adjust as per your preference */
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: #d1d1d1;
-    z-index: -1;
-}
 
-.actionDivider.hidden {
-    display: none;
-}
 
-.actionDivider.visible {
-    display: block;
-    /* Add other styles to make it look like a horizontal line */
-    border-top: 1px solid #ccc;
-    width: 100%;
-    margin: 10px 0; /* some margin for spacing */
-}
 
 .commentActions form {
     display: flex; 
-    align-items: center; 
+    align-items: right;
 }
 
 .commentInput {
-    flex: 1; 
     margin-right: 10px; 
+}
+
+.commentButton {
+    margin-left: 10px;
+}
+
+.commentForm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }

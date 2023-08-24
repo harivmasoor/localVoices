@@ -10,13 +10,11 @@ import localImage from '../../assets/local.png';
 
 function SignupForm() {
   const dispatch = useDispatch();
-  // const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  // const [errors, setErrors] = useState([]);
   const { setBackground } = useContext(BackgroundContext);
   const sessionErrors = useSelector(state => state.errors.session)// for session errors
 
@@ -33,30 +31,17 @@ function SignupForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setErrors([]);
-    // try {
     dispatch(sessionActions.signup({ email, username, password, phone_number }))
-    // } catch (res) {
-    //   let data;
-    //   try {
-    //     data = await res.clone().json();
-    //   } catch {
-    //     data = await res.text();
-    //   }
-    //   if (data?.errors) setErrors(data.errors);
-    //   else if (data) setErrors([data]);
-    //   else setErrors([res.statusText]);
-    // }
-  // };
   }
   return (
     <div className="signup-form-container">
 
+      <form className="signUpForm" onSubmit={handleSubmit}>
       <h1>Find your voice</h1>
-      <form onSubmit={handleSubmit}>
-      <div className="error-container">
+      <div className={`error-container ${sessionErrors?.length ? 'active' : ''}`}>
           {sessionErrors?.map((error) => <span key={error} className="error-item">{error}</span>)}
       </div>
+
 
         {/* Email Input */}
         <div className="input-container">
@@ -110,11 +95,11 @@ function SignupForm() {
         <div className="button-container">
           <button type="submit">Sign Up</button>
         </div>
-      </form>
       <div className="login-link">
                 Already a member? 
                 <Link to="/login"> Login</Link>
             </div>
+      </form>
     </div>
   );
 }

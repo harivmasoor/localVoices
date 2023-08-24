@@ -80,8 +80,6 @@ function Post({ post, onPostClick, sessionUser }) {
         }
     };
     
-    
-    
     function getEmoji(reactionType) {
         switch (reactionType) {
             case 'like':
@@ -115,11 +113,8 @@ function Post({ post, onPostClick, sessionUser }) {
 
     
 
-                <div className="postActions">
-            <button onClick={openCommentBar(post.id)}>Comment</button>
-            <div className={`actionDivider ${showDivider ? 'visible' : 'hidden'}`}></div>
-
-            <div className="customReactions">
+    <div className="postActions">
+    <div className="customReactions">
     {/* Primary "like" button with dynamic emoji */}
     <button 
         className={`customReactionsButton ${sessionUserReaction ? 'reacted' : ''}`}
@@ -164,39 +159,38 @@ function Post({ post, onPostClick, sessionUser }) {
         </button>
         </div>
     </div>
+            <button className='commentButton' onClick={openCommentBar(post.id)}>Comment</button>
 </div>
+    {commentInputPostId === post.id && 
+        <div className="commentActions">
+            <form className='commentForm'onSubmit={(e) => handleCommentSubmit(e, post.id)}>
+                <input 
+                    type="text" 
+                    name="commentText"
+                    placeholder="Add a comment..."
+                    onClick={e => e.stopPropagation()}
+                    className="commentInput"
+                />
+                <label className="uploadIconLabel">
+                    <i className="fa-solid fa-upload"/> {/* Upload icon; replace with your desired icon class if you're using another icon set */}
+                    <input 
+                        type="file" 
+                        className="hiddenFileInput"
+                        onChange={(e) => {
+                            e.stopPropagation();
+                            setParentCommentPhoto(e.currentTarget.files[0]);
+                        }}
+                        onClick={e => e.stopPropagation()} 
+                    />
+                </label>
+                <input type="submit" style={{display: 'none'}} />  {/* Hidden submit button to trigger form submission on Enter key */}
+            </form>
+        </div>
+    }
 <div className="commentsSection">
                 {postComments.filter(comment => !comment.parentCommentId).map(comment => (
                     <Comment key={comment.id} comment={comment} post={post} sessionUser={sessionUser} parentCommentPhoto={parentCommentPhoto}  />
                 ))}
-
-                {commentInputPostId === post.id && 
-                    <div className="commentActions">
-                        <div className="actionDivider"></div>
-                        <form onSubmit={(e) => handleCommentSubmit(e, post.id)} onClick={e => e.stopPropagation()}>
-                            <input 
-                                type="text" 
-                                name="commentText"
-                                placeholder="Add a comment..."
-                                onClick={e => e.stopPropagation()}
-                                className="commentInput"
-                            />
-                            <label className="uploadIconLabel">
-                                <i className="fa-solid fa-upload"/> {/* Upload icon; replace with your desired icon class if you're using another icon set */}
-                                <input 
-                                    type="file" 
-                                    className="hiddenFileInput"
-                                    onChange={(e) => {
-                                        e.stopPropagation();
-                                        setParentCommentPhoto(e.currentTarget.files[0]);
-                                    }}
-                                    onClick={e => e.stopPropagation()} 
-                                />
-                            </label>
-                            <input type="submit" style={{display: 'none'}} />  {/* Hidden submit button to trigger form submission on Enter key */}
-                        </form>
-                    </div>
-                }
             </div>
     </div>
 );

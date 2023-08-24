@@ -1,62 +1,33 @@
-html, body, #root, .app-container {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top 80px;
-    background-color: #ffffff;
-}
-
-.app-container {
-    display: flex;
-    justify-content: center; 
-    align-items: center;     
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, HelveticaNeue, "Helvetica Neue", Helvetica, Roboto, "Segoe UI", Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 20px;
-    text-rendering: optimizelegibility;
-    -webkit-font-smoothing: antialiased;
-    background-color: var(--bg-base);
-    margin-right: 0;
-}
-
-
 .login-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
     max-width: 400px;
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     height: 80%;
-    align-items: center;
 }
 
-form {
+.logInForm {
     display: flex; /* Use flex instead of column */
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly; /* Distribute space evenly along the vertical axis */
     height: 100%;
     box-shadow: none;
-    align-items: center;
-    width: 90%;
+    align-items: center; /* Center horizontally within the form element */
+    width: 100%;
 }
 
 
 .input-container {
     position: relative;
-    margin-bottom: auto;
+    width: 100%;
 }
 
 .input-container input {
-    padding: 10px 15px;
     width: 100%;
     border: 1px solid #E0E0E0;
     border-radius: 5px;
@@ -73,12 +44,10 @@ form {
 .input-container label {
     position: absolute;
     top: 50%;
-    left: 20px;
     transition: top 0.3s, font-size 0.3s, color 0.3s;
     color: darkgray;
     pointer-events: none;
     background-color: transparent;
-    padding: 0 5px;
     font-size: 16px;
     transform: translateY(-50%);
 }
@@ -94,7 +63,6 @@ form {
     top: -5px;
     font-size: 12px;
     color: grey;
-    left: 5px;  
 }
 
 .toggle-password {
@@ -110,25 +78,15 @@ form {
 }
 
 button {
-    padding: 12px 20px;
-    background-color: #A2FF7A;
+    background-color: rgb(184, 236, 81);;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-weight: bolder;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 100px;
-    padding-bottom: 100px;
-    font-weight: bolder;
-
-}
 button:hover {
     background-color: #8BEB63;
 }
@@ -150,10 +108,8 @@ ul {
 }
 
 .signup-link {
-    margin-top: auto;
     font-size: 14px;
     text-align: center;
-    padding-bottom: 20px;
     font-weight: bolder;  
 }
 
@@ -169,7 +125,9 @@ ul {
 }
 
 #credential-input, #password-input {
-    width: 90%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 .demo-container {
@@ -177,7 +135,6 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: auto;
 }
 
 /* Responsive adjustments */
@@ -195,7 +152,6 @@ ul {
     text-align: center;
     font-size: 16px; /* Adjust based on your design */
     line-height: 20px; /* Adjust based on your design */
-    margin: 20px 0;
     background: linear-gradient(to right, black 33%, transparent 33%, transparent 66%, black 66%); 
     background-size: 3px 1px; 
     background-repeat: repeat-x;
@@ -209,7 +165,6 @@ ul {
     text-align: center;
     font-size: 20px; /* Adjust based on your design */
     line-height: 0px; /* Adjust based on your design */
-    margin: 20px 0; /* Spacing around the separator */
     position: relative;
     width: 100%;  /* Ensure it takes full width */
     color:rgb(159, 156, 156);
@@ -237,13 +192,10 @@ ul {
 
 
 .login-form-container {
-    min-height: 400px;  /* You can adjust based on the smallest acceptable height */
     overflow-y: auto;  /* If content overflows, it will be scrollable */
 }
 
-#credential-input {
-    width: 85%;
-}
+
 
 
 

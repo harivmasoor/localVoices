@@ -17,7 +17,7 @@ html, body {
 .app-container {
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: flex-start;    
     font-family: system-ui, -apple-system, BlinkMacSystemFont, HelveticaNeue, "Helvetica Neue", Helvetica, Roboto, "Segoe UI", Arial, sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -26,6 +26,8 @@ html, body {
     -webkit-font-smoothing: antialiased;
     background-color: var(--bg-base); 
     background-size: cover;
+    padding-top: 100px; 
+
 }
 
 
@@ -46,23 +48,16 @@ html, body {
 
 
 
-form {
-    display: column;
+.signUpForm {
+    display: flex;
     flex-direction: column;
-    justify-content: center; /* Distribute space evenly along the vertical axis */
+    justify-content: space-evenly; /* Distribute space evenly along the vertical axis */
     height: 100%; /* Make the form take full height within its container */
     box-shadow: none;
     align-items: center; /* Center horizontally within the form element */
-    width: 90%;
+    width: 100%;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bolder;
-    font-size: 1.2em;
-}
 
 html {
     margin: 0 0 0 0; /* Adjust the value (-8px) as needed */
@@ -71,7 +66,7 @@ html {
 }
 
 h1 {
-    font-family: cursive; /* Use the generic "cursive" value to apply a cursive font */
+    font-family: Arial, sans-serif; /* Use the generic "cursive" value to apply a cursive font */
     font-size: 2em; /* Use the rem value to scale according to user preference */
     font-weight: bolder;
 }
@@ -84,19 +79,27 @@ h1 {
 }
 
 #email-input {
-    width: 85%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%
 }
 
 #username-input {
-    width: 85%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 #phone-number-input {
-    width: 85%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 #password-input {
-    width: 85%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 .login-link {
@@ -122,9 +125,17 @@ h1 {
 .input-container {
     position: relative;
     margin-bottom: 20px;
+    width: 80%;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 .input-container input {
-    padding: 10px 15px;
     width: 100%;
     border: 1px solid #E0E0E0;
     border-radius: 5px;
@@ -137,28 +148,21 @@ h1 {
     background-color: white; 
 }
 .input-container label {
-    position: absolute;
-    top: 50%;
-    left: 20px;
     transition: top 0.3s, font-size 0.3s, color 0.3s;
     color: darkgray;
     pointer-events: none;
     background-color: transparent;
-    padding: 0 5px;
     font-size: 16px;
-    transform: translateY(-50%);
+    transform: translateY(-60%);
+    left:0;
 }
-.input-container input:not(:focus):placeholder-shown + label {
-    top: 50%;         
-    left: 20px;       
+.input-container input:not(:focus):placeholder-shown + label {           
     color: lightgray;
 }
 .input-container input:focus + label,
 .input-container input:not(:placeholder-shown) + label {
-    top: -5px;
     font-size: 12px;
     color: grey;
-    left: 5px;
 }
 
 button {
@@ -172,7 +176,7 @@ button {
 }
 
 .error-container {
-    display: flex;
+    display: none;
     flex-direction: column;  /* ensures errors are stacked vertically */
     align-items: center;
     margin-bottom: 20px; /* Space below the error messages */
@@ -190,4 +194,9 @@ button {
     width: 100%; /* takes full width of the container */
     max-width: 300px; /* you can adjust this value based on the maximum width you'd like for error messages */
 }
+
+.error-container.active {
+    display: flex;
+}
+
 

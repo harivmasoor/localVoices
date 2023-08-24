@@ -4,6 +4,7 @@ import ModalContext from '../../context/ModalContext';
 import './PostModal.css';
 import { useDispatch } from 'react-redux';
 import { createPost, updatePost, deletePost } from '../../store/posts'; // Add deletePost import
+import uploadImageIcon from '../../assets/uploadImage.svg';
 
 function PostModal({ onClose, post }) {
     console.log('Rendering PostModal with post:', post);
@@ -82,10 +83,14 @@ function PostModal({ onClose, post }) {
                     placeholder="What's on your mind?"
                 />
                 {photo && <img src={URL.createObjectURL(photo)} alt="Selected" className="selectedPhoto" />}
+                <label htmlFor="file-upload" className="custom-file-upload">
+                    <img src={uploadImageIcon} alt="Upload Image" />
+                </label>
                 <div>
-                    <input type="file" onChange={handleFile} />
-                    <button onClick={handleSubmit}>{post ? "Update" : "Post"}</button>
-                    {post && <button onClick={handleDelete}>Delete</button>}
+                <input id="file-upload" type="file" onChange={handleFile} style={{ display: 'none' }} />
+                <button className="post-button" onClick={handleSubmit}>{post ? "Update" : "Post"}</button>
+                {post && <button onClick={handleDelete}>Delete</button>}
+
                 </div>
             </div>
         </div>,

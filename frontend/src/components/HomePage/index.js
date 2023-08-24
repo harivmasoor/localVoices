@@ -1,4 +1,3 @@
-// HomePage/index.js
 import React, { useEffect, useState } from 'react';
 import './HomePage.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -40,9 +39,14 @@ function HomePage() {
     return (
         <div className="layoutContainer">
             <div className="HomePageHeader">
-                <h1>Welcome to the Home Page!</h1>
+            <h1>Welcome to Local Voices, {sessionUser.username}</h1>
             </div>
-            <button onClick={handleOpenModal}>Post</button>
+            
+            <div className="homepage-button-container" onClick={handleOpenModal}>
+                {sessionUser.photoUrl && <img className="profile-pic" src={sessionUser.photoUrl} alt="Profile" />}
+                <div className="button-text">What's on your mind, neighbor?</div>
+            </div>
+
             {showModal && <PostModal onClose={handleCloseModal} post={selectedPost} />}
             
             <PostIndex 
