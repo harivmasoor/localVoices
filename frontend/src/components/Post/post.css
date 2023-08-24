@@ -1,8 +1,206 @@
-.commentsSection {
-    background-color: #f7f7f7; /* Light gray background */
-    padding: 10px;            /* Padding around the content */
-    border: 1px solid #d1d1d1;/* Gray border */
-    border-radius: 5px;       /* Rounded corners */
-    margin-top: 10px;         /* Space from the previous content */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+
+.postContainer {
+    background-color: #fff;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.postProfilePic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 10px;
+}
+
+
+.postHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.profilePicture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 10px;
+}
+
+
+.userName {
+    font-weight: bold;
+    color: #333;
+}
+
+.postUsername {
+    font-weight: bolder;
+    color: #333;
+}
+
+.postBody {
+    margin-bottom: 10px;
+}
+
+/* Main reactions container */
+.customReactions {
+    position: relative; /* Ensures the dropdown is positioned relative to this container */
+    display: flex;
+    align-items: center;
+    width: auto;
+    max-width: 45px;
+}
+
+/* Main reactions button */
+.customReactionsButton, .customReactionOption {
+    background-color: #f7f7f7; /* Light background */
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s;
+    width: auto;
+    max-width: 50px;
+}
+
+.customReactionsButton:hover, .customReactionOption:hover, 
+.customReactionsButton.reacted, .customReactionOption.reacted {
+    background-color: lightblue;
+}
+
+/* Dropdown styles */
+.customReactionsDropdown {
+    left: 100%;
+    display: flex;
+    top: 0; /* Align to the top edge of the customReactionsButton */ /* Start immediately to the right of the customReactionsButton */
+    visibility: hidden;  /* Initially hidden */
+    position: absolute; 
+    width: auto; /* Let it adjust based on content width */
+    margin-left: 5px; /* Optional: small gap between the main button and dropdown */
+    transition: visibility 0.3s, opacity 0.3s;
+
+}
+
+
+
+.customReactions:hover .customReactionsDropdown {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Dropdown option styles */
+.customReactionOption {
+    display: none;  /* Initially not displayed */
+}
+
+.customReactions:hover .customReactionsDropdown .customReactionOption {
+    display: block;  /* Display when `.customReactions` is hovered */
+}
+
+.customReactions:hover .customReactionsDropdown .customReactionOption:hover {
+    background-color: #f7f7f7; /* Highlight on hover */
+}
+
+.reacted {
+    color: lightblue;
+}
+
+.customReactionsButton.reacted {
+    background-color: lightblue !important;
+    color: white; /* Assuming you want the emoji to be white against the light blue background */
+}
+
+.customReactionsButton, .customReactionOption[data-reaction="like"] {
+    z-index: 1; /* this ensures that the overlapping 'like' button in the dropdown stays on top */
+}
+.customReactionsDropdown .customReactionOption {
+    pointer-events: none;
+}
+.customReactions:hover .customReactionsDropdown .customReactionOption {
+    pointer-events: auto; /* Re-enable when hovered */
+}
+
+.customReactionOption {
+    margin-right: 5px; /* Spacing between emoji buttons */
+}
+
+.postActions {
+    display: flex;           /* Use flexbox to lay out content */
+    align-items: center;     /* Center items vertically */
+    margin-top: 10px;        /* Add some space between this and post content */
+    gap: 10px;               /* Gap between Comment button and Reactions */
+}
+
+.commentActions {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+    position: relative;
+}
+
+.commentInput {
+    border-radius: 50px;
+    border: 3px solid #d1d1d1;
+    margin-left: 40px;
+}
+
+.uploadIconLabel {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%; 
+    background: #f7f7f7; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* This is crucial for the input overlay to work */
+}
+
+.hiddenFileInput {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.actionDivider {
+    content: '';
+    position: absolute;
+    top: -10px; /* Adjust as per your preference */
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #d1d1d1;
+    z-index: -1;
+}
+
+.actionDivider.hidden {
+    display: none;
+}
+
+.actionDivider.visible {
+    display: block;
+    /* Add other styles to make it look like a horizontal line */
+    border-top: 1px solid #ccc;
+    width: 100%;
+    margin: 10px 0; /* some margin for spacing */
+}
+
+.commentActions form {
+    display: flex; 
+    align-items: center; 
+}
+
+.commentInput {
+    flex: 1; 
+    margin-right: 10px; 
 }

@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import { createReaction, deleteReaction, updateReaction } from '../../store/reactions';
 import { fetchCommentsByPostId, createComment } from '../../store/comments'; // Assuming this is the correct import
 import Comment from '../Comment';
+import './post.css'
 
 const selectCommentsState = state => state.comments;
 
@@ -24,7 +25,7 @@ function Post({ post, onPostClick, sessionUser }) {
     const postComments = allComments.filter(comment => comment.postId === post.id);
     const [commentInputPostId, setCommentInputPostId] = useState(null);
     const [parentCommentPhoto, setParentCommentPhoto] = useState(null);
-
+    const [showDivider, setShowDivider] = useState(false);
 
 
 
@@ -54,6 +55,7 @@ function Post({ post, onPostClick, sessionUser }) {
         e.stopPropagation(); 
         setCommentInputPostId(postId); 
         dispatch(fetchCommentsByPostId(postId));
+        setShowDivider(!showDivider); // toggle the divider
     };
     const handleCommentSubmit = async (e, postId, parentCommentId = null) => {
         console.log('handleCommentSubmit called', postId);
@@ -80,7 +82,19 @@ function Post({ post, onPostClick, sessionUser }) {
     
     
     
-
+    function getEmoji(reactionType) {
+        switch (reactionType) {
+            case 'like':
+                return '❤️';
+            case 'happy':
+                return '😄';
+            case 'sad':
+                return '😢';
+            default:
+                return '❤️';
+        }
+    }
+    
     
 
 
@@ -97,52 +111,95 @@ function Post({ post, onPostClick, sessionUser }) {
             
             <p className="postBody">{post.body}</p>
             {post.photoUrl && <img src={post.photoUrl} alt="Uploaded Post" className="postImage" />}
-            <div className="reactions">
-                {/* Like Emoji Button with Count */}
-                <button onClick={handlePostReact('like', post.id)}>
-                    👍 {sessionUserReaction && sessionUserReaction.reactionType === 'like' ? 1 : 0}
-                </button>
 
-                <button onClick={handlePostReact('happy', post.id)}>
-                    😄 {sessionUserReaction && sessionUserReaction.reactionType === 'happy' ? 1 : 0}
-                </button>
 
-                <button onClick={handlePostReact('sad', post.id)}>
-                    😢 {sessionUserReaction && sessionUserReaction.reactionType === 'sad' ? 1 : 0}
-                </button>
-            </div>
     
-            <div className="commentsSection">
+
+                <div className="postActions">
             <button onClick={openCommentBar(post.id)}>Comment</button>
+            <div className={`actionDivider ${showDivider ? 'visible' : 'hidden'}`}></div>
+
+            <div className="customReactions">
+    {/* Primary "like" button with dynamic emoji */}
+    <button 
+        className={`customReactionsButton ${sessionUserReaction ? 'reacted' : ''}`}
+        onClick={(e) => {
+            e.stopPropagation();
+            handlePostReact('like', post.id)(e);
+        }}
+    >
+        {sessionUserReaction ? getEmoji(sessionUserReaction.reactionType) : '❤️'}
+    </button>
+
+    {/* Dropdown for additional reactions */}
+    <div className="customReactionsDropdown">
+        <button 
+            className={`customReactionOption ${sessionUserReaction && sessionUserReaction.reactionType === 'sad' ? 'reacted' : ''}`} 
+            onClick={(e) => {
+                e.stopPropagation();
+                handlePostReact('sad', post.id)(e);
+            }}
+        >
+            😢
+        </button>
+
+        <button 
+            className={`customReactionOption ${sessionUserReaction && sessionUserReaction.reactionType === 'like' ? 'reacted' : ''}`}
+            onClick={(e) => {
+                e.stopPropagation();
+                handlePostReact('like', post.id)(e);
+            }}
+        >
+            ❤️
+        </button>
+
+        <button 
+            className={`customReactionOption ${sessionUserReaction && sessionUserReaction.reactionType === 'happy' ? 'reacted' : ''}`} 
+            onClick={(e) => {
+                e.stopPropagation();
+                handlePostReact('happy', post.id)(e);
+            }}
+        >
+            😄
+        </button>
+        </div>
+    </div>
+</div>
+<div className="commentsSection">
                 {postComments.filter(comment => !comment.parentCommentId).map(comment => (
                     <Comment key={comment.id} comment={comment} post={post} sessionUser={sessionUser} parentCommentPhoto={parentCommentPhoto}  />
                 ))}
 
-                    {commentInputPostId === post.id && 
-                    <form onSubmit={(e) => handleCommentSubmit(e, post.id)} onClick={e => e.stopPropagation()}>
-                        <input 
-                            type="text" 
-                            name="commentText"
-                            placeholder="Add a comment..."
-                            onClick={e => e.stopPropagation()}
-                        />
-                        <input 
-                            type="file" 
-                            onChange={(e) => {
-                                e.stopPropagation();
-                                setParentCommentPhoto(e.currentTarget.files[0]);
-                            }}
-                            onClick={e => e.stopPropagation()} 
-                        />
-                        <input type="submit" style={{display: 'none'}} />  {/* Hidden submit button to trigger form submission on Enter key */}
-                    </form>
-                    }
-
-
-                           
+                {commentInputPostId === post.id && 
+                    <div className="commentActions">
+                        <div className="actionDivider"></div>
+                        <form onSubmit={(e) => handleCommentSubmit(e, post.id)} onClick={e => e.stopPropagation()}>
+                            <input 
+                                type="text" 
+                                name="commentText"
+                                placeholder="Add a comment..."
+                                onClick={e => e.stopPropagation()}
+                                className="commentInput"
+                            />
+                            <label className="uploadIconLabel">
+                                <i className="fa-solid fa-upload"/> {/* Upload icon; replace with your desired icon class if you're using another icon set */}
+                                <input 
+                                    type="file" 
+                                    className="hiddenFileInput"
+                                    onChange={(e) => {
+                                        e.stopPropagation();
+                                        setParentCommentPhoto(e.currentTarget.files[0]);
+                                    }}
+                                    onClick={e => e.stopPropagation()} 
+                                />
+                            </label>
+                            <input type="submit" style={{display: 'none'}} />  {/* Hidden submit button to trigger form submission on Enter key */}
+                        </form>
+                    </div>
+                }
             </div>
-        </div>
-    );    
+    </div>
+);
 }
 
 export default Post;

@@ -92,7 +92,8 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
                     <img src={comment.commentPhotoUrl} alt="Comment Photo" className="commentPhoto" />
                 }
     
-                    <button onClick={ openReplyBar(comment.id)}>Reply</button>
+    {comment.parentCommentId === null && <button onClick={ openReplyBar(comment.id)}>Reply</button>}
+
     
                     {replyToParentCommentId === comment.id && (
                     <form onSubmit={(e) => handleCommentSubmit(e, post.id, comment.id)} onClick={e => e.stopPropagation()}>

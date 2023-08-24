@@ -1,0 +1,45 @@
+.commentContainer {
+    background-color: #f7f7f7;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #d1d1d1;
+}
+
+.commentProfilePicture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 5px;
+}
+
+.commentUserName {
+    font-weight: bold;
+    color: #333;
+}
+
+.commentBody {
+    margin-bottom: 10px;
+}
+
+.commentReactions {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+}
+
+.commentReactions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.comment {
+    margin-bottom: 1em;
+    display: flex;
+    align-items: start;
+}
+
+.replies {
+    margin-left: 1.5em; /* Indentation for replies */
+}
