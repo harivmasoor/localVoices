@@ -14,16 +14,16 @@
 - Enhanced security protocols ensure certain actions, like posting and upvoting, are exclusive to logged-in users.
 
 <p align="center">
-  <img src="/frontend/src/assets/accountCreation.png" width="400" alt="Account Creation"/>
+  <img src="/frontend/src/assets/accountCreation.png" width="500" alt="Account Creation" style="border-radius: 25%;">
 </p>
 
-### 📜 Posts (Previously Remarks)
+### 📜 Posts
 - Pen captivating posts to share your historical narratives.
 - Browse a curated collection of community-driven insights.
 - Edit your posts as needed to ensure the content remains current and accurate.
 
 <p align="center">
-  <img src="/frontend/src/assets/PostModal.png" width="400" alt="Post Modal"/>
+  <img src="/frontend/src/assets/PostModal.png" width="500" alt="Post Modal" style="border-radius: 25%;">
 </p>
 
 ### 👍 Reactions
@@ -35,7 +35,7 @@
 - Encourage layered conversations with the reply feature, enabling users to respond directly to specific comments.
 
 <p align="center">
-  <img src="/frontend/src/assets/Reactions-Comments.png" width="400" alt="Reactions and Comments"/>
+  <img src="/frontend/src/assets/Reactions-Comments.png" width="500" alt="Reactions and Comments" style="border-radius: 25%;">
 </p>
 
 ### 🏠 Dashboard and Profile
@@ -56,6 +56,8 @@
 
 ## 🤝 Contributing
 Are you a history buff? Keen on elevating **localVoices** to greater heights? We'd love your contributions! Fork this repository and join our history-loving community.
+
+
 
 
 
