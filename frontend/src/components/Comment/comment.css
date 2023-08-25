@@ -32,6 +32,7 @@
 
 .commentReactions {
     display: flex;
+    justify-content: end;
     gap: 10px; /* Space between the buttons */
 }
 
@@ -49,6 +50,7 @@
 }
 
 .replyButton { 
+    margin-top: 5px;
     background: none;
     border: none;
     cursor: pointer;
@@ -57,8 +59,8 @@
     color: #333;
     text-decoration: underline;
     align-items: end;
-    width: 12%;
-    margin-left: 500px;
+    width: 100%;
+    margin-left: 10px;
 }
 
 .replies {
@@ -73,9 +75,57 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* img.commentProfilePicImg {
-    border-radius: 50%;
-} */
+
+.replyProfilePic {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+
+.replyUsername {
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+.reply {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    gap: 10px;
+    border-bottom: #d1d1d1 solid 1px;
+}
+
+#commentsDropDownId {
+    margin-left: 700px;
+} 
+
+#commentCustomReactions {
+    margin-left: 600px;     
+}
+
+.replyButton:hover {
+    color: #121212;
+    background-color: #eaeaea;
+}
+
+.replyFormContainer {
+    border-top: 2px solid #ccc;
+    display: column;
+    align-items: center;
+    margin-top: 30px;
+    position: relative;
+    padding-top: 40px; 
+    gap: 10px;
+}
+  
+.replyFormContainer form {
+    display: flex;
+    align-items: right;
+    gap: 10px;   
+}
 
 
 

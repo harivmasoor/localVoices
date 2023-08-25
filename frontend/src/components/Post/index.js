@@ -93,7 +93,6 @@ function Post({ post, onPostClick, sessionUser }) {
         }
     }
     
-    
 
 
     return (
@@ -127,7 +126,7 @@ function Post({ post, onPostClick, sessionUser }) {
     </button>
 
     {/* Dropdown for additional reactions */}
-    <div className="customReactionsDropdown">
+    <div className="customReactionsDropdown" >
         <button 
             className={`customReactionOption ${sessionUserReaction && sessionUserReaction.reactionType === 'sad' ? 'reacted' : ''}`} 
             onClick={(e) => {
@@ -163,7 +162,7 @@ function Post({ post, onPostClick, sessionUser }) {
 </div>
     {commentInputPostId === post.id && 
         <div className="commentActions">
-            <form className='commentForm'onSubmit={(e) => handleCommentSubmit(e, post.id)}>
+            <form className='commentForm'onSubmit={(e) => handleCommentSubmit(e, post.id)} onClick={e => e.stopPropagation()}>
                 <input 
                     type="text" 
                     name="commentText"
@@ -197,7 +196,6 @@ function Post({ post, onPostClick, sessionUser }) {
 }
 
 export default Post;
-
 
 
 
