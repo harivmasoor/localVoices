@@ -205,3 +205,6 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
 }
 
 export default Comment;
+
+
+//rerender on render 
