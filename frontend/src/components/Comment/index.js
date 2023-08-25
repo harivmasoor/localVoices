@@ -17,6 +17,7 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
     const dispatch = useDispatch();  
     const [replyToParentCommentId, setReplyToParentCommentId] = useState(null);
     const [replyPhotos, setReplyPhotos] = useState({});
+    const [parentReplyPhoto, setReplyCommentPhoto] = useState(null);
 
 
 
@@ -77,7 +78,18 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
         }
     };
     
-    
+    function getEmoji(reactionType) {
+        switch (reactionType) {
+            case 'like':
+                return '❤️';
+            case 'happy':
+                return '😄';
+            case 'sad':
+                return '😢';
+            default:
+                return '❤️';
+        }
+    }
     
     return (
         <div>
@@ -95,46 +107,83 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
                     <img src={comment.commentPhotoUrl} alt="Comment Photo" className="commentPhoto" />
                 }
     
-    {comment.parentCommentId === null && <button className='replyButton' onClick={ openReplyBar(comment.id)}>Reply</button>}
 
     
                     {replyToParentCommentId === comment.id && (
-                    <form onSubmit={(e) => handleCommentSubmit(e, post.id, comment.id)}>
+                    <div className="replyFormContainer">
+                        <form className="replyForm" onSubmit={(e) => handleCommentSubmit(e, post.id, comment.id)} onClick={e => e.stopPropagation()}>
                         <input id='replyInput'
                             type="text"
                             name="replyText"
                             placeholder="Reply to this comment..."
                             onClick={e => e.stopPropagation()}
-                        />
-                        <input
-                            type="file"
-                            onChange={e => {
-                                e.stopPropagation();
-                                const updatedReplyPhotos = { ...replyPhotos, [comment.id]: e.currentTarget.files[0] };
-                                setReplyPhotos(updatedReplyPhotos);
-                            }}
-                            
-                        />
-                        <input type="submit" style={{ display: 'none' }} />
+                            />
+                       <label className="uploadIconLabel">
+                    <i className="fa-solid fa-upload"/> {/* Upload icon; replace with your desired icon class if you're using another icon set */}
+                    <input 
+                        type="file" 
+                        className="hiddenFileInput"
+                        id='replyPhotoInput'
+                        onChange={(e) => {
+                            e.stopPropagation();
+                            setReplyCommentPhoto(e.currentTarget.files[0]);
+                        }}
+                        onClick={e => e.stopPropagation()} 
+                    />
+                </label>
+                <input type="submit" style={{display: 'none'}} />  {/* Hidden submit button to trigger form submission on Enter key */}
                     </form>
-                )}
-                    <div className="commentReactions">
-                        {/* Like Emoji Button with Count for Comment */}
-                        <button onClick={handleCommentReact('like', comment.id)}>
-                            👍 {sessionUserReaction && sessionUserReaction.reactionType === 'like' ? 1 : 0}
-                        </button>
-
-                <button onClick={handleCommentReact('happy', comment.id)}>
-                    😄 {sessionUserReaction && sessionUserReaction.reactionType === 'happy' ? 1 : 0}
-                </button>
-
-                <button onClick={handleCommentReact('sad', comment.id)}>
-                    😢 {sessionUserReaction && sessionUserReaction.reactionType === 'sad' ? 1 : 0}
-                </button>
                     </div>
+                )}
+            <div className="commentActions">
+            <div className="customReactions" id="commentCustomReactions">
+            <button 
+                    className={`customReactionsButton ${sessionUserReaction ? 'reacted' : ''}`}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleCommentReact('like', post.id)(e);
+                    }}
+                    >
+                    {sessionUserReaction ? getEmoji(sessionUserReaction.reactionType) : '❤️'}
+                </button>
+    <div className="customReactionsDropdown" id='commentsDropDownId'>
+        <button 
+            className={`customReactionOption ${sessionUserReaction && sessionUserReaction.reactionType === 'sad' ? 'reacted' : ''}`} 
+            onClick={(e) => {
+                e.stopPropagation();
+                handleCommentReact('sad', post.id)(e);
+            }}
+            >
+            😢
+        </button>
+
+        <button 
+            className={`customReactionOption ${sessionUserReaction && sessionUserReaction.reactionType === 'like' ? 'reacted' : ''}`}
+            onClick={(e) => {
+                e.stopPropagation();
+                handleCommentReact('like', post.id)(e);
+            }}
+            >
+            ❤️
+        </button>
+
+        <button 
+            className={`customReactionOption ${sessionUserReaction && sessionUserReaction.reactionType === 'happy' ? 'reacted' : ''}`} 
+            onClick={(e) => {
+                e.stopPropagation();
+                handleCommentReact('happy', post.id)(e);
+            }}
+            >
+            😄
+        </button>
+        </div>
+        {comment.parentCommentId === null && <button className='replyButton' onClick={ openReplyBar(comment.id)}>Reply</button>}
+        </div>
+        </div>
     
                     {getRepliesForComment(comment.id).map(reply => (
-                        <div key={reply.id} className="reply">
+                        <div key={reply.id} className='replyHeader'>
+                        <div className="reply">
                             {reply.userPhotoUrl ? 
                                 <img src={reply.userPhotoUrl} alt="Profile" className="replyProfilePic"/> 
                                 : 
@@ -142,13 +191,14 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
                             }
                             <span className="replyUsername">{reply.username}</span>
                             {reply.text}
+                            </div>
                             {reply.commentPhotoUrl && 
-    <img src={reply.commentPhotoUrl} alt="Reply Photo" className="replyPhoto" />
-}
+                            <img src={reply.commentPhotoUrl} alt="Reply Photo" className="replyPhoto" />
+                            }
 
                         </div>
                     ))}
-                </div>
+        </div>
         </div>
     );
     

@@ -50,7 +50,7 @@
     display: flex;
     align-items: center;
     width: auto;
-    max-width: 45px;
+    justify-content: flex-end;
 }
 
 /* Main reactions button */
@@ -84,7 +84,7 @@
     right: 100%;
     display: flex;
     /* justify-content: fle; */
-    top: 0; /* Align to the top edge of the customReactionsButton */ /* Start immediately to the right of the customReactionsButton */
+    /* Align to the top edge of the customReactionsButton */ /* Start immediately to the right of the customReactionsButton */
     /* Initially hidden */
     position: absolute; 
     width: auto; /* Let it adjust based on content width */

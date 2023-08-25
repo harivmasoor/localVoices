@@ -87,9 +87,7 @@ button {
     font-weight: bolder;
 }
 
-button:hover {
-    background-color: #8BEB63;
-}
+
 
 h1, label {
     font-family: "Arial", sans-serif;
