@@ -27,7 +27,7 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
         e.stopPropagation();
         if (sessionUserReaction && sessionUserReaction.reactionType === reactionType) {
 
-            dispatch(deleteReaction(sessionUserReaction));  // Pass the entire reaction object
+            dispatch(deleteReaction(sessionUserReaction));  
         } else if (sessionUserReaction) {
             dispatch(updateReaction({ reactionType, id: sessionUserReaction.id }));
         }
@@ -58,7 +58,7 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
             const commentData = new FormData();
             commentData.append('comment[text]', text);
     
-            // Fetch the replyPhoto from replyPhotos using the current comment's ID
+
             if (parentReplyPhoto) {
                 commentData.append('comment[photo]', parentReplyPhoto);
             }
