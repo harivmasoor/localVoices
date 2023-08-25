@@ -59,9 +59,8 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
             commentData.append('comment[text]', text);
     
             // Fetch the replyPhoto from replyPhotos using the current comment's ID
-            const replyPhoto = replyPhotos[comment.id];
-            if (replyPhoto) {
-                commentData.append('comment[photo]', replyPhoto);
+            if (parentReplyPhoto) {
+                commentData.append('comment[photo]', parentReplyPhoto);
             }
     
             if (parentCommentId) {
