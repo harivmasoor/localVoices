@@ -18,16 +18,15 @@ function App() {
         <ModalProvider>
           <Navigation />
           <div className="app-container" style={{ backgroundImage: background }}>
-            <Switch>
-              <Route exact path="/" component={SignupFormPage} />
-              <Route path="/login" component={LoginFormPage} />
-              <Route path="/news_feed" component={HomePage} />
-              {/* Add other routes as needed */}
-              <Route component={NotFound} />
-              <Route path="/profile/:username" exact>
-                <UserProfile />
+          <Switch>
+            <Route exact path="/" component={SignupFormPage} />
+            <Route path="/login" component={LoginFormPage} />
+            <Route path="/news_feed" component={HomePage} />
+            <Route path="/profile/:username" exact>
+              <UserProfile />
             </Route>
-            </Switch>
+            <Route component={NotFound} />
+          </Switch>
           </div>
         </ModalProvider>
       </Router>
