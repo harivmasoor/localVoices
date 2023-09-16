@@ -35,7 +35,7 @@ const initialState = {
     posts: [],
     comments: [],
     reactions: [],
-  },
+  }
 };
 
 // Reducer
@@ -44,8 +44,12 @@ const profileReducer = (state = initialState, action) => {
     case SET_PROFILE:
       return {
         ...state,
-        user: action.profile.user,
-        activity: action.profile.activity,
+        user: action.payload.user,
+        activity: {
+          posts: action.payload.posts || [],
+          comments: action.payload.comments || [],
+          reactions: action.payload.reactions || []
+        }
       };
     case CLEAR_PROFILE:
       return initialState;
@@ -59,3 +63,4 @@ export default profileReducer;
 // Selectors (if needed)
 export const selectUserProfile = (state) => state.profile.user;
 export const selectUserActivity = (state) => state.profile.activity;
+
