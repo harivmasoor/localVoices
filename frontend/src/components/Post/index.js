@@ -28,6 +28,8 @@ function Post({ post, onPostClick, sessionUser }) {
     const [parentCommentPhoto, setParentCommentPhoto] = useState(null);
     const [showDivider, setShowDivider] = useState(false);
     const [validationError, setValidationError] = useState(null);
+    const [isCommentSectionOpen, setIsCommentSectionOpen] = useState(false);
+
 
 
 
@@ -55,9 +57,12 @@ function Post({ post, onPostClick, sessionUser }) {
     
     const openCommentBar = (postId) => (e) => {
         e.stopPropagation(); 
-        setCommentInputPostId(postId); 
-        dispatch(fetchCommentsByPostId(postId));
-        setShowDivider(!showDivider); // toggle the divider
+        setIsCommentSectionOpen(prevState => !prevState);
+        // setCommentInputPostId(postId); 
+        if (!isCommentSectionOpen) {
+            dispatch(fetchCommentsByPostId(postId));
+            setShowDivider(!showDivider); // toggle the divider
+        }
     };
     const handleCommentSubmit = async (e, postId, parentCommentId = null) => {
         console.log('handleCommentSubmit called', postId);
@@ -166,7 +171,8 @@ function Post({ post, onPostClick, sessionUser }) {
     </div>
             <button className='commentButton' onClick={openCommentBar(post.id)}>Comment</button>
 </div>
-    {commentInputPostId === post.id && 
+{isCommentSectionOpen && 
+    <>
         <div className="commentActions">
                             {commentErrors && commentErrors.map((error, idx) => (
                     <div key={idx} className="comment-error">{error}</div>
@@ -195,12 +201,13 @@ function Post({ post, onPostClick, sessionUser }) {
                 <input type="submit" style={{display: 'none'}} />  {/* Hidden submit button to trigger form submission on Enter key */}
             </form>
         </div>
-    }
-<div className="commentsSection">
-                {postComments.filter(comment => !comment.parentCommentId).map(comment => (
-                    <Comment key={comment.id} comment={comment} post={post} sessionUser={sessionUser} parentCommentPhoto={parentCommentPhoto}  />
-                ))}
+                    <div className="commentsSection">
+                    {postComments.filter(comment => !comment.parentCommentId).map(comment => (
+                        <Comment key={comment.id} comment={comment} post={post} sessionUser={sessionUser} parentCommentPhoto={parentCommentPhoto}  />
+                    ))}
             </div>
+            </>
+            }
     </div>
 );
 }
