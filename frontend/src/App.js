@@ -24,7 +24,9 @@ function App() {
               <Route path="/news_feed" component={HomePage} />
               {/* Add other routes as needed */}
               <Route component={NotFound} />
-              <Route path="/profile/:username" component={UserProfile} />
+              <Route path="/profile/:username" exact>
+                <UserProfile />
+            </Route>
             </Switch>
           </div>
         </ModalProvider>
