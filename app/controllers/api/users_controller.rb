@@ -21,13 +21,15 @@ class Api::UsersController < ApplicationController
   end
     # Add this show action
     def show
-      @user = User.includes(:posts, :comments, :reactions).find_by(username: params[:username])
+      @user = User.find_by(username: params[:id])
       if @user
         render :show
       else
         render json: ["User not found"], status: 404
       end
     end
+    
+    
     
   
   private

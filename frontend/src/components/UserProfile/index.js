@@ -1,55 +1,40 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserProfile } from '../../store/profile';
-import './UserProfile.css'; // Assuming you have a CSS file for styling
 
 function UserProfile() {
   const dispatch = useDispatch();
   const { username } = useParams();
-  const user = useSelector((state) => state.profile.user);
   const activity = useSelector((state) => state.profile.activity);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
   }, [dispatch, username]);
 
-  if (!user) return null; // Loading or no user found
-
   return (
-    <div className="userProfileContainer">
-      <div className="userDetails">
-        <img src={user.userPhotoUrl} alt={`${user.username}'s profile`} />
-        <h2>{user.username}</h2>
-      </div>
+    <div>
+      <h1>{username}'s Activity</h1>
 
-      <div className="userActivity">
-        <h3>Activity</h3>
+      {/* Check for the existence of activity and its properties before mapping */}
+      <h2>Posts</h2>
+      {activity && activity.posts && activity.posts.map((post) => (
+        <div key={post.id}>{post.body}</div>
+      ))}
 
-        <div className="postsActivity">
-          <h4>Posts</h4>
-          {activity.posts.map((post) => (
-            <div key={post.id}>{post.body}</div>
-          ))}
-        </div>
+      <h2>Comments</h2>
+      {activity && activity.comments && activity.comments.map((comment) => (
+        <div key={comment.id}>{comment.body}</div>
+      ))}
 
-        <div className="commentsActivity">
-          <h4>Comments</h4>
-          {activity.comments.map((comment) => (
-            <div key={comment.id}>{comment.text}</div>
-          ))}
-        </div>
-
-        <div className="reactionsActivity">
-          <h4>Reactions</h4>
-          {activity.reactions.map((reaction) => (
-            <div key={reaction.id}>{reaction.reactionType}</div>
-          ))}
-        </div>
-      </div>
+      <h2>Reactions</h2>
+      {activity && activity.reactions && activity.reactions.map((reaction) => (
+        <div key={reaction.id}>{reaction.body}</div>
+      ))}
     </div>
   );
 }
 
 export default UserProfile;
+
 
