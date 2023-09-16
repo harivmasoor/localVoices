@@ -27,7 +27,7 @@ function UserProfile() {
 
       <h2>Comments</h2>
       {activity.comments.map((comment) => (
-        <div key={comment.id}>{comment.body}</div>
+        <div key={comment.id}>{comment.text}</div>  // Ensure you're accessing the 'text' property here
       ))}
 
       <h2>Reactions</h2>
@@ -39,6 +39,7 @@ function UserProfile() {
 }
 
 export default UserProfile;
+
 
 
 
