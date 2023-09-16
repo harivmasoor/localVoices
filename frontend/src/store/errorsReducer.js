@@ -6,8 +6,8 @@ const {
 } = require("./session");
 
 const { 
-    RECEIVE_POST_ERRORS, 
-    CLEAR_POST_ERRORS
+    RECEIVE_POSTS_ERRORS, 
+    CLEAR_POSTS_ERRORS
 } = require("./posts");
 
 const { 
@@ -34,10 +34,10 @@ const errorsReducer = (state = { session: [], user: [], posts: [], comments: []}
             return { ...nextState, session: []};
         case RECEIVE_UPLOAD_ERRORS:
             return { ...nextState, user: action.payload?.errors || [] };
-        case RECEIVE_POST_ERRORS:
+        case RECEIVE_POSTS_ERRORS:
             return { ...nextState, post: action.payload?.errors || [] };
-        case CLEAR_POST_ERRORS:
-            return { ...nextState, post: [] };
+        case CLEAR_POSTS_ERRORS:
+            return { ...nextState, posts: [] };
         // Added cases for comments
         case RECEIVE_COMMENT_ERRORS:
             return {...nextState, comments: action.payload?.errors || []};

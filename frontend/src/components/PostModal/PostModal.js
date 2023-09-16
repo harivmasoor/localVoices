@@ -2,15 +2,17 @@ import React, { useState, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import ModalContext from '../../context/ModalContext';
 import './PostModal.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost, deletePost } from '../../store/posts'; // Add deletePost import
 import uploadImageIcon from '../../assets/uploadImage.svg';
 
 function PostModal({ onClose, post }) {
     console.log('Rendering PostModal with post:', post);
+    const postErrors = useSelector(state => state.errors.posts);
     const [photo, setPhoto] = useState(null);
     const [body, setBody] = useState(post ? post.body : "");
     const dispatch = useDispatch();
+    const [validationError, setValidationError] = useState(null);
 
     useEffect(() => {
         if (post) {
@@ -20,7 +22,10 @@ function PostModal({ onClose, post }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        if (!body.trim()) {
+            setValidationError("Post body cannot be empty.");
+            return;
+        }
         const formData = new FormData();
         formData.append('post[body]', body);
         if (photo) {
@@ -51,6 +56,7 @@ function PostModal({ onClose, post }) {
         }
         
         onClose();
+        setValidationError(null);
     };
     
        
@@ -77,6 +83,14 @@ function PostModal({ onClose, post }) {
         <div id="posts-modal">
             <div id="posts-modal-background" onClick={onClose} />
             <div id="posts-modal-content">
+                {/* For Recommendation 5: Display post errors */}
+                {postErrors && postErrors.map((error, idx) => (
+                    <div key={idx} className="post-error">{error}</div>
+                ))}
+
+                {/* For Recommendation 6: Display client-side validation error */}
+                {validationError && <div className="post-error">{validationError}</div>}
+
                 <textarea
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
