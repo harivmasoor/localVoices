@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     
     resources :posts, only: [:index, :show, :create, :update, :destroy]
     resources :reactions, only: [:create, :destroy, :index, :update]
-    resources :comments, only: [:destroy,:create, :index]
+    resources :comments, only: [:destroy,:create, :index, :update]
   end
   
   get '*path', to: 'static_pages#frontend', 
