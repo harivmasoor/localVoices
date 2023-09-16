@@ -40,23 +40,24 @@ const initialState = {
 
 // Reducer
 const profileReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_PROFILE:
-      return {
-        ...state,
-        user: action.payload.user,
-        activity: {
-          posts: action.payload.posts || [],
-          comments: action.payload.comments || [],
-          reactions: action.payload.reactions || []
-        }
-      };
-    case CLEAR_PROFILE:
-      return initialState;
-    default:
-      return state;
-  }
-};
+    switch (action.type) {
+      case SET_PROFILE:
+        return {
+          ...state,
+          user: action.payload,
+          activity: {
+            posts: action.payload.posts || [],
+            comments: action.payload.comments || [],
+            reactions: action.payload.reactions || []
+          }
+        };
+      case CLEAR_PROFILE:
+        return initialState;
+      default:
+        return state;
+    }
+  };
+  
 
 export default profileReducer;
 
