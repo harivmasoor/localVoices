@@ -1,6 +1,7 @@
 import csrfFetch from "./csrf";
 import { RECEIVE_POST } from "./posts";
 
+
 // Action Types
 export const RECEIVE_COMMENTS = 'comments/RECEIVE_COMMENTS';
 export const RECEIVE_COMMENT = 'comments/RECEIVE_COMMENT';
@@ -66,7 +67,20 @@ export const createComment = (commentData) => async (dispatch) => {
     }
 };
 
-
+export const updateComment = (commentData) => async (dispatch) => {
+    const res = await csrfFetch(`/api/comments/${commentData.get('comment[id]')}`, {
+        method: 'PUT',
+        body: commentData
+    });
+    if (res.ok) {
+        const updatedComment = await res.json();
+        dispatch(receiveComment(updatedComment));
+        dispatch(clearCommentErrors());
+    } else {
+        const errors = await res.json();
+        dispatch(receiveCommentErrors(errors));
+    }
+};
 
 export const deleteComment = (commentId) => async (dispatch) => {
     const res = await csrfFetch(`/api/comments/${commentId}`, {

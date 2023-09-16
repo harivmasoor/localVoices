@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createComment, fetchAllComments, fetchCommentsByPostId } from '../../store/comments';
+import { createComment, fetchAllComments, fetchCommentsByPostId, updateComment, deleteComment } from '../../store/comments';
 import { createReaction, deleteReaction,  updateReaction } from '../../store/reactions';
 import { selectCommentsArray } from '../Post';
 import './comment.css';
@@ -8,6 +8,10 @@ import './comment.css';
 
 
 function Comment({ comment, post, sessionUser, parentCommentPhoto }) { 
+    // State for editing mode
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedText, setEditedText] = useState(comment.text);
+    const [editedPhoto, setEditedPhoto] = useState(null);
     const sessionUserReaction = useSelector(state => {
         const reactionArray = Object.values(state.reactions);
         const res = reactionArray.find(reaction => reaction.reactableType === 'Comment' && reaction.reactableId === comment.id);
@@ -48,6 +52,7 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
     const getRepliesForComment = (commentId) => {
         return comments.filter(comment => comment.parentCommentId === commentId);
     };
+    
     const handleCommentSubmit = async (e, postId, parentCommentId = null) => {
         e.preventDefault();
         e.stopPropagation();
@@ -89,9 +94,44 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
                 return '❤️';
         }
     }
-    
+    // Handle update
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const formData = new FormData();
+        formData.append('comment[text]', editedText);
+        if (editedPhoto) {
+            formData.append('comment[photo]', editedPhoto);
+        }
+        formData.append('comment[id]', comment.id);
+
+        dispatch(updateComment(formData));
+        setIsEditing(false);
+    };
+
+    // Handle delete
+    const handleDelete = async () => {
+        dispatch(deleteComment(comment.id));
+    };
+
     return (
         <div>
+            {sessionUser.id === comment.userId && !isEditing && (
+    <>
+        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button onClick={handleDelete}>Delete</button>
+    </>
+)}
+
+{isEditing && (
+    <form onSubmit={handleUpdate}>
+        <textarea value={editedText} onChange={(e) => setEditedText(e.target.value)} />
+        <input type="file" onChange={(e) => setEditedPhoto(e.currentTarget.files[0])} />
+        <button type="submit">Update Comment</button>
+        <button onClick={() => setIsEditing(false)}>Cancel</button>
+    </form>
+)}
                 <div key={comment.id} className="comment" onClick={e => e.stopPropagation()}>
                 <div className='commentHeader'>
                 {comment.userPhotoUrl ? 
