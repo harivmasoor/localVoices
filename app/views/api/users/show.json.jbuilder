@@ -13,7 +13,7 @@ json.user do
   end
   
   json.reactions @user.reactions do |reaction|
-    json.extract! reaction, :id, :reactionType, :reactableType, :reactableId
+    json.extract! reaction, :id, :reaction_type, :reactable_type, :reactable_id
   end
 end
 

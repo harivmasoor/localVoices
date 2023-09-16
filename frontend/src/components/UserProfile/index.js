@@ -6,6 +6,7 @@ import './UserProfile.css'; // Assuming you have a CSS file for styling
 
 function UserProfile() {
   const dispatch = useDispatch();
+  console.log("UserProfile component rendered with username:", username);
   const { username } = useParams();
   const user = useSelector((state) => state.profile.user);
   const activity = useSelector((state) => state.profile.activity);
