@@ -19,6 +19,15 @@ class Api::UsersController < ApplicationController
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
+    # Add this show action
+    def show
+      @user = User.find(params[:id])
+      if @user
+        render :show
+      else
+        render json: { errors: ["User not found"] }, status: :not_found
+      end
+    end
   
   private
 
