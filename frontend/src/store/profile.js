@@ -7,7 +7,7 @@ const CLEAR_PROFILE = 'profile/CLEAR_PROFILE';
 // Action Creators
 const setProfile = (profile) => ({
   type: SET_PROFILE,
-  profile,
+  payload: profile,
 });
 
 export const clearProfile = () => ({
@@ -63,4 +63,5 @@ export default profileReducer;
 // Selectors (if needed)
 export const selectUserProfile = (state) => state.profile.user;
 export const selectUserActivity = (state) => state.profile.activity;
+
 
