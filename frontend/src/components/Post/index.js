@@ -22,10 +22,12 @@ function Post({ post, onPostClick, sessionUser }) {
     
     const dispatch = useDispatch();
     const allComments = useSelector(selectCommentsArray);
+    const commentErrors = useSelector(state => state.errors.comments);
     const postComments = allComments.filter(comment => comment.postId === post.id);
     const [commentInputPostId, setCommentInputPostId] = useState(null);
     const [parentCommentPhoto, setParentCommentPhoto] = useState(null);
     const [showDivider, setShowDivider] = useState(false);
+    const [validationError, setValidationError] = useState(null);
 
 
 
@@ -63,7 +65,10 @@ function Post({ post, onPostClick, sessionUser }) {
         e.stopPropagation();
         
         const text = e.currentTarget.elements.commentText.value.trim(); // get the text value from the form directly
-    
+        if (!text) {
+            setValidationError("Comment text cannot be empty.");
+            return;
+        }
         if (text) {        
             const commentData = new FormData();
             commentData.append('comment[text]', text);
@@ -78,6 +83,7 @@ function Post({ post, onPostClick, sessionUser }) {
             dispatch(createComment(commentData));
             e.currentTarget.elements.commentText.value = ''; // reset the text value in the form
         }
+        setValidationError(null);
     };
     
     function getEmoji(reactionType) {
@@ -162,6 +168,10 @@ function Post({ post, onPostClick, sessionUser }) {
 </div>
     {commentInputPostId === post.id && 
         <div className="commentActions">
+                            {commentErrors && commentErrors.map((error, idx) => (
+                    <div key={idx} className="comment-error">{error}</div>
+                ))}
+                {validationError && <div className="comment-error">{validationError}</div>}
             <form className='commentForm'onSubmit={(e) => handleCommentSubmit(e, post.id)} onClick={e => e.stopPropagation()}>
                 <input 
                     type="text" 
