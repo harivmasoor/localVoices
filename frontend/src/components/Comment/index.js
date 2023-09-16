@@ -106,32 +106,58 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
         }
         formData.append('comment[id]', comment.id);
 
-        dispatch(updateComment(formData));
-        setIsEditing(false);
+        try {
+            await dispatch(updateComment(formData));
+            setIsEditing(false);
+        } catch (error) {
+            console.error("Failed to update comment:", error);
+        }
     };
 
     // Handle delete
-    const handleDelete = async () => {
-        dispatch(deleteComment(comment.id));
+    const handleDelete = async (e) => {
+        e.stopPropagation(); // Prevent event propagation
+
+        try {
+            await dispatch(deleteComment(comment.id));
+        } catch (error) {
+            console.error("Failed to delete comment:", error);
+        }
     };
 
     return (
         <div>
             {sessionUser.id === comment.userId && !isEditing && (
-    <>
-        <button onClick={() => setIsEditing(true)}>Edit</button>
-        <button onClick={handleDelete}>Delete</button>
-    </>
-)}
+                <>
+                    <button onClick={(e) => {
+                            e.stopPropagation();
+                            setIsEditing(true);
+                        }}>Edit</button>
 
-{isEditing && (
-    <form onSubmit={handleUpdate}>
-        <textarea value={editedText} onChange={(e) => setEditedText(e.target.value)} />
-        <input type="file" onChange={(e) => setEditedPhoto(e.currentTarget.files[0])} />
-        <button type="submit">Update Comment</button>
-        <button onClick={() => setIsEditing(false)}>Cancel</button>
-    </form>
-)}
+                    <button onClick={handleDelete}>Delete</button>
+                </>
+            )}
+
+            {isEditing && (
+                <form onSubmit={handleUpdate}>
+                    <textarea 
+                            value={editedText} 
+                            onChange={(e) => {
+                                e.stopPropagation();
+                                setEditedText(e.target.value);
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                            onFocus={(e) => e.stopPropagation()}
+                        />
+                    <input type="file" onChange={(e) => setEditedPhoto(e.currentTarget.files[0])} />
+                    <button 
+                            type="submit" 
+                            onClick={(e) => e.stopPropagation()}
+                        >Update Comment</button>
+
+                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                </form>
+            )}
                 <div key={comment.id} className="comment" onClick={e => e.stopPropagation()}>
                 <div className='commentHeader'>
                 {comment.userPhotoUrl ? 
