@@ -7,6 +7,7 @@ import HomePage from './components/HomePage';
 import NotFound from './components/NotFound';
 import BackgroundContext from './context/backgroundContext';
 import { ModalProvider } from './context/ModalContext'; // Adjust the path accordingly
+import UserProfile from './components/UserProfile';
 
 function App() {
   const [background, setBackground] = useState('');
@@ -23,6 +24,7 @@ function App() {
               <Route path="/news_feed" component={HomePage} />
               {/* Add other routes as needed */}
               <Route component={NotFound} />
+              <Route path="/profile/:username" component={UserProfile} />
             </Switch>
           </div>
         </ModalProvider>
