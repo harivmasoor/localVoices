@@ -136,4 +136,10 @@
     margin-left: 50px;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px
+}
+
 

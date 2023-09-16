@@ -128,14 +128,13 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
     return (
         <div>
             {sessionUser.id === comment.userId && !isEditing && (
-                <>
+                <div className="button-container">
                     <button onClick={(e) => {
-                            e.stopPropagation();
-                            setIsEditing(true);
-                        }}>Edit</button>
-
+                        e.stopPropagation();
+                        setIsEditing(true);
+                    }}>Edit</button>
                     <button onClick={handleDelete}>Delete</button>
-                </>
+                </div>
             )}
 
             {isEditing && (
@@ -150,12 +149,10 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
                             onFocus={(e) => e.stopPropagation()}
                         />
                     <input type="file" onChange={(e) => setEditedPhoto(e.currentTarget.files[0])} />
-                    <button 
-                            type="submit" 
-                            onClick={(e) => e.stopPropagation()}
-                        >Update Comment</button>
-
-                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                    <div className="button-container">
+                        <button type="submit" onClick={(e) => e.stopPropagation()}>Update Comment</button>
+                        <button onClick={() => setIsEditing(false)}>Cancel</button>
+                    </div>
                 </form>
             )}
                 <div key={comment.id} className="comment" onClick={e => e.stopPropagation()}>
