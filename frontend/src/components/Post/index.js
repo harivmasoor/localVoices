@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import { createReaction, deleteReaction, updateReaction } from '../../store/reactions';
 import { fetchCommentsByPostId, createComment } from '../../store/comments'; // Assuming this is the correct import
 import Comment from '../Comment';
+import { Link } from 'react-router-dom';
 import './post.css'
 
 const selectCommentsState = state => state.comments;
@@ -109,11 +110,21 @@ function Post({ post, onPostClick, sessionUser }) {
     return (
         <div className="postContainer" onClick={() => handlePostContainerClick(post)}>
             <div className="postHeader">
-                {post.userPhotoUrl ? 
-                    <img src={post.userPhotoUrl} alt="Profile" className="postProfilePic"/> 
-                    : 
-                    <i className="fa-solid fa-user-circle postProfilePic"/>
-                }
+                {/* Conditionally render the clickable profile picture for other users' posts */}
+                {post.userId !== sessionUser.id ? (
+                    <Link to={`/profile/${post.username}`}>
+                        {post.userPhotoUrl ? 
+                            <img src={post.userPhotoUrl} alt="Profile" className="postProfilePic"/> 
+                            : 
+                            <i className="fa-solid fa-user-circle postProfilePic"/>
+                        }
+                    </Link>
+                ) : (
+                    post.userPhotoUrl ? 
+                        <img src={post.userPhotoUrl} alt="Profile" className="postProfilePic"/> 
+                        : 
+                        <i className="fa-solid fa-user-circle postProfilePic"/>
+                )}
                 <span className="postUsername">{post.username}</span> 
             </div>
             
