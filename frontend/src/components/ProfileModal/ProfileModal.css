@@ -10,6 +10,24 @@
   z-index: 2000;
 }
 
+.view-profile-link {
+  font-size: 16px;
+  color: #007BFF; /* Blue color, adjust as needed */
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px; /* Add some margin to space it from the exit icon */
+
+  /* Hover effect */
+  &:hover {
+      background-color: #007BFF;
+      color: #fff;
+  }
+}
+
+
 #profile-modal-background {
   position: fixed;
   top: 0;
