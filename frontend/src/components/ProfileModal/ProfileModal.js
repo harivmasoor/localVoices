@@ -16,8 +16,9 @@ export function ProfileModal({ onClose, children }) {
     <div id="profile-modal">
       <div id="profile-modal-background" onClick={onClose} />
       <div id="profile-modal-content">
+      {username && <a href={`/profile/${username}`} className="view-profile-link">View profile</a>}
         {children}
-        {username && <a href={`/profile/${username}`} className="view-profile-link">View profile</a>}
+        
       </div>
     </div>,
     modalNode
