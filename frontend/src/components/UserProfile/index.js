@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserProfile } from '../../store/profile';
 import Post from '../Post';
-import Comment from '../Comment';
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -28,9 +27,11 @@ function UserProfile() {
         <Post key={post.id} post={{...post, userPhotoUrl: profile.user.photoUrl}} onPostClick={() => {}} sessionUser={sessionUser} />
       ))}
 
-      <h2>Comments</h2>
+      <h2>Posts Commented On</h2>
       {profile.activity.comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} sessionUser={sessionUser} />
+        comment.post && (
+          <Post key={comment.post.id} post={{...comment.post, userPhotoUrl: profile.user.photoUrl}} onPostClick={() => {}} sessionUser={sessionUser} />
+        )
       ))}
 
       <h2>Reactions</h2>
@@ -42,6 +43,8 @@ function UserProfile() {
 }
 
 export default UserProfile;
+
+
 
 
 
