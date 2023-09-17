@@ -10,23 +10,6 @@
   z-index: 2000;
 }
 
-.view-profile-link {
-  font-size: 16px;
-  color: #007BFF; /* Blue color, adjust as needed */
-  text-decoration: none;
-  padding: 5px 10px;
-  border: 1px solid #007BFF;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  margin-bottom: 20px; /* Add some margin to space it from the exit icon */
-
-  /* Hover effect */
-  &:hover {
-      background-color: #007BFF;
-      color: #fff;
-  }
-}
-
 
 #profile-modal-background {
   position: fixed;
@@ -41,21 +24,36 @@
 
 #profile-modal-content {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  flex-direction: column; /* Change to column to stack children vertically */
+  align-items: center; /* Horizontally center the content */
+  justify-content: center; /* Vertically center the content */
   position: relative; 
   background-color: white;   
   border-radius: 5px; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  max-width: 500px;  /* Maximum width of the modal */
-  width: calc(100% / 4);  /* 1/6 of the screen width */
-  height: calc(100% / 4);  /* 1/6 of the screen height */
-  top: 10px;  /* Adjust as necessary */
-  right: 10px;  /* Adjust as necessary */
-  border-radius: 30px;  /* Rounded corners for the modal */
-  overflow: hidden;  /* Keeps content within the modal */
+  max-width: 500px;
+  width: calc(100% / 4);
+  height: calc(100% / 4);
+  top: 10px;
+  right: 10px;
+  border-radius: 30px;
+  overflow: hidden;
   z-index: 2002;
+  gap: 10px; /* Add some spacing between elements */
 }
+
+.view-profile-link {
+  font-size: 16px;
+  color: #007BFF;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center; /* Center the text */
+  width: 100%; /* Take full width */
+}
+
 
 .modal-profile-wrapper, 
 .modal-username-wrapper, 
