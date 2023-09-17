@@ -9,7 +9,6 @@ import './comment.css';
 
 function Comment({ comment, post, sessionUser, parentCommentPhoto }) { 
     // State for editing mode
-    console.log("Comment object:", comment);
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(comment.text);
     const [editedPhoto, setEditedPhoto] = useState(null);
