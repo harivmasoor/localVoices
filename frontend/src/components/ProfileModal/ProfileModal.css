@@ -43,15 +43,24 @@
 }
 
 .view-profile-link {
+  display: inline-block;
   font-size: 16px;
-  color: #007BFF;
+  color: black; /* Set the text color to black */
   text-decoration: none;
-  padding: 5px 10px;
-  border: 1px solid #007BFF;
-  border-radius: 5px;
+  font: Arial, sans-serif;
+  font-weight: bold;
+  padding: 5px 15px;
+  border: none; /* Remove the border */
+  border-radius: 150px;
+  background-color: transparent; /* Set the background to transparent */
   transition: background-color 0.3s ease;
-  text-align: center; /* Center the text */
-  width: 100%; /* Take full width */
+  text-align: center;
+  cursor: pointer; /* Change the cursor to pointer on hover */
+}
+
+.view-profile-link:hover {
+  background-color: grey; /* Set the background to grey on hover */
+  color: black; /* Keep the text color black on hover */
 }
 
 
