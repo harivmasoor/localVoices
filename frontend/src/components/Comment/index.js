@@ -9,6 +9,7 @@ import './comment.css';
 
 function Comment({ comment, post, sessionUser, parentCommentPhoto }) { 
     // State for editing mode
+    console.log("Comment object:", comment);
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(comment.text);
     const [editedPhoto, setEditedPhoto] = useState(null);
@@ -158,8 +159,8 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
             )}
                 <div key={comment.id} className="comment" onClick={e => e.stopPropagation()}>
                 <div className='commentHeader'>
-                {comment.user && comment.user.userPhotoUrl ? 
-                        <img src={comment.user.userPhotoUrl} alt="Profile" className="commentProfilePic" id="test"/>
+                {comment.userPhotoUrl ? 
+                        <img src={comment.userPhotoUrl} alt="Profile" className="commentProfilePic" id="test"/>
                         : 
                         <i className="fa-solid fa-user-circle commentProfilePic"/>
                     }
