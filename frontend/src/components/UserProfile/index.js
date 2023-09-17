@@ -2,17 +2,20 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserProfile } from '../../store/profile';
+import Post from '../Post';
+import Comment from '../Comment';
 
 function UserProfile() {
   const dispatch = useDispatch();
   const { username } = useParams();
-  const activity = useSelector((state) => state.profile.activity);
+  const profile = useSelector((state) => state.profile);
+  const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
   }, [dispatch, username]);
 
-  if (!activity) {
+  if (!profile.activity) {
     return <div>Loading...</div>;
   }
 
@@ -21,17 +24,17 @@ function UserProfile() {
       <h1>{username}'s Activity</h1>
 
       <h2>Posts</h2>
-      {activity.posts.map((post) => (
-        <div key={post.id}>{post.body}</div>
+      {profile.activity.posts.map(post => (
+        <Post key={post.id} post={{...post, userPhotoUrl: profile.user.photoUrl}} onPostClick={() => {}} sessionUser={sessionUser} />
       ))}
 
       <h2>Comments</h2>
-      {activity.comments.map((comment) => (
-        <div key={comment.id}>{comment.text}</div>  // Ensure you're accessing the 'text' property here
+      {profile.activity.comments.map((comment) => (
+        <Comment key={comment.id} comment={comment} sessionUser={sessionUser} />
       ))}
 
       <h2>Reactions</h2>
-      {activity.reactions.map((reaction) => (
+      {profile.activity.reactions.map((reaction) => (
         <div key={reaction.id}>{reaction.body}</div>
       ))}
     </div>
@@ -39,6 +42,10 @@ function UserProfile() {
 }
 
 export default UserProfile;
+
+
+
+
 
 
 

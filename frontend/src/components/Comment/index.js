@@ -13,10 +13,11 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
     const [editedText, setEditedText] = useState(comment.text);
     const [editedPhoto, setEditedPhoto] = useState(null);
     const sessionUserReaction = useSelector(state => {
+        if (!state.reactions) return null;
         const reactionArray = Object.values(state.reactions);
         const res = reactionArray.find(reaction => reaction.reactableType === 'Comment' && reaction.reactableId === comment.id);
         return res ? res : null;
-    });
+    });    
     const comments = useSelector(selectCommentsArray);
     const dispatch = useDispatch();  
     const [replyToParentCommentId, setReplyToParentCommentId] = useState(null);
@@ -157,11 +158,11 @@ function Comment({ comment, post, sessionUser, parentCommentPhoto }) {
             )}
                 <div key={comment.id} className="comment" onClick={e => e.stopPropagation()}>
                 <div className='commentHeader'>
-                {comment.userPhotoUrl ? 
-                    <img src={comment.userPhotoUrl} alt="Profile" className="commentProfilePic" id="test"/>
-                    : 
-                    <i className="fa-solid fa-user-circle commentProfilePic"/>
-                }
+                {comment.user && comment.user.userPhotoUrl ? 
+                        <img src={comment.user.userPhotoUrl} alt="Profile" className="commentProfilePic" id="test"/>
+                        : 
+                        <i className="fa-solid fa-user-circle commentProfilePic"/>
+                    }
                 <span className="commentUsername">{comment.username}</span>
                 </div>
                 {comment.text}
