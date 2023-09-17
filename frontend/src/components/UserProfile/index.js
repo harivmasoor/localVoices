@@ -20,7 +20,7 @@ function UserProfile() {
 
   return (
     <div>
-      <h1>{username}'s Activity</h1>
+      <h1>All {username}'s Posts</h1>
 
       <h2>Posts</h2>
       {profile.activity.posts.map(post => (
