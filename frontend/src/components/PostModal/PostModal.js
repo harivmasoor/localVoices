@@ -33,12 +33,19 @@ function PostModal({ onClose, post }) {
         }
     
         if (post) {
+            formData.append('post[id]', post.id);
             try {
-                await dispatch(updatePost(post));  // Pass the post object directly
+                await dispatch(updatePost(formData));
             } catch (error) {
                 console.error("Failed to update post:", error);
             }
-        }        
+        } else {
+            try {
+                dispatch(createPost(body, photo));
+            } catch (error) {
+                console.error("Failed to create post:", error);
+            }
+        }
         
         onClose();
         setValidationError(null);
