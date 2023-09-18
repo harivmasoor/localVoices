@@ -28,7 +28,15 @@ class Api::UsersController < ApplicationController
         render json: ["User not found"], status: 404
       end
     end
-    
+    def search
+      if params[:query]
+        @users = User.where('username ILIKE ?', "%#{params[:query]}%").limit(5).order(created_at: :desc)
+        render :search_results
+      else
+        @users = User.limit(5).order(created_at: :desc)
+        render :search_results
+      end
+    end
     
     
   
