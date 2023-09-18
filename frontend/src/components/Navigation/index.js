@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';  // <-- Add useLocation here
 import ProfileButton from './ProfileButton';
+import SearchBar from '../SearchBar/SearchBar';
 import './Navigation.css';
 
 function Navigation() {
@@ -31,6 +32,7 @@ function Navigation() {
         </Link>
         {sessionUser && location.pathname === "/news_feed" && sessionLinks}
       </li>
+      <SearchBar />
       {/* Display the login button only on the main page and when user is not logged in */}
       {!sessionUser && location.pathname === '/' && (
         <li className="navbar-button-container">
