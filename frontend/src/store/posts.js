@@ -145,7 +145,6 @@ export const deletePost = postId => async dispatch => {
 export default function postsReducer(state={}, action){
     switch(action.type){
         case RECEIVE_POSTS:
-            console.log("Received posts:", action.posts);
             return action.posts.reduce((acc, post) => {
                 acc[post.id] = post;
                 return acc;

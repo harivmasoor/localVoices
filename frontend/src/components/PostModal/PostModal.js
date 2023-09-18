@@ -7,7 +7,6 @@ import { createPost, updatePost, deletePost } from '../../store/posts'; // Add d
 import uploadImageIcon from '../../assets/uploadImage.svg';
 
 function PostModal({ onClose, post }) {
-    console.log('Rendering PostModal with post:', post);
     const postErrors = useSelector(state => state.errors.posts);
     const [photo, setPhoto] = useState(null);
     const [body, setBody] = useState(post ? post.body : "");
@@ -37,9 +36,9 @@ function PostModal({ onClose, post }) {
         }
     
         // Log the FormData entries here, before the API call
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-        }
+        // for (var pair of formData.entries()) {
+        //     console.log(pair[0]+ ', ' + pair[1]); 
+        // }
     
         if (post) {
             try {

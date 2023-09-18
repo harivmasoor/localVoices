@@ -6,7 +6,6 @@ const CLEAR_PROFILE = 'profile/CLEAR_PROFILE';
 
 // Action Creators
 const setProfile = (profile) => {
-    console.log("Payload in setProfile:", profile);
     return {
       type: SET_PROFILE,
       payload: profile,
@@ -24,7 +23,6 @@ export const fetchUserProfile = (username) => async (dispatch) => {
       const response = await csrfFetch(`/api/users/${username}`);
       if (response.ok) {
         const profile = await response.json();
-        console.log("Profile data in fetchUserProfile:", profile);
         dispatch(setProfile(profile));
         return profile;
       }

@@ -50,7 +50,6 @@ function Post({ post, onPostClick, sessionUser }) {
     
 
     const handlePostContainerClick = (post) => {
-        console.log('handlePostContainerClick called');
         if (post.userId === sessionUser.id) {
             onPostClick(post);
         }
@@ -66,7 +65,6 @@ function Post({ post, onPostClick, sessionUser }) {
         }
     };
     const handleCommentSubmit = async (e, postId, parentCommentId = null) => {
-        console.log('handleCommentSubmit called', postId);
         e.preventDefault();
         e.stopPropagation();
         
