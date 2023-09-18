@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';  // <-- Add useLocation here
+import { Link, useLocation } from 'react-router-dom';
 import ProfileButton from './ProfileButton';
 import SearchBar from '../SearchBar/SearchBar';
 import './Navigation.css';
 
 function Navigation() {
   const sessionUser = useSelector(state => state.session.user);
-  const location = useLocation();   // <-- Use the hook here
+  const location = useLocation();
 
   let sessionLinks;
   if (sessionUser) {
@@ -16,7 +16,6 @@ function Navigation() {
     );
   }
 
-  // Conditional logic to determine background color based on the route
   let ulClass = '';
   if (location.pathname === '/') {
     ulClass = 'gradient';
@@ -32,8 +31,7 @@ function Navigation() {
         </Link>
         {sessionUser && location.pathname === "/news_feed" && sessionLinks}
       </li>
-      <SearchBar />
-      {/* Display the login button only on the main page and when user is not logged in */}
+      {sessionUser && <SearchBar />} {/* Only render SearchBar if sessionUser exists */}
       {!sessionUser && location.pathname === '/' && (
         <li className="navbar-button-container">
           <Link to="/login">
@@ -46,5 +44,6 @@ function Navigation() {
 }
 
 export default Navigation;
+
 
 
