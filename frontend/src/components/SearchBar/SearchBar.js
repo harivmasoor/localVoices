@@ -17,7 +17,9 @@ function SearchBar() {
             setSearchResults([]);
         }
     }, [searchTerm]);
-
+    const handleUserClick = (username) => {
+        setSearchTerm('');  // Reset the searchTerm when a user is selected
+    }
     return (
         <div className="searchBar">
             <input 
@@ -29,7 +31,11 @@ function SearchBar() {
             {searchTerm && (
                 <div className="searchDropdown">
                     {searchResults.map(user => (
-                        <Link key={user.id} to={`/profile/${user.username}`}>
+                        <Link 
+                            key={user.id} 
+                            to={`/profile/${user.username}`}
+                            onClick={() => handleUserClick(user.username)}  // Handle the click event
+                        >
                             {user.username}
                         </Link>
                     ))}
