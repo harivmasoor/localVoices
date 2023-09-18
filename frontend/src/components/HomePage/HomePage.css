@@ -72,7 +72,40 @@
     justify-content: left;
 }
 
+.social-links {
+    display: flex;
+    flex-direction: column; /* Display icons in a column */
+    gap: 20px;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
+.social-links a {
+    color: inherit;
+    text-decoration: none;
+    display: block; /* Make the anchor tags block elements to contain the SVGs better */
+    width: 24px; /* Set a fixed width */
+    height: 24px; /* Set a fixed height */
+}
+
+.social-links svg {
+    width: 100%; /* Take the full width of the parent anchor tag */
+    height: 100%; /* Take the full height of the parent anchor tag */
+    fill: #333; /* Change this color to whatever you prefer */
+    transition: fill 0.3s;
+}
+
+.social-links svg:hover {
+    fill: #0077b5; /* Change this color to whatever you prefer for hover effect */
+}
+
+@media (max-width: 700px) {
+    .social-links {
+        display: none;
+    }
+}
 
 
 

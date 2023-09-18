@@ -4,7 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PostModal from '../PostModal/PostModal';
 import { fetchPosts } from '../../store/posts';
-import PostIndex from '../PostIndex'; // New component
+import PostIndex from '../PostIndex';
+
+// Import SVG icons
+import { ReactComponent as GithubIcon } from './GithubIcon.svg';
+import { ReactComponent as LinkedInIcon } from './LinkedIn.svg';
+import { ReactComponent as PortfolioIcon } from './PortfolioIcon.svg';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -39,9 +44,9 @@ function HomePage() {
     return (
         <div className="layoutContainer">
             <div className="HomePageHeader">
-            <h1>Welcome to Local Voices, {sessionUser.username}</h1>
+                <h1>Welcome to Local Voices, {sessionUser.username}</h1>
             </div>
-            
+
             <div className="homepage-button-container" onClick={handleOpenModal}>
                 {sessionUser.photoUrl && <img className="profile-pic" src={sessionUser.photoUrl} alt="Profile" />}
                 <div className="button-text">What's on your mind, neighbor?</div>
@@ -56,11 +61,25 @@ function HomePage() {
                     setShowModal(true);
                 }}
             />
+
+            {/* Social Links */}
+            <div className="social-links">
+                <a href="https://github.com/harivmasoor" target="_blank" rel="noopener noreferrer">
+                    <GithubIcon />
+                </a>
+                <a href="https://www.linkedin.com/in/harimasoor/" target="_blank" rel="noopener noreferrer">
+                    <LinkedInIcon />
+                </a>
+                <a href="https://harimasoor.com" target="_blank" rel="noopener noreferrer">
+                    <PortfolioIcon />
+                </a>
+            </div>
         </div>
     );
 }
 
 export default HomePage;
+
 
 
 
