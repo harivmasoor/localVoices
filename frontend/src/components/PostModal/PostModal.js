@@ -20,6 +20,7 @@ function PostModal({ onClose, post }) {
     }, [post]);
 
     const handleSubmit = async (e) => {
+        console.log("Post prop in PostModal:", post);
         e.preventDefault();
         if (!body.trim()) {
             setValidationError("Post body cannot be empty.");

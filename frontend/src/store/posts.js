@@ -114,7 +114,7 @@ export const updatePost = post => async dispatch => {
     Object.keys(post).forEach(key => {
         formData.append(`post[${key}]`, post[key]);
     });
-
+    console.log(`Updating post with ID: ${post.id}`);
     const res = await csrfFetch(`/api/posts/${post.id}`, {
         method: 'PUT',
         body: formData
