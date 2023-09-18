@@ -31,8 +31,9 @@ function PostModal({ onClose, post }) {
         if (photo) {
             formData.append('post[photo]', photo);
         }
-    
-        if (post) {
+        
+        if (post && post.id) {  // Ensure post.id exists before proceeding
+            console.log(`Attempting to update post with ID: ${post.id}`);
             formData.append('post[id]', post.id);
             try {
                 await dispatch(updatePost(formData));
@@ -40,6 +41,7 @@ function PostModal({ onClose, post }) {
                 console.error("Failed to update post:", error);
             }
         } else {
+            console.log("Attempting to create a new post.");
             try {
                 dispatch(createPost(body, photo));
             } catch (error) {
@@ -50,6 +52,8 @@ function PostModal({ onClose, post }) {
         onClose();
         setValidationError(null);
     };
+    
+    
     
     const handleDelete = async () => {
         if (post) {

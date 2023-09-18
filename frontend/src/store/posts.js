@@ -109,16 +109,15 @@ export const createPost = (body, photo) => async dispatch => {
     }
 }
 
-export const updatePost = post => async dispatch => {
-    const formData = new FormData();
-    Object.keys(post).forEach(key => {
-        formData.append(`post[${key}]`, post[key]);
-    });
-    console.log(`Updating post with ID: ${post.id}`);
-    const res = await csrfFetch(`/api/posts/${post.id}`, {
+export const updatePost = formData => async dispatch => {
+    const postId = formData.get('post[id]');
+    console.log(`Updating post with ID: ${postId}`);
+    
+    const res = await csrfFetch(`/api/posts/${postId}`, {
         method: 'PUT',
         body: formData
     });
+
     if (res.ok) {
         const resPost = await res.json();
         dispatch(receivePost(resPost));
@@ -128,6 +127,8 @@ export const updatePost = post => async dispatch => {
         dispatch(receivePostErrors(errors));
     }
 }
+
+
 
 export const deletePost = postId => async dispatch => {
     const res = await csrfFetch(`/api/posts/${postId}`, {
