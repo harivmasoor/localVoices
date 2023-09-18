@@ -45,7 +45,7 @@ function SearchBar() {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
             {searchTerm && (
-                <div className="searchDropdown" style={{ top: `${dropdownPosition.top}px`, left: `${dropdownPosition.left}px` }}>
+                <div className="searchDropdown">
                     {searchResults.map(user => (
                         <Link 
                             key={user.id} 
