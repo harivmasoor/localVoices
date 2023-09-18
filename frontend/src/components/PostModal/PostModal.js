@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ModalContext from '../../context/ModalContext';
 import './PostModal.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPost, updatePost, deletePost } from '../../store/posts'; // Add deletePost import
+import { createPost, updatePost, deletePost } from '../../store/posts';
 import uploadImageIcon from '../../assets/uploadImage.svg';
 
 function PostModal({ onClose, post }) {
@@ -35,11 +35,6 @@ function PostModal({ onClose, post }) {
             formData.append('post[id]', post.id);
         }
     
-        // Log the FormData entries here, before the API call
-        // for (var pair of formData.entries()) {
-        //     console.log(pair[0]+ ', ' + pair[1]); 
-        // }
-    
         if (post) {
             try {
                 await dispatch(updatePost(formData));
@@ -48,7 +43,7 @@ function PostModal({ onClose, post }) {
             }
         } else {
             try {
-                dispatch(createPost(body, photo)); // Use the state variables directly
+                dispatch(createPost(body, photo));
             } catch (error) {
                 console.error("Failed to create post:", error);
             }
@@ -57,8 +52,6 @@ function PostModal({ onClose, post }) {
         onClose();
         setValidationError(null);
     };
-    
-       
     
     const handleDelete = async () => {
         if (post) {
@@ -70,10 +63,10 @@ function PostModal({ onClose, post }) {
         }
         onClose();
     }
+
     const handleFile = (e) => {
         setPhoto(e.currentTarget.files[0]);
     };
-    
 
     const modalNode = useContext(ModalContext);
     if (!modalNode) return null;
@@ -82,14 +75,10 @@ function PostModal({ onClose, post }) {
         <div id="posts-modal">
             <div id="posts-modal-background" onClick={onClose} />
             <div id="posts-modal-content">
-                {/* For Recommendation 5: Display post errors */}
                 {postErrors && postErrors.map((error, idx) => (
                     <div key={idx} className="post-error">{error}</div>
                 ))}
-
-                {/* For Recommendation 6: Display client-side validation error */}
                 {validationError && <div className="post-error">{validationError}</div>}
-
                 <textarea
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
@@ -103,7 +92,6 @@ function PostModal({ onClose, post }) {
                 <input id="file-upload" type="file" onChange={handleFile} style={{ display: 'none' }} />
                 <button className="post-button" onClick={handleSubmit}>{post ? "Update" : "Post"}</button>
                 {post && <button onClick={handleDelete}>Delete</button>}
-
                 </div>
             </div>
         </div>,
@@ -112,5 +100,6 @@ function PostModal({ onClose, post }) {
 }
 
 export default PostModal;
+
 
 
