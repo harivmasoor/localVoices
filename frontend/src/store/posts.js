@@ -111,7 +111,6 @@ export const createPost = (body, photo) => async dispatch => {
 
 export const updatePost = formData => async dispatch => {
     const postId = formData.get('post[id]');
-    console.log(`Updating post with ID: ${postId}`);
     
     const res = await csrfFetch(`/api/posts/${postId}`, {
         method: 'PUT',

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './SearchBar.css';
 
-
 function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -46,15 +45,19 @@ function SearchBar() {
             />
             {searchTerm && (
                 <div className="searchDropdown">
-                    {searchResults.map(user => (
-                        <Link 
-                            key={user.id} 
-                            to={`/profile/${user.username}`}
-                            onClick={() => handleUserClick(user.username)}
-                        >
-                            {user.username}
-                        </Link>
-                    ))}
+                    {searchResults.length > 0 ? (
+                        searchResults.map(user => (
+                            <Link 
+                                key={user.id} 
+                                to={`/profile/${user.username}`}
+                                onClick={() => handleUserClick(user.username)}
+                            >
+                                {user.username}
+                            </Link>
+                        ))
+                    ) : (
+                        <div>User not found</div>
+                    )}
                 </div>
             )}
         </div>

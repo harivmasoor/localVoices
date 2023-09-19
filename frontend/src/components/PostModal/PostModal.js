@@ -20,7 +20,6 @@ function PostModal({ onClose, post }) {
     }, [post]);
 
     const handleSubmit = async (e) => {
-        console.log("Post prop in PostModal:", post);
         e.preventDefault();
         if (!body.trim()) {
             setValidationError("Post body cannot be empty.");
@@ -33,7 +32,6 @@ function PostModal({ onClose, post }) {
         }
         
         if (post && post.id) {  // Ensure post.id exists before proceeding
-            console.log(`Attempting to update post with ID: ${post.id}`);
             formData.append('post[id]', post.id);
             try {
                 await dispatch(updatePost(formData));
@@ -41,7 +39,6 @@ function PostModal({ onClose, post }) {
                 console.error("Failed to update post:", error);
             }
         } else {
-            console.log("Attempting to create a new post.");
             try {
                 dispatch(createPost(body, photo));
             } catch (error) {
